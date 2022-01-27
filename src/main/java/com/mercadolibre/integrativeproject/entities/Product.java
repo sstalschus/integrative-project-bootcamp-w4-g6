@@ -2,12 +2,14 @@ package com.mercadolibre.integrativeproject.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Product {
 
     @Id
     private String id;
+    @NotNull
     private String name;
 
 

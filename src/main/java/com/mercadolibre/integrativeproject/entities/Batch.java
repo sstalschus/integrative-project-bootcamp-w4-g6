@@ -1,11 +1,16 @@
 package com.mercadolibre.integrativeproject.entities;
 
 
+import lombok.Builder;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+@Builder
 @Entity
 public class Batch {
 
@@ -13,23 +18,40 @@ public class Batch {
     private Long id;
     //    @OneToOne
 //    private Seller seller;
+    @NotNull
     @OneToOne
     private Product product;
+    @Min(value = 1)
     private Long initialQuantity;
+    @Min(value = 0)
     private Long quantity;
+    @NotNull
+    private Double currentTemperature;
+    @NotNull
+    private Double minimumTemperature;
     private String mark;
+    @NotNull
     private Timestamp expirationDate;
+    @NotNull
     private Timestamp fabricationDate;
 
     public Batch() {
     }
 
-    public Batch(Product product, Long quantity, String mark, Timestamp expirationDate, Timestamp fabricationDate) {
-        this.product = product;
-        this.quantity = quantity;
-        this.mark = mark;
-        this.expirationDate = expirationDate;
-        this.fabricationDate = fabricationDate;
+    public Double getCurrentTemperature() {
+        return currentTemperature;
+    }
+
+    public void setCurrentTemperature(Double currentTemperature) {
+        this.currentTemperature = currentTemperature;
+    }
+
+    public Double getMinimumTemperature() {
+        return minimumTemperature;
+    }
+
+    public void setMinimumTemperature(Double minimumTemperature) {
+        this.minimumTemperature = minimumTemperature;
     }
 
     public Long getInitialQuantity() {
