@@ -2,13 +2,13 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
-import com.mercadolibre.integrativeproject.services.interfaces.CrudServiceInterface;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductService implements CrudServiceInterface<Product, Long> {
+public class ProductService implements ICrudServiceInterface<Product, Long> {
 
     @Autowired
     private ProductRepository productRepository;

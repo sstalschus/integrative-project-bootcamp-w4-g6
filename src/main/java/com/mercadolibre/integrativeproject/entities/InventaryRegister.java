@@ -24,10 +24,10 @@ public class InventaryRegister {
 //    @NotNull
 //    @ManyToOne
 //    private Representant representant;
-//
-//    @NotNull
-//    @OneToOne
-//    private Batch batch;
+
+    @NotNull
+    @OneToOne
+    private Batch batch;
 
     @NotNull
     private Integer quantity;
