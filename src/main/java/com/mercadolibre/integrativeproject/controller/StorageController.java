@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.controller;
 
 import com.mercadolibre.integrativeproject.dtos.StorageDTO;
 import com.mercadolibre.integrativeproject.entities.Storage;
+import com.mercadolibre.integrativeproject.services.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +20,17 @@ public class StorageController {
 
     @PostMapping
     public ResponseEntity<StorageDTO> create(@Valid @RequestBody StorageDTO storageDTO) {
-        Storage storage = StorageDTO.convert(storageDTO);
+        Storage storage = storageDTO.convert();
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(StorageDTO.convert(storageService.createStorage(storage)));
+                .body(null);
     }
 
     @GetMapping
     public ResponseEntity<List<StorageDTO>> getAll() {
-        return ResponseEntity
+        List<Storage> storageAll = storageService.getAll();
+        return
+                ResponseEntity
                 .status(HttpStatus.OK)
-                .body(storageService.getAllStorages().stream().map(StorageDTO::convert).collect(Collectors.toList()));
+                .body(null);
     }
 }
