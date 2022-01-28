@@ -4,6 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+/** Entidade Registro de compra
+ *
+ * @author Lorraine Mendes
+ * */
 
 @Entity
 @Getter

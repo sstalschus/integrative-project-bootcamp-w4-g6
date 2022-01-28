@@ -12,6 +12,11 @@ import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** DTO de setor
+ *
+ * @author Lorraine Mendes
+ * */
+
 @Getter
 @Setter
 @AllArgsConstructor
