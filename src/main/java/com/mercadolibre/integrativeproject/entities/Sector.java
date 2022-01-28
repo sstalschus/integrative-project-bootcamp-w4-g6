@@ -30,7 +30,7 @@ public class Sector {
     private List<Batch> lots;
 
     @Column
-    private Long capacity;
+    private Double capacity;
 
     @Column
     private Double temperature;
