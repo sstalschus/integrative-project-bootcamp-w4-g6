@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
+import lombok.Builder;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -125,17 +126,18 @@ public class BatchDTO {
         this.fabricationDate = fabricationDate;
     }
 
-//    public Batch coverte() {
-//        return Batch.builder()
-//                .id(this.id)
-//                .product(Product.builder().id(this.productId).build())
-//                .initialQuantity(this.initialQuantity)
-//                .quantity(this.quantity)
-//                .currentTemperature(this.currentTemperature)
-//                .minimumTemperature(this.minimumTemperature)
-//                .mark(this.mark)
-//                .expirationDate(this.expirationDate)
-//                .fabricationDate(this.fabricationDate)
-//                .build();
-//    }
+
+    public Batch coverte() {
+        return Batch.builder()
+                .id(this.id)
+                .product(Product.builder().id(this.productId).build())
+                .initialQuantity(this.initialQuantity)
+                .quantity(this.quantity)
+                .currentTemperature(this.currentTemperature)
+                .minimumTemperature(this.minimumTemperature)
+                .mark(this.mark)
+                .expirationDate(this.expirationDate)
+                .fabricationDate(this.fabricationDate)
+                .build();
+    }
 }

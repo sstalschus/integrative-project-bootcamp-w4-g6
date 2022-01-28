@@ -11,6 +11,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigInteger;
 
+/** DTO de Registro de compra
+ *
+ * @author Lorraine Mendes
+ * */
+
 public class PurchaseRecordDTO {
 
     private Long id;
