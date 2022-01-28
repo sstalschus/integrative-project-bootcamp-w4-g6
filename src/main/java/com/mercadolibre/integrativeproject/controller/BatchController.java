@@ -18,7 +18,7 @@ public class BatchController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping
+    @GetMapping(value = "/list")
     public ResponseEntity<?> getAll(){
         return ResponseEntity.ok(null);
     }
