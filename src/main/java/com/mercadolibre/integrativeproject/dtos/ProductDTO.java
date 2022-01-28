@@ -1,5 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
+import com.mercadolibre.integrativeproject.entities.Product;
+
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -16,9 +18,6 @@ public class ProductDTO {
     @Size(max = 30, min = 2, message = "Product name need contains 2 at 30 characters")
     private String name;
 
-    public ProductDTO() {
-    }
-
     public String getId() {
         return id;
     }
@@ -33,5 +32,11 @@ public class ProductDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Product convert() {
+        return Product.builder()
+                .id(this.id)
+                .name(this.name).build();
     }
 }
