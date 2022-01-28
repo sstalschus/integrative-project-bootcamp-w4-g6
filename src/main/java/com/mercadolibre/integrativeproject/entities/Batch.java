@@ -2,7 +2,6 @@ package com.mercadolibre.integrativeproject.entities;
 
 
 import lombok.Builder;
-import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+//@Builder
 @Entity
 public class Batch {
 
@@ -42,90 +42,80 @@ public class Batch {
         return currentTemperature;
     }
 
-    public Batch setCurrentTemperature(Double currentTemperature) {
+    public void setCurrentTemperature(Double currentTemperature) {
         this.currentTemperature = currentTemperature;
-        return this;
     }
 
     public Double getMinimumTemperature() {
         return minimumTemperature;
     }
 
-    public Batch setMinimumTemperature(Double minimumTemperature) {
+    public void setMinimumTemperature(Double minimumTemperature) {
         this.minimumTemperature = minimumTemperature;
-        return this;
     }
 
     public Long getInitialQuantity() {
         return initialQuantity;
     }
 
-    public Batch setInitialQuantity(Long initialQuantity) {
+    public void setInitialQuantity(Long initialQuantity) {
         this.initialQuantity = initialQuantity;
-        return this;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Batch setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public Batch setProduct(Product product) {
+    public void setProduct(Product product) {
         this.product = product;
-        return this;
     }
 
     public Long getQuantity() {
         return quantity;
     }
 
-    public Batch setQuantity(Long quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
-        return this;
     }
 
     public String getMark() {
         return mark;
     }
 
-    public Batch setMark(String mark) {
+    public void setMark(String mark) {
         this.mark = mark;
-        return this;
     }
 
     public Timestamp getExpirationDate() {
         return expirationDate;
     }
 
-    public Batch setExpirationDate(Timestamp expirationDate) {
+    public void setExpirationDate(Timestamp expirationDate) {
         this.expirationDate = expirationDate;
-        return this;
     }
 
     public Timestamp getFabricationDate() {
         return fabricationDate;
     }
 
-    public Batch setFabricationDate(Timestamp fabricationDate) {
+    public void setFabricationDate(Timestamp fabricationDate) {
         this.fabricationDate = fabricationDate;
-        return this;
     }
 
     public boolean hasProductToSell(Long quantity) {
         return quantity >= this.quantity;
     }
 
-    private Batch decrementProductQuantity(Long quantity) {
+    private void decrementProductQuantity(Long quantity) {
         this.quantity = this.quantity - quantity;
-        return this;
     }
 
     public void sellProductOnBatch(Long quantity){
@@ -135,5 +125,4 @@ public class Batch {
 
         //Lanca erro -> nao possui a quantidade solicitada disponivel no estoque
     }
-
 }

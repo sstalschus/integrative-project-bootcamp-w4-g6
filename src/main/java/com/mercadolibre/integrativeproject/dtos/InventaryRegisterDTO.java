@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 @Getter
@@ -25,9 +26,9 @@ public class InventaryRegisterDTO {
 
 //    @valid
 //    private Representant representant;
-//
-//    @valid
-//    private Batch batch;
+
+    @Valid
+    private BatchDTO batch;
 
     @Min(value = 0, message = "The value must be greater then one.")
     private Integer quantity;
