@@ -1,9 +1,8 @@
 package com.mercadolibre.integrativeproject.dtos;
 
+import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
 
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -11,6 +10,8 @@ import javax.validation.constraints.Past;
 import java.sql.Timestamp;
 
 public class BatchDTO {
+
+    private Long id;
 
     @NotNull
     private Long batchNumber;
@@ -42,6 +43,14 @@ public class BatchDTO {
     private Timestamp fabricationDate;
 
     public BatchDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getBatchNumber() {
@@ -114,5 +123,19 @@ public class BatchDTO {
 
     public void setFabricationDate(Timestamp fabricationDate) {
         this.fabricationDate = fabricationDate;
+    }
+
+    public Batch coverte() {
+        return Batch.builder()
+                .id(this.id)
+                .product(Product.builder().id(this.productId).build())
+                .initialQuantity(this.initialQuantity)
+                .quantity(this.quantity)
+                .currentTemperature(this.currentTemperature)
+                .minimumTemperature(this.minimumTemperature)
+                .mark(this.mark)
+                .expirationDate(this.expirationDate)
+                .fabricationDate(this.fabricationDate)
+                .build();
     }
 }
