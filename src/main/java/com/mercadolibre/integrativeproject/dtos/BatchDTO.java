@@ -17,7 +17,7 @@ public class BatchDTO {
     private Long batchNumber;
 
     @NotNull(message = "Batch need contain a product")
-    private String productId;
+    private Long productId;
 
     @Min(value = 1, message = "Initial quantity need above 0.")
     private Long initialQuantity;
@@ -61,11 +61,11 @@ public class BatchDTO {
         this.batchNumber = batchNumber;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
