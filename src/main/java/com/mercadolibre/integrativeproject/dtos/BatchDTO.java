@@ -17,7 +17,7 @@ public class BatchDTO {
     private Long batchNumber;
 
     @NotNull(message = "Batch need contain a product")
-    private String productId;
+    private Long productId;
 
     @Min(value = 1, message = "Initial quantity need above 0.")
     private Long initialQuantity;
@@ -61,11 +61,11 @@ public class BatchDTO {
         this.batchNumber = batchNumber;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -125,17 +125,17 @@ public class BatchDTO {
         this.fabricationDate = fabricationDate;
     }
 
-//    public Batch coverte() {
-//        return Batch.builder()
-//                .id(this.id)
-//                .product(Product.builder().id(this.productId).build())
-//                .initialQuantity(this.initialQuantity)
-//                .quantity(this.quantity)
-//                .currentTemperature(this.currentTemperature)
-//                .minimumTemperature(this.minimumTemperature)
-//                .mark(this.mark)
-//                .expirationDate(this.expirationDate)
-//                .fabricationDate(this.fabricationDate)
-//                .build();
-//    }
+    public Batch coverte() {
+        Batch batch = new Batch();
+        return batch
+                .setId(this.id)
+                .setProduct(Product.builder().id(this.productId).build())
+                .setInitialQuantity(this.initialQuantity)
+                .setQuantity(this.quantity)
+                .setCurrentTemperature(this.currentTemperature)
+                .setMinimumTemperature(this.minimumTemperature)
+                .setMark(this.mark)
+                .setExpirationDate(this.expirationDate)
+                .setFabricationDate(this.fabricationDate);
+    }
 }

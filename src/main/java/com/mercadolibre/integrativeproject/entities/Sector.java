@@ -7,6 +7,11 @@ import javax.persistence.*;
 
 import java.util.List;
 
+/** Entidade setor
+ *
+ * @author Lorraine Mendes
+ * */
+
 @Entity
 @Getter
 @Setter

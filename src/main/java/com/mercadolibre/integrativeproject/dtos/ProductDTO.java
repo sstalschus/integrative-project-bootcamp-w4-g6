@@ -11,18 +11,18 @@ import javax.validation.constraints.Size;
 public class ProductDTO {
 
     @Id
-    private String id;
+    private Long id;
     @NotNull(message = "Product name cannot null")
     @NotEmpty(message = "Product name cannot empty")
     @NotBlank(message = "Product name cannot blank")
     @Size(max = 30, min = 2, message = "Product name need contains 2 at 30 characters")
     private String name;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
