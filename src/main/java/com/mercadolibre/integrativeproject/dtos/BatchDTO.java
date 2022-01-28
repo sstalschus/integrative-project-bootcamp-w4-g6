@@ -126,16 +126,16 @@ public class BatchDTO {
     }
 
     public Batch coverte() {
-        return Batch.builder()
-                .id(this.id)
-                .product(Product.builder().id(this.productId).build())
-                .initialQuantity(this.initialQuantity)
-                .quantity(this.quantity)
-                .currentTemperature(this.currentTemperature)
-                .minimumTemperature(this.minimumTemperature)
-                .mark(this.mark)
-                .expirationDate(this.expirationDate)
-                .fabricationDate(this.fabricationDate)
-                .build();
+        Batch batch = new Batch();
+        return batch
+                .setId(this.id)
+                .setProduct(Product.builder().id(this.productId).build())
+                .setInitialQuantity(this.initialQuantity)
+                .setQuantity(this.quantity)
+                .setCurrentTemperature(this.currentTemperature)
+                .setMinimumTemperature(this.minimumTemperature)
+                .setMark(this.mark)
+                .setExpirationDate(this.expirationDate)
+                .setFabricationDate(this.fabricationDate);
     }
 }
