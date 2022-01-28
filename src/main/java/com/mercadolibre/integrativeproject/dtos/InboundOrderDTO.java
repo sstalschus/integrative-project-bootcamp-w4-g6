@@ -1,10 +1,14 @@
 package com.mercadolibre.integrativeproject.dtos;
 
+import com.mercadolibre.integrativeproject.entities.Batch;
+import com.mercadolibre.integrativeproject.entities.InboundOrder;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InboundOrderDTO {
 
@@ -15,9 +19,17 @@ public class InboundOrderDTO {
     @NotNull
     private LocalDate  orderDate;
 
+    @NotNull
+    private SectionInboundOrderDTO sectionInboundOrderDTO;
+
     private List<BatchDTO> batch = new ArrayList<>();
 
-    public InboundOrderDTO() {
+    public SectionInboundOrderDTO getSectorDTO() {
+        return sectionInboundOrderDTO;
+    }
+
+    public void setSectorDTO(SectionInboundOrderDTO sectionInboundOrderDTO) {
+        this.sectionInboundOrderDTO = sectionInboundOrderDTO;
     }
 
     public Long getOrderNumber() {
@@ -42,5 +54,16 @@ public class InboundOrderDTO {
 
     public void setBatch(List<BatchDTO> batch) {
         this.batch = batch;
+    }
+
+    public InboundOrder convert() {
+        List<Batch> batches = batch.stream().map(BatchDTO::coverte).collect(Collectors.toList());
+        return InboundOrder.builder()
+                .orderDate(this.orderDate)
+                .orderNumber(this.orderNumber)
+                .sectionCode(this.sectionInboundOrderDTO.getSectionCode())
+                .warehouseCode(this.sectionInboundOrderDTO.getWarehouseCode())
+                .batches(batches)
+                .build();
     }
 }

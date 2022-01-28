@@ -1,6 +1,6 @@
 package com.mercadolibre.integrativeproject.dtos;
 
-import com.mercadolibre.integrativeproject.entities.Batch;
+import com.mercadolibre.integrativeproject.entities.Sector;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +8,9 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -32,7 +32,7 @@ public class SectorDTO {
 
     @NotNull(message = "O campo não pode estar vazio")
     @NotEmpty(message = "O campo não pode estar vazio")
-    private List<Batch> lots;
+    private List<BatchDTO> lots;
 
     @NotNull(message = "O campo não pode estar vazio")
     private Double capacity;
@@ -40,4 +40,15 @@ public class SectorDTO {
     @NotNull(message = "O campo não pode estar vazio")
     private Double temperature;
 
+
+    public Sector convert() {
+        return Sector.builder()
+                .id(this.id)
+                .name(this.name)
+                .sectorType(this.sectorType)
+                .lots(lots.stream().map(BatchDTO::coverte).collect(Collectors.toList()))
+                .capacity(this.capacity)
+                .temperature(this.temperature)
+                .build();
+    }
 }
