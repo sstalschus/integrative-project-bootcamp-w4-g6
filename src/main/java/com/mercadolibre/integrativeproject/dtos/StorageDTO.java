@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.entities.Storage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -32,7 +35,7 @@ public class StorageDTO {
     private String address;
 
     @NotNull(message = "O setor não pode estar vazio")
-    private List<> sectorsList = new ArrayList<>();
+    private List<SectorDTO> sectorsList = new ArrayList<>();
 
     public StorageDTO(){
 
@@ -56,17 +59,18 @@ public class StorageDTO {
     public void setAddress(String address) {this.address = address;
     }
 
-    public List<> getSectorsList() {return sectorsList;
+    public List<SectorDTO> getSectorsList() {return sectorsList;
     }
 
-    public void setSectorsList(List<> sectorsList) {this.sectorsList = sectorsList;
+    public void setSectorsList(List<SectorDTO> sectorsList) {this.sectorsList = sectorsList;
     }
 
     public Storage convert() {
         return Storage.builder()
                 .id(this.id)
-                .name(this.name).build();
-
+                .name(this.name)
+                .sectorsList(this.sectorsList.stream().map(SectorDTO::convert).collect(Collectors.toList())).build();
+    }
 //    public static Storage convert(StorageDTO storageDTO) {
 //        ModelMapper modelMapper = new ModelMapper();
 //        return modelMapper.map(storageDTO, Storage.class);

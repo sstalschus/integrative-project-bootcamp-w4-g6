@@ -1,10 +1,14 @@
 package com.mercadolibre.integrativeproject.services;
 
-import com.mercadolibre.integrativeproject.entities.Batch;
+import com.mercadolibre.integrativeproject.entities.Address;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class AddressService {
+@Service
+public class AddressService implements ICrudServiceInterface<Address, Long> {
+
     @Override
     public Address create(Address address) {
         return null;
