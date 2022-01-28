@@ -12,6 +12,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/** Validação de campos e criação de DTOs
+ *
+ * @author Jefferson Froes
+ *
+ * */
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -31,10 +37,30 @@ public class ResponsibleDTO {
     @Pattern(regexp = "^\\d{4}[a-z\\d]$", message = "Employee Record must contain 4 digits between 0-9 and 1 letter a-z.")
     private String employeeRecord;
 
+    /** Método utilizado para conversão do objetoDTO para objeto.
+     *
+     * @author Jefferson Froes
+     *
+     * @param responsibleDTO - Objeto a ser convertido.
+     *
+     * @return objeto convertido.
+     *
+     * */
+
     public static Responsible convert(ResponsibleDTO responsibleDTO){
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(responsibleDTO, Responsible.class);
     }
+
+    /** Método utilizado para conversão do objeto para objetoDTO.
+     *
+     * @author Jefferson Froes
+     *
+     * @param responsible - Objeto a ser convertido.
+     *
+     * @return objeto convertido.
+     *
+     * */
 
     public static ResponsibleDTO convert(Responsible responsible){
         ModelMapper modelMapper = new ModelMapper();

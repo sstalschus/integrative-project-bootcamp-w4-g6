@@ -3,6 +3,12 @@ package com.mercadolibre.integrativeproject.entities;
 import lombok.*;
 import javax.persistence.*;
 
+/** Entidade Supplier
+ *
+ * @author Jefferson Froes
+ *
+ **/
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
