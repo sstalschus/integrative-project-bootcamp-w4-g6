@@ -1,11 +1,11 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Product;
-import com.mercadolibre.integrativeproject.services.interfaces.CrudServiceInterface;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 
 import java.util.List;
 
-public class ProductService implements CrudServiceInterface<Product, Long> {
+public class ProductService implements ICrudServiceInterface<Product, Long> {
     @Override
     public Product create(Product product) {
         return null;

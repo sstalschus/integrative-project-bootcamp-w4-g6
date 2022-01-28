@@ -18,12 +18,11 @@ public class PurchaseRecord {
     private Long id;
 
     @OneToOne
-    @Column
     private Batch batch;
 
-    @OneToMany
-    @Column
-    private Representative representative;
+//    @OneToMany
+//    @Column
+//    private Representative representative;
 
     @Column
     private BigInteger price;

@@ -1,11 +1,11 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
-import com.mercadolibre.integrativeproject.services.interfaces.CrudServiceInterface;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 
 import java.util.List;
 
-public class BatchService implements CrudServiceInterface<Batch, Long> {
+public class BatchService implements ICrudServiceInterface<Batch, Long> {
 
     @Override
     public Batch create(Batch batch) {
