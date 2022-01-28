@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class Product {
 
     @Id
-    private String id;
+    private Long id;
     @NotNull
     private String name;
 
@@ -19,16 +19,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(String id, String name) {
+    public Product(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
