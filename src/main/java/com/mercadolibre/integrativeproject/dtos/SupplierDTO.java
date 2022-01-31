@@ -34,11 +34,12 @@ public class SupplierDTO {
 
     @NotNull(message = "Supplier`s CNPJ is not null.")
     @NotEmpty(message = "Supplier`s CNPJ is not empty.")
-    @Pattern(regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})", message = "Supplier`s CNPJ invalid")
+    @Pattern(regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})"
+            , message = "Supplier`s CNPJ invalid")
     private String cnpj;
 
-//    @Valid
-//    private AddressDTO address;
+    @Valid
+    private AddressDTO address;
 
     /** Método utilizado para conversão do objetoDTO para objeto.
      *
