@@ -87,7 +87,6 @@ public class BatchDTO {
 
     public void setInitialQuantity(Long initialQuantity) {
         this.initialQuantity = initialQuantity;
-        this.quantity = this.initialQuantity;
     }
 
     public Long getQuantity() {
@@ -134,6 +133,10 @@ public class BatchDTO {
         this.fabricationDate = fabricationDate;
     }
 
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
     public Batch coverte() {
         Batch batch = new Batch();
         return batch
@@ -147,5 +150,20 @@ public class BatchDTO {
                 .setExpirationDate(this.expirationDate)
                 .setFabricationDate(this.fabricationDate)
                 .setPricePerUnit(this.pricePerUnit);
+    }
+
+    public BatchDTO convert(Batch batch) {
+        setId(batch.getId());
+        setProductId(batch.getProduct().getId());
+        setInitialQuantity(batch.getInitialQuantity());
+        setQuantity(batch.getQuantity());
+        setCurrentTemperature(batch.getCurrentTemperature());
+        setMinimumTemperature(batch.getMinimumTemperature());
+        setMark(batch.getMark());
+        setExpirationDate(batch.getExpirationDate());
+        setFabricationDate(batch.getFabricationDate());
+        setPricePerUnit(batch.getPricePerUnit());
+
+        return this;
     }
 }
