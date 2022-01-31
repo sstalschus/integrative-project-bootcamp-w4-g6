@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.InventaryRegister;
+import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.enums.RegisterInventaryType;
 import com.mercadolibre.integrativeproject.util.EnumValidator;
 import lombok.AllArgsConstructor;
@@ -46,4 +47,5 @@ public class InventaryRegisterDTO {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(inventaryRegister, InventaryRegisterDTO.class);
     }
+
 }
