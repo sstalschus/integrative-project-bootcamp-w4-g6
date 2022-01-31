@@ -26,6 +26,7 @@ public class Storage {
     private  String address;
 
     @Column
+    @OneToMany
     private List<Sector>  sectorsList ;
 
 }
