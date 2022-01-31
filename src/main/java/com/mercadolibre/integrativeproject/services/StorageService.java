@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Storage;
+import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,15 @@ public class StorageService implements ICrudServiceInterface<Storage, Long> {
     @Override
     public void delete(Long t) {
 
+    }
+
+    public Storage getValidStorage(Long id) {
+        Storage storage = getById(id);
+
+        if (storage == null){
+            throw new NotFoundException("Storage not found");
+        }
+        return storage;
     }
 
 }

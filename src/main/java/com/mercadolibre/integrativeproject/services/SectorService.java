@@ -1,6 +1,10 @@
 package com.mercadolibre.integrativeproject.services;
 
+import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Sector;
+import com.mercadolibre.integrativeproject.entities.Storage;
+import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +17,14 @@ import java.util.List;
  * @author Lorraine Mendes
  * */
 
+
 @Service
 public class SectorService implements ICrudServiceInterface<Sector, Long> {
 
     @Autowired
     private SectorRepository sectorRepository;
+    @Autowired
+    private BatchService batchService;
 
     @Override
     public Sector create(Sector sector){
@@ -67,4 +74,29 @@ public class SectorService implements ICrudServiceInterface<Sector, Long> {
             e.printStackTrace();
         }
     }
+
+    public Sector getValidSectorOnStorage(Long id, Storage storage) {
+        Sector sector = storage.getSectorsList().stream()
+                .filter(sec -> sec.getId().equals(id))
+                .findFirst().orElse(null);
+
+        if (sector == null){
+            throw new NotFoundException("Sector not found");
+        }
+        return sector;
+    }
+
+
+    public Double calcVolumn(Sector sector) {
+        return batchService.calcVolumn(sector.getLots());
+    }
+
+    public boolean hasSectorCapacity(List<Batch> batches, Sector sector) {
+        Double volumnBatches = batchService.calcVolumn(batches);
+        Double usedCapacitySector = calcVolumn(sector);
+        Double newUsedCapacitySector = volumnBatches + usedCapacitySector;
+        return sector.getCapacity() >= newUsedCapacitySector;
+    }
+
+
 }

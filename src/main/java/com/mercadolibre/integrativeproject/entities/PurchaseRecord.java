@@ -21,11 +21,9 @@ public class PurchaseRecord {
     private Long id;
 
     @OneToOne
-    @Column
     private Batch batch;
 
     @ManyToOne
-    @Column
     private Responsible responsible;
 
     @Column
