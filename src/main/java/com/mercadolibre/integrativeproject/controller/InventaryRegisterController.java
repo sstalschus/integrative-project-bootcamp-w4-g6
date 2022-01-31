@@ -12,6 +12,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Controller de registro de estoque
+ *
+ * @author Samuel Stalschus
+ *
+ * */
 @RestController
 @RequestMapping("/inventaryregister")
 public class InventaryRegisterController {
@@ -19,6 +24,13 @@ public class InventaryRegisterController {
     @Autowired
     InventaryRegisterService inventaryRegisterService;
 
+    /** Método usado para criar um registro de estoque.
+     *
+     * @author Samuel Stalschus
+     *
+     * @return DTO do registro de estoque, acoplado ao ResponseEntity
+     *
+     * */
     @PostMapping("")
     public ResponseEntity<InventaryRegisterDTO> create(@Valid @RequestBody InventaryRegisterDTO inventaryRegisterDTO) {
         InventaryRegister inventaryRegister = InventaryRegisterDTO.convert(inventaryRegisterDTO);
@@ -26,6 +38,13 @@ public class InventaryRegisterController {
                 InventaryRegisterDTO.convert(inventaryRegisterService.create(inventaryRegister)));
     }
 
+    /** Método usado para retornar para o client a lista com todos os registros de estoque.
+     *
+     * @author Samuel Stalschus
+     *
+     * @return Lista de DTOs de registro de estoque acoplado ao ResponseEntity
+     *
+     * */
     @GetMapping("")
     public ResponseEntity<List<InventaryRegisterDTO>> listAll() {
         return ResponseEntity.status(HttpStatus.OK).body(
