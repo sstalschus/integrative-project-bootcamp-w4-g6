@@ -7,6 +7,7 @@ import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
+import com.mercadolibre.integrativeproject.services.interfaces.ISectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ import java.util.List;
 
 
 @Service
-public class SectorService implements ICrudServiceInterface<Sector, Long> {
+public class SectorService implements ISectorService<Sector, Long> {
 
     @Autowired
     private SectorRepository sectorRepository;
@@ -38,12 +39,7 @@ public class SectorService implements ICrudServiceInterface<Sector, Long> {
 
     @Override
     public Sector getById(Long sectorId) {
-        try {
-            return sectorRepository.findById(sectorId).orElse(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return sectorRepository.findById(sectorId).orElseThrow(()->new NotFoundException("Sector not found"));
     }
 
     @Override
@@ -57,13 +53,8 @@ public class SectorService implements ICrudServiceInterface<Sector, Long> {
     }
 
     @Override
-    public Sector update(Sector sector) {
-        try {
-            return sectorRepository.save(sector);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public void update(Sector sector) {
+        sectorRepository.setSectorInfoById(sector.getTemperature(), sector.getCapacity(), sector.getName(), sector.getId());
     }
 
     @Override

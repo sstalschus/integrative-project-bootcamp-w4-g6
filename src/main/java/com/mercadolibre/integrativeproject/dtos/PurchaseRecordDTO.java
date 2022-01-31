@@ -1,6 +1,9 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
+import com.mercadolibre.integrativeproject.entities.InventaryRegister;
+import com.mercadolibre.integrativeproject.entities.PurchaseRecord;
+import org.modelmapper.ModelMapper;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -29,4 +32,14 @@ public class PurchaseRecordDTO {
     @NotNull(message = "O campo não pode estar vazio")
     @NotEmpty(message = "O campo não pode estar vazio")
     private Long quantity;
+
+    public static PurchaseRecord convert(PurchaseRecordDTO purchaseRecordDTO) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(purchaseRecordDTO, PurchaseRecord.class);
+    }
+
+    public static PurchaseRecordDTO convert(PurchaseRecord purchaseRecord) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(purchaseRecord, PurchaseRecordDTO.class);
+    }
 }
