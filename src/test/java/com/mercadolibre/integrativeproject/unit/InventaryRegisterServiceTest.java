@@ -57,7 +57,7 @@ public class InventaryRegisterServiceTest {
 
         Mockito.when(mockInventaryRegisterRepository.findById(id)).thenReturn(Optional.of(inventaryRegister));
 
-        InventaryRegister inventaryRegisterSaved = inventaryRegisterService.getById(id);
+        InventaryRegister inventaryRegisterSaved = inventaryRegisterService.findById(id);
 
         assertEquals(id, inventaryRegisterSaved.getId());
     }
