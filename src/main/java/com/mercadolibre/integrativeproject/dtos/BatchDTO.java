@@ -7,6 +7,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class BatchDTO {
@@ -42,7 +43,18 @@ public class BatchDTO {
     @Past(message = "Batch need fabrication date before current")
     private Timestamp fabricationDate;
 
+    @NotNull
+    private BigDecimal pricePerUnit;
+
     public BatchDTO() {
+    }
+
+    public BigDecimal getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit(BigDecimal pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 
     public Long getId() {
@@ -75,14 +87,11 @@ public class BatchDTO {
 
     public void setInitialQuantity(Long initialQuantity) {
         this.initialQuantity = initialQuantity;
+        this.quantity = this.initialQuantity;
     }
 
     public Long getQuantity() {
         return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
     }
 
     public Double getCurrentTemperature() {

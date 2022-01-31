@@ -1,14 +1,14 @@
 package com.mercadolibre.integrativeproject.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -35,7 +35,17 @@ public class Batch {
     @NotNull
     private Timestamp fabricationDate;
 
+    private BigDecimal pricePerUnit;
+
     public Batch() {
+    }
+
+    public BigDecimal getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit(BigDecimal pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 
     public Double getCurrentTemperature() {
