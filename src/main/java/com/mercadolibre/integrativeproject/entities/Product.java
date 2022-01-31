@@ -2,15 +2,15 @@ package com.mercadolibre.integrativeproject.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Builder
-@Entity
 @AllArgsConstructor
+@Entity
 public class Product {
 
     @Id

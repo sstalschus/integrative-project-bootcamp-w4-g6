@@ -1,10 +1,12 @@
 package com.mercadolibre.integrativeproject.dtos;
 
+import com.mercadolibre.integrativeproject.entities.InventaryRegister;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -55,5 +57,10 @@ public class SectorDTO {
                 .capacity(this.capacity)
                 .temperature(this.temperature)
                 .build();
+    }
+
+    public static SectorDTO convert(Sector sector) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(sector, SectorDTO.class);
     }
 }
