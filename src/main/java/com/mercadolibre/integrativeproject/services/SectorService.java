@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
+/** Service de Setor
+ * @author Lorraine Mendes
+ * */
 
 @Service
 public class SectorService implements ICrudServiceInterface<Sector, Long> {

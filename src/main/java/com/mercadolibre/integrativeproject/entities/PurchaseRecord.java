@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigInteger;
 /** Entidade Registro de compra
- *
  * @author Lorraine Mendes
  * */
 
@@ -22,11 +21,12 @@ public class PurchaseRecord {
     private Long id;
 
     @OneToOne
+    @Column
     private Batch batch;
 
-//    @OneToMany
-//    @Column
-//    private Representative representative;
+    @ManyToOne
+    @Column
+    private Responsible responsible;
 
     @Column
     private BigInteger price;

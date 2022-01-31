@@ -3,6 +3,11 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.InboundOrder;
 import org.springframework.stereotype.Service;
 
+/** Inbound Service
+ * @author Arthur Amorim
+ * @author Lorraine Mendes
+ * */
+
 @Service
 public class InboundService {
     public InboundOrder create(InboundOrder inboundOrder){
