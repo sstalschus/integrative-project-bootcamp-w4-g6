@@ -27,8 +27,8 @@ public class Responsible {
     @Column(unique = true)
     private String employeeRecord;
 
-//    Column
-//    @OneToOne
-//    private Sector sector;
+    @Column
+    @OneToOne
+    private Sector sector;
 
 }
