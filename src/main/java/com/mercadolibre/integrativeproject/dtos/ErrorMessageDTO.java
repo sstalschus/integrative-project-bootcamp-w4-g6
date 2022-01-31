@@ -2,6 +2,11 @@ package com.mercadolibre.integrativeproject.dtos;
 
 import lombok.*;
 
+/** Entidade de DTO de mensagem de erro padronizada..
+ *
+ * @author Samuel Stalschus
+ *
+ * */
 @Getter
 @Setter
 @NoArgsConstructor
