@@ -3,13 +3,12 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Storage;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
-import com.mercadolibre.integrativeproject.services.interfaces.IStorageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class StorageService implements IStorageService, ICrudServiceInterface<Storage, Long> {
+public class StorageService implements ICrudServiceInterface<Storage, Long> {
     @Override
     public Storage create(Storage storage) {
         return null;

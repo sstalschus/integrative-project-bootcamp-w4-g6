@@ -44,9 +44,6 @@ public class AddressDTO {
     @Pattern(regexp = "^[A-Z].*$", message = "O nome do estado deve começar com letra maiuscula")
     private String state;
 
-    public AddressDTO(){
-
-    }
 
     public Long getId() { return id;
     }
@@ -97,7 +94,8 @@ public class AddressDTO {
     public Address convert() {
         return Address.builder()
                 .id(this.id)
-                .name(this.name).build();
+                .build();
+    }
 
 //    public static Address convert(AddressDTO addressDTO) {
 //        ModelMapper modelMapper = new ModelMapper();
