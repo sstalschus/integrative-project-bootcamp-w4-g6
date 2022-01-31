@@ -20,16 +20,16 @@ public class InboundOrderDTO {
     private LocalDate  orderDate;
 
     @NotNull
-    private SectionInboundOrderDTO sectionInboundOrderDTO;
+    private SectionInboundOrderDTO sectionWharehouse;
 
     private List<BatchDTO> batch = new ArrayList<>();
 
-    public SectionInboundOrderDTO getSectorDTO() {
-        return sectionInboundOrderDTO;
+    public SectionInboundOrderDTO getSectionWharehouse() {
+        return sectionWharehouse;
     }
 
-    public void setSectorDTO(SectionInboundOrderDTO sectionInboundOrderDTO) {
-        this.sectionInboundOrderDTO = sectionInboundOrderDTO;
+    public void setSectionWharehouse(SectionInboundOrderDTO sectionWharehouse) {
+        this.sectionWharehouse = sectionWharehouse;
     }
 
     public Long getOrderNumber() {
@@ -58,12 +58,13 @@ public class InboundOrderDTO {
 
     public InboundOrder convert() {
         List<Batch> batches = batch.stream().map(BatchDTO::coverte).collect(Collectors.toList());
-        return InboundOrder.builder()
+        InboundOrder build = InboundOrder.builder()
                 .orderDate(this.orderDate)
                 .orderNumber(this.orderNumber)
-                .sectionCode(this.sectionInboundOrderDTO.getSectionCode())
-                .warehouseCode(this.sectionInboundOrderDTO.getWarehouseCode())
+                .sectionCode(this.sectionWharehouse.getSectionCode())
+                .warehouseCode(this.sectionWharehouse.getWarehouseCode())
                 .batches(batches)
                 .build();
+        return build;
     }
 }

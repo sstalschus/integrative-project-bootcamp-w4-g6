@@ -3,7 +3,11 @@ package com.mercadolibre.integrativeproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.util.List;
+
 /** Entidade Registro de compra
  * @author Lorraine Mendes
  * */
@@ -20,6 +24,10 @@ public class PurchaseRecord {
     @GeneratedValue
     private Long id;
 
+    private Long orderNumber;
+
+    private LocalDate orderDate;
+
     @OneToOne
     private Batch batch;
 
@@ -27,7 +35,7 @@ public class PurchaseRecord {
     private Responsible responsible;
 
     @Column
-    private BigInteger price;
+    private BigDecimal price;
 
     @Column
     private Long quantity;

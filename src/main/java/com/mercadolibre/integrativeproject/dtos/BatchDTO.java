@@ -7,6 +7,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class BatchDTO {
@@ -42,7 +43,18 @@ public class BatchDTO {
     @Past(message = "Batch need fabrication date before current")
     private Timestamp fabricationDate;
 
+    @NotNull
+    private BigDecimal pricePerUnit;
+
     public BatchDTO() {
+    }
+
+    public BigDecimal getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit(BigDecimal pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 
     public Long getId() {
@@ -79,10 +91,6 @@ public class BatchDTO {
 
     public Long getQuantity() {
         return quantity;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
     }
 
     public Double getCurrentTemperature() {
@@ -125,6 +133,10 @@ public class BatchDTO {
         this.fabricationDate = fabricationDate;
     }
 
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
     public Batch coverte() {
         Batch batch = new Batch();
         return batch
@@ -136,6 +148,22 @@ public class BatchDTO {
                 .setMinimumTemperature(this.minimumTemperature)
                 .setMark(this.mark)
                 .setExpirationDate(this.expirationDate)
-                .setFabricationDate(this.fabricationDate);
+                .setFabricationDate(this.fabricationDate)
+                .setPricePerUnit(this.pricePerUnit);
+    }
+
+    public BatchDTO convert(Batch batch) {
+        setId(batch.getId());
+        setProductId(batch.getProduct().getId());
+        setInitialQuantity(batch.getInitialQuantity());
+        setQuantity(batch.getQuantity());
+        setCurrentTemperature(batch.getCurrentTemperature());
+        setMinimumTemperature(batch.getMinimumTemperature());
+        setMark(batch.getMark());
+        setExpirationDate(batch.getExpirationDate());
+        setFabricationDate(batch.getFabricationDate());
+        setPricePerUnit(batch.getPricePerUnit());
+
+        return this;
     }
 }
