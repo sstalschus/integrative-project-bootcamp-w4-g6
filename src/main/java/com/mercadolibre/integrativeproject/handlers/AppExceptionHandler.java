@@ -1,6 +1,8 @@
 package com.mercadolibre.integrativeproject.handlers;
 
+import com.mercadolibre.integrativeproject.dtos.ErrorMessageDTO;
 import com.mercadolibre.integrativeproject.dtos.InvalidParamsDTO;
+import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -54,9 +56,9 @@ public class AppExceptionHandler {
 //        return ResponseEntity.badRequest().body(new ErrorMessageDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
 //    }
 //
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    @ExceptionHandler(value = PropertyNotFoundException.class)
-//    protected ResponseEntity<Object> handlePersistencia(PropertyNotFoundException ex, WebRequest request) {
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
-//    }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = NotFoundException.class)
+    protected ResponseEntity<Object> handlePersistencia(NotFoundException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
+    }
 }
