@@ -44,8 +44,9 @@ public class Batch {
         return pricePerUnit;
     }
 
-    public void setPricePerUnit(BigDecimal pricePerUnit) {
+    public Batch setPricePerUnit(BigDecimal pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
+        return this;
     }
 
     public Double getCurrentTemperature() {

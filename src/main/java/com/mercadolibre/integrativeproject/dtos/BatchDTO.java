@@ -145,6 +145,7 @@ public class BatchDTO {
                 .setMinimumTemperature(this.minimumTemperature)
                 .setMark(this.mark)
                 .setExpirationDate(this.expirationDate)
-                .setFabricationDate(this.fabricationDate);
+                .setFabricationDate(this.fabricationDate)
+                .setPricePerUnit(this.pricePerUnit);
     }
 }
