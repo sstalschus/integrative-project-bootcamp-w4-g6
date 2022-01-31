@@ -26,7 +26,6 @@ public class Address {
     private String street;
 
     @NotNull
-    @ManyToMany
     private String district;
 
     @Column
@@ -37,6 +36,4 @@ public class Address {
 
     @Column
     private String country;
-
-
 }

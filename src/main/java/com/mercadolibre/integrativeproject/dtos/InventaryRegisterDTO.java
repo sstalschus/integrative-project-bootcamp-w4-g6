@@ -12,6 +12,11 @@ import org.modelmapper.ModelMapper;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
+/** Entidade de DTO de Registro de Estoque.
+ *
+ * @author Samuel Stalschus
+ *
+ * */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,12 +25,12 @@ public class InventaryRegisterDTO {
 
     @EnumValidator(
             enumClazz = RegisterInventaryType.class,
-            message = "Your transaction must be of type CREDIT or DEBIT."
+            message = "The transaction type must be CREDIT or DEBIT."
     )
-    private RegisterInventaryType type;
+    private String type;
 
-//    @valid
-//    private Representant representant;
+    @Valid
+    private ResponsibleDTO responsible;
 
     @Valid
     private BatchDTO batch;

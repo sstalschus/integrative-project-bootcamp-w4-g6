@@ -11,6 +11,11 @@ import javax.validation.Payload;
 import javax.validation.ReportAsSingleViolation;
 import javax.validation.constraints.NotNull;
 
+/** Interface para gerarmos um EnumValidator que faz implementa a validação de parâmetro com base em Enum.
+ *
+ * @author Samuel Stalschus
+ *
+ * */
 @Documented
 @Constraint(validatedBy = EnumValidatorImpl.class)
 @Retention(RetentionPolicy.RUNTIME)

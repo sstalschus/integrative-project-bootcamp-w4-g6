@@ -6,6 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/** Entidade de registro de estoque
+ *
+ * @author Samuel Stalschus
+ *
+ * */
 @Entity
 @Getter
 @Setter
@@ -21,9 +26,9 @@ public class InventaryRegister {
     @Column
     private RegisterInventaryType type;
 
-//    @NotNull
-//    @ManyToOne
-//    private Representant representant;
+    @NotNull
+    @ManyToOne
+    private Responsible responsible;
 
     @NotNull
     @OneToOne
