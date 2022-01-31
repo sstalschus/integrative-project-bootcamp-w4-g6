@@ -1,11 +1,15 @@
 package com.mercadolibre.integrativeproject.util;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-
+/** Implementação do EnumValidator.
+ *
+ * @author Samuel Stalschus
+ *
+ * */
 public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, String> {
 
     List<String> valueList = null;
