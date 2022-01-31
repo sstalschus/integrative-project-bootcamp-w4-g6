@@ -3,9 +3,11 @@ package com.mercadolibre.integrativeproject.dtos;
 import com.mercadolibre.integrativeproject.entities.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -13,6 +15,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+// id Zipcode street district city state country
 public class AddressDTO {
 
     private Long id;
@@ -40,9 +44,6 @@ public class AddressDTO {
     @Pattern(regexp = "^[A-Z].*$", message = "O nome do estado deve começar com letra maiuscula")
     private String state;
 
-    public AddressDTO(){
-
-    }
 
     public Long getId() { return id;
     }
@@ -94,11 +95,6 @@ public class AddressDTO {
         return Address.builder()
                 .id(this.id)
                 .build();
-    }
-
-    public static AddressDTO convert(Address address){
-        AddressDTO addressDTO = new AddressDTO();
-        return addressDTO;
     }
 
 //    public static Address convert(AddressDTO addressDTO) {

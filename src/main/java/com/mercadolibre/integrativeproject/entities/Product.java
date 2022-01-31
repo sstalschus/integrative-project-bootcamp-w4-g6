@@ -15,6 +15,16 @@ public class Product {
     @NotNull
     private String name;
 
+    public Double getVolumn() {
+        return volumn;
+    }
+
+    public void setVolumn(Double volumn) {
+        this.volumn = volumn;
+    }
+
+    private Double volumn;
+
 
     public Product() {
     }

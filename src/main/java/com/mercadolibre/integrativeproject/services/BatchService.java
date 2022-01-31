@@ -25,6 +25,13 @@ public class BatchService implements ICrudServiceInterface<Batch, Long> {
         }
     }
 
+    public List<Batch> create(List<Batch> batches){
+        List<Batch>  batchesSaveds = new ArrayList<>();
+        batches.forEach(batch -> batchesSaveds.add(create(batch)));
+
+        return batchesSaveds;
+    }
+
     @Override
     public Batch getById(Long batchId) {
         try {
@@ -62,5 +69,10 @@ public class BatchService implements ICrudServiceInterface<Batch, Long> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Double calcVolumn(List<Batch> batches){
+        return batches.stream().mapToDouble(batchOnSector ->
+                batchOnSector.getQuantity() * batchOnSector.getProduct().getVolumn()).sum();
     }
 }
