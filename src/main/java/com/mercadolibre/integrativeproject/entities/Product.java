@@ -17,7 +17,6 @@ public class Product {
     private Long id;
     @NotNull
     private String name;
-
     public Double getVolumn() {
         return volumn;
     }

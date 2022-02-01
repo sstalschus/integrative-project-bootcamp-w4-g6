@@ -4,10 +4,12 @@ import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ProductService implements ICrudServiceInterface<Product, Long> {
 
     @Autowired
