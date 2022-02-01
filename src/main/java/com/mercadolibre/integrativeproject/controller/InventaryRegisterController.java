@@ -24,20 +24,6 @@ public class InventaryRegisterController {
     @Autowired
     InventaryRegisterService inventaryRegisterService;
 
-    /** Método usado para criar um registro de estoque.
-     *
-     * @author Samuel Stalschus
-     *
-     * @return DTO do registro de estoque, acoplado ao ResponseEntity
-     *
-     * */
-    @PostMapping("")
-    public ResponseEntity<InventaryRegisterDTO> create(@Valid @RequestBody InventaryRegisterDTO inventaryRegisterDTO) {
-        InventaryRegister inventaryRegister = InventaryRegisterDTO.convert(inventaryRegisterDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                InventaryRegisterDTO.convert(inventaryRegisterService.create(inventaryRegister)));
-    }
-
     /** Método usado para retornar para o client a lista com todos os registros de estoque.
      *
      * @author Samuel Stalschus
