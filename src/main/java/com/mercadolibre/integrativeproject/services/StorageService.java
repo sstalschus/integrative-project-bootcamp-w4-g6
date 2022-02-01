@@ -1,18 +1,11 @@
 package com.mercadolibre.integrativeproject.services;
 
+import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Storage;
-<<<<<<< Updated upstream
-import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
-import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
-=======
-import com.mercadolibre.integrativeproject.repositories.StorageRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import com.mercadolibre.integrativeproject.services.interfaces.IStorageService;
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> Stashed changes
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,22 +58,8 @@ public class StorageService implements IStorageService, ICrudServiceInterface<St
     }
 
     @Override
-    public void delete(Long storageId) {
-        try {
-            storageRepository.deleteById(storageId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void delete(Long t) {
 
-    }
-
-    public Storage getValidStorage(Long id) {
-        Storage storage = getById(id);
-
-        if (storage == null){
-            throw new NotFoundException("Storage not found");
-        }
-        return storage;
     }
 
 }
