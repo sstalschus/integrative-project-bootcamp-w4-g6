@@ -21,15 +21,6 @@ public class InventaryRegisterControllerTest extends ControllerTest {
                         "/inventaryregister", HttpMethod.GET, this.getDefaultRequestEntity(), String.class);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//        assertEquals("", responseEntity.getBody());
-    }
-
-    @Test
-    void createInventaryRegister() {
-        ResponseEntity<String> responseEntity =
-                this.testRestTemplate.exchange(
-                        "/inventaryregister", HttpMethod.POST, this.getDefaultRequestEntity(), String.class);
-
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertEquals("[]", responseEntity.getBody());
     }
 }
