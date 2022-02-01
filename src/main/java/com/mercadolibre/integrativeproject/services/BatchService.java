@@ -71,7 +71,7 @@ public class BatchService implements ICrudServiceInterface<Batch, Long> {
         }
     }
 
-    public Double calcVolumn(List<Batch> batches){
+    public Double calcVolumn(List<Batch> batches) {
         return batches.stream().mapToDouble(batchOnSector ->
                 batchOnSector.getQuantity() * batchOnSector.getProduct().getVolumn()).sum();
     }

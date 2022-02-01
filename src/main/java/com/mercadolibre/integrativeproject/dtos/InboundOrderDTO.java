@@ -58,13 +58,12 @@ public class InboundOrderDTO {
 
     public InboundOrder convert() {
         List<Batch> batches = batch.stream().map(BatchDTO::coverte).collect(Collectors.toList());
-        InboundOrder build = InboundOrder.builder()
+        return InboundOrder.builder()
                 .orderDate(this.orderDate)
                 .orderNumber(this.orderNumber)
                 .sectionCode(this.sectionWharehouse.getSectionCode())
                 .warehouseCode(this.sectionWharehouse.getWarehouseCode())
                 .batches(batches)
                 .build();
-        return build;
     }
 }
