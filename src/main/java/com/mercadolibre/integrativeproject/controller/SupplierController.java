@@ -12,6 +12,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Controller de registro de supplier.
+ *
+ * @author Jefferson Froes
+ *
+ * */
 @RestController
 @RequestMapping("/supplierregister")
 public class SupplierController {
@@ -32,7 +37,7 @@ public class SupplierController {
         return ResponseEntity.status(204).body(null);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<SupplierDTO>> listAll() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(supplierService.getAll().stream().map(SupplierDTO::convert).collect(Collectors.toList()));

@@ -12,6 +12,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Controller de registro de responsible.
+ *
+ * @author Jefferson Froes
+ *
+ * */
 @RestController
 @RequestMapping("/responsibleregister")
 public class ResponsibleController {
@@ -26,7 +31,7 @@ public class ResponsibleController {
             .body(ResponsibleDTO.convert(responsibleService.create(responsible)));
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<ResponsibleDTO>> listAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(responsibleService.getAll().stream().map(ResponsibleDTO::convert).collect(Collectors.toList()));
