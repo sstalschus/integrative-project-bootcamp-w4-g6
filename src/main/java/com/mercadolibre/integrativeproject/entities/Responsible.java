@@ -27,7 +27,6 @@ public class Responsible {
     @Column(unique = true)
     private String employeeRecord;
 
-    @Column
     @OneToOne
     private Sector sector;
 

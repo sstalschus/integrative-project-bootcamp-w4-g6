@@ -27,7 +27,6 @@ public class Supplier {
     @Column(unique = true)
     private String cnpj;
 
-    @Column
     @OneToOne
     private Address address;
 

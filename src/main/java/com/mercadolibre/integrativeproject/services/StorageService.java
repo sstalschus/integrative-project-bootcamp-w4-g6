@@ -1,36 +1,61 @@
 package com.mercadolibre.integrativeproject.services;
 
-import com.mercadolibre.integrativeproject.entities.Batch;
+import com.mercadolibre.integrativeproject.repositories.StorageRepository;
 import com.mercadolibre.integrativeproject.entities.Storage;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
-import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
+import com.mercadolibre.integrativeproject.services.interfaces.IStorageService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class StorageService implements ICrudServiceInterface<Storage, Long> {
+
+public class StorageService implements IStorageService<Storage, Long> {
+
+    @Autowired
+    private  StorageRepository storageRepository;
     @Override
     public Storage create(Storage storage) {
-        return null;
+        try {
+            return storageRepository.save(storage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public Storage getById(Long aLong) {
-        return null;
+    public Storage getById(Long storageId) {
+        try {
+            return storageRepository.findById(storageId).orElse(null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    @Override
     public List<Storage> getAll() {
-        return null;
+        try {
+            return storageRepository.findAll();
+        } catch (Exception e)  {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     @Override
     public Storage update(Storage storage) {
-        return null;
+        try {
+            return storageRepository.save(storage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    @Override
     public void delete(Long t) {
 
     }
