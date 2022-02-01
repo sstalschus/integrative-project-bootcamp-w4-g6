@@ -33,6 +33,8 @@ public class InventaryRegisterService implements IInventaryRegister<InventaryReg
      * */
     @Override
     public InventaryRegister create(InventaryRegister inventaryRegister){
+        if(inventaryRegister.getBatch().getId() == null) throw new NotFoundException("Batch don't exists");
+        if(inventaryRegister.getResponsible().getId() == null) throw new NotFoundException("Responsible don't exists");
         return inventaryRegisterRepository.save(inventaryRegister);
     }
 
