@@ -31,9 +31,10 @@ public class SupplierController {
                 .body(SupplierDTO.convert(supplierService.create(supplier)));
     }
 
-    @PutMapping("/supplierupdate/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody SupplierDTO supplierDTO) {
-        supplierService.update(SupplierDTO.convert(supplierDTO), id);
+    @PutMapping("/supplierupdate")
+    public ResponseEntity<?> update(@RequestBody SupplierDTO supplierDTO) {
+        Supplier supplier = SupplierDTO.convert(supplierDTO);
+        supplierService.update(supplier);
         return ResponseEntity.status(204).body(null);
     }
 

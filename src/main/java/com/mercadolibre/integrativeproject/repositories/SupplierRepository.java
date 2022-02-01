@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface SupplierRepository extends JpaRepository<Supplier,Long> {
     @Modifying
     @Query("update Supplier s set s.name = ?1, s.cnpj = ?2 where s.id = ?3")
-    void setSupplierInfoById(String name, String cnpj, Long userId);
+    Supplier setSupplierInfoById(String name, String cnpj, Long userId);
 }

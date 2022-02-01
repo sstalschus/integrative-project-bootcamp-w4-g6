@@ -3,7 +3,7 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.Responsible;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.ResponsibleRepository;
-import com.mercadolibre.integrativeproject.services.interfaces.ISupplierService;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * */
 @Service
-public class ResponsibleService implements ISupplierService<Responsible, Long> {
+public class ResponsibleService implements ICrudServiceInterface<Responsible, Long> {
 
     ResponsibleRepository responsibleRepository;
 
@@ -40,10 +40,6 @@ public class ResponsibleService implements ISupplierService<Responsible, Long> {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Override
-    public void update(Responsible responsible, Long responsibleID) {
     }
 
     /** Método usado para buscar um registro de responsible pelo id.
@@ -75,6 +71,12 @@ public class ResponsibleService implements ISupplierService<Responsible, Long> {
             e.printStackTrace();
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Responsible update(Responsible responsible) {
+        Responsible responsibleSaved = getById(responsible.getId());
+        return responsibleRepository.setResponsibleChangeSector(responsible.getSector().getId(), responsibleSaved.getId());
     }
 
     /** Método usado para deletar o registro responsible.

@@ -3,7 +3,7 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.Supplier;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.SupplierRepository;
-import com.mercadolibre.integrativeproject.services.interfaces.ISupplierService;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * */
 @Service
-public class SupplierService implements ISupplierService<Supplier, Long> {
+public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
 
     SupplierRepository supplierRepository;
 
@@ -80,14 +80,12 @@ public class SupplierService implements ISupplierService<Supplier, Long> {
      * @author Jefferson Froes
      *
      * @param supplier - objeto que recebe os dados.
-     *
-     * @param supplierId - id do objeto a ser atualizado
-     *
+     *- id do objeto a ser atualizado
      * */
     @Override
-    public void update(Supplier supplier, Long supplierId) {
-        Supplier supplierSaved = getById(supplierId);
-        supplierRepository.setSupplierInfoById(supplier.getName(), supplier.getCnpj(), supplierSaved.getId());
+    public Supplier update(Supplier supplier) {
+        Supplier supplierSaved = getById(supplier.getId());
+        return supplierRepository.setSupplierInfoById(supplier.getName(), supplier.getCnpj(),supplierSaved.getId());
     }
 
     /** Método usado para deletar o registro supplier.
@@ -105,4 +103,5 @@ public class SupplierService implements ISupplierService<Supplier, Long> {
             e.printStackTrace();
         }
     }
+
 }
