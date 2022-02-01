@@ -71,13 +71,5 @@ public class StorageDTO {
                 .name(this.name)
                 .sectorsList(this.sectorsList.stream().map(SectorDTO::convert).collect(Collectors.toList())).build();
     }
-//    public static Storage convert(StorageDTO storageDTO) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(storageDTO, Storage.class);
-//    }
-//    public static StorageDTO convert(Storage storage) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(storage, StorageDTO.class);
-//    }
 
 }
