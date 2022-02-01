@@ -12,8 +12,11 @@ import java.util.List;
 @Service
 public class ProductService implements ICrudServiceInterface<Product, Long> {
 
-    @Autowired
     private ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public Product create(Product product) {
