@@ -2,13 +2,13 @@ package com.mercadolibre.integrativeproject.services.interfaces;
 
 import java.util.List;
 
-/** Interface para InventaryRegisterService
+/** Interface para CustomerService
  *
  * @author Samuel Stalschus
  *
  * */
-public interface IInventaryRegister<T, J> {
+public interface ICustomerService<T, J> {
     T create(T t);
-    T findById(J id);
+    T getById(J id);
     List<T> getAll();
 }

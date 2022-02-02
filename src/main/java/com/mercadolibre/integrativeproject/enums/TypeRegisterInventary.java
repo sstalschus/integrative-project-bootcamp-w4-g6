@@ -5,6 +5,6 @@ package com.mercadolibre.integrativeproject.enums;
  * @author Samuel Stalschus
  *
  * */
-public enum RegisterInventaryType {
+public enum TypeRegisterInventary {
     DEBIT, CREDIT
 }
