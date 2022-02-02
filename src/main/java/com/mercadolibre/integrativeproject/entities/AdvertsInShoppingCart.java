@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @Builder
 public class AdvertsInShoppingCart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne

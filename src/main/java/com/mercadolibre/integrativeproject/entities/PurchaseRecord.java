@@ -21,7 +21,7 @@ import java.util.List;
 public class PurchaseRecord {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long orderNumber;

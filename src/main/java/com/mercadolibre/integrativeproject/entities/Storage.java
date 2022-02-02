@@ -17,7 +17,7 @@ import java.util.List;
 // id name address sectors
 public class Storage {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

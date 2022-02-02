@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class InventaryRegister {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.ORDINAL)

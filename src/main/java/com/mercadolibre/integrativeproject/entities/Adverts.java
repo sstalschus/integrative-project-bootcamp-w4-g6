@@ -17,7 +17,7 @@ import java.time.LocalDate;
 // Zipcode street district city state country
 public class Adverts {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

@@ -86,7 +86,7 @@ public class AdvertsInShoppingCartService implements IAdvertsInShoppingCart<Adve
      * */
     @Override
     public List<AdvertsInShoppingCart> getAllByShoppingCartId(Long shoppingCartId) {
-        shoppingCartService.findById(shoppingCartId);
+        shoppingCartService.getById(shoppingCartId);
         return advertsInShoppingCartRepository.findByShoppingCarId(shoppingCartId);
     }
 }
