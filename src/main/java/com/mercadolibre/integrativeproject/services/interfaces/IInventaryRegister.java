@@ -7,8 +7,8 @@ import java.util.List;
  * @author Samuel Stalschus
  *
  * */
-public interface IInventaryRegister<T, ID> {
+public interface IInventaryRegister<T, J> {
     T create(T t);
-    T findById(ID id);
+    T findById(J id);
     List<T> getAll();
 }

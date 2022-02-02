@@ -1,8 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.InventaryRegister;
-import com.mercadolibre.integrativeproject.entities.Sector;
-import com.mercadolibre.integrativeproject.enums.RegisterInventaryType;
+import com.mercadolibre.integrativeproject.enums.TypeRegisterInventary;
 import com.mercadolibre.integrativeproject.util.EnumValidator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +24,7 @@ import javax.validation.constraints.*;
 public class InventaryRegisterDTO {
 
     @EnumValidator(
-            enumClazz = RegisterInventaryType.class,
+            enumClazz = TypeRegisterInventary.class,
             message = "The transaction type must be CREDIT or DEBIT."
     )
     private String type;

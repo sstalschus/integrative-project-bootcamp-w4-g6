@@ -1,7 +1,7 @@
 package com.mercadolibre.integrativeproject.unit;
 
 import com.mercadolibre.integrativeproject.entities.InventaryRegister;
-import com.mercadolibre.integrativeproject.enums.RegisterInventaryType;
+import com.mercadolibre.integrativeproject.enums.TypeRegisterInventary;
 import com.mercadolibre.integrativeproject.repositories.InventaryRegisterRepository;
 import com.mercadolibre.integrativeproject.services.InventaryRegisterService;
 import org.junit.jupiter.api.Test;
@@ -21,13 +21,13 @@ public class InventaryRegisterServiceTest {
         InventaryRegister inventaryRegisterToSave = InventaryRegister.builder()
                 .id(1L)
                 .quantity(100)
-                .type(RegisterInventaryType.CREDIT)
+                .type(TypeRegisterInventary.CREDIT)
                 .build();
 
         InventaryRegister inventaryRegister = InventaryRegister.builder()
                 .id(1L)
                 .quantity(100)
-                .type(RegisterInventaryType.CREDIT)
+                .type(TypeRegisterInventary.CREDIT)
                 .build();
 
 
@@ -49,7 +49,7 @@ public class InventaryRegisterServiceTest {
         InventaryRegister inventaryRegister = InventaryRegister.builder()
                 .id(1L)
                 .quantity(100)
-                .type(RegisterInventaryType.CREDIT)
+                .type(TypeRegisterInventary.CREDIT)
                 .build();
 
         InventaryRegisterRepository mockInventaryRegisterRepository = Mockito.mock(InventaryRegisterRepository.class);
@@ -67,13 +67,13 @@ public class InventaryRegisterServiceTest {
         InventaryRegister inventaryRegister1 = InventaryRegister.builder()
                 .id(1L)
                 .quantity(100)
-                .type(RegisterInventaryType.CREDIT)
+                .type(TypeRegisterInventary.CREDIT)
                 .build();
 
         InventaryRegister inventaryRegister2 = InventaryRegister.builder()
                 .id(1L)
                 .quantity(100)
-                .type(RegisterInventaryType.CREDIT)
+                .type(TypeRegisterInventary.CREDIT)
                 .build();
 
         List<InventaryRegister> list = new ArrayList<>(Arrays.asList(inventaryRegister1, inventaryRegister2));
