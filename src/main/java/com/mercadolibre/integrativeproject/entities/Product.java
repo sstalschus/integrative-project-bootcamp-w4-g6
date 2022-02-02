@@ -1,13 +1,12 @@
 package com.mercadolibre.integrativeproject.entities;
 
+import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.util.EnumValidator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Builder
@@ -16,10 +15,16 @@ import javax.validation.constraints.NotNull;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     @NotNull
     private String name;
+
+    @Column
+    @Enumerated(EnumType.ORDINAL)
+    private CategoryProduct category;
+
     public Double getVolumn() {
         return volumn;
     }

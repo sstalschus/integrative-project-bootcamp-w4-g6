@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
@@ -55,6 +56,12 @@ public class ProductService implements ICrudServiceInterface<Product, Long> {
     public List<Product> getAll() {
         List<Product> productList = productRepository.findAll();
         if (productList.size() == 0) throw new NotFoundException("Products list not exist");
+        return productList;
+    }
+
+    public List<Product> getByCategory(CategoryProduct queryType){
+        List<Product> productList = productRepository.findByCategory(queryType);
+        if (productList.size() == 0) throw new NotFoundException("Product category not found");
         return productList;
     }
 

@@ -5,22 +5,15 @@ import com.mercadolibre.integrativeproject.entities.Responsible;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.entities.Storage;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
-import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
-import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import com.mercadolibre.integrativeproject.services.interfaces.ISectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Provider;
-import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Service de Setor
- *
+/** Service de Setor
  * @author Lorraine Mendes
- */
+ * */
 
 
 @Service
@@ -61,12 +54,7 @@ public class SectorService implements ISectorService<Sector, Long> {
 
     @Override
     public List<Sector> getAll() {
-        try {
             return sectorRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
     }
 
     @Override
@@ -76,11 +64,7 @@ public class SectorService implements ISectorService<Sector, Long> {
 
     @Override
     public void delete(Long sectorId) {
-        try {
             sectorRepository.deleteById(sectorId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public Sector getValidSectorOnStorage(Long id, Storage storage) {

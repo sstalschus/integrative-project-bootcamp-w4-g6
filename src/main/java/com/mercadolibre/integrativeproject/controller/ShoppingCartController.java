@@ -1,9 +1,8 @@
 package com.mercadolibre.integrativeproject.controller;
 
-import com.mercadolibre.integrativeproject.dtos.CreateCustomerDTO;
-import com.mercadolibre.integrativeproject.dtos.ProductDTO;
-import com.mercadolibre.integrativeproject.dtos.PucharseOrderDTO;
-import com.mercadolibre.integrativeproject.dtos.TotalPriceDTO;
+import com.mercadolibre.integrativeproject.dtos.*;
+import com.mercadolibre.integrativeproject.entities.AdvertsInShoppingCart;
+import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import com.mercadolibre.integrativeproject.services.ProductService;
 import com.mercadolibre.integrativeproject.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class ShoppingCartController {
     @Autowired
     ProductService productService;
 
-    /** Método usado para um carrinho, e anuncios no carrinho relacionados a um determinado cliente.
+    /** Método usado para criar um carrinho, e anuncios no carrinho relacionados a um determinado cliente.
      *
      * @author Samuel Stalschus
      *
@@ -42,6 +41,22 @@ public class ShoppingCartController {
         return ResponseEntity.status(HttpStatus.CREATED).body(TotalPriceDTO.builder().totalPrice(shoppingCartService.create(pucharseOrderDTO)).build());
     }
 
+    /** Método usado para retornar os produtos de um determinado pedido
+     *
+     * @author Samuel Stalschus
+     *
+     * @return Produtos de um pedido
+     *
+     * */
+    @GetMapping("/orders/{orderId}")
+    public ResponseEntity<List<AdvertsInShoppingCartDTO>> create(@Valid @PathVariable Long orderId) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                shoppingCartService.getProductsByShoppingCart(orderId)
+                        .stream()
+                        .map(AdvertsInShoppingCartDTO::convert)
+                        .collect(Collectors.toList()));
+    }
+
     /** Controller de registro de supplier.
      *
      * @author Jefferson Froes, Samuel Stalschus
@@ -51,5 +66,10 @@ public class ShoppingCartController {
     @GetMapping(value = "")
     public ResponseEntity<List<ProductDTO>> getAll() {
         return ResponseEntity.ok(productService.getAll().stream().map(ProductDTO::convert).collect(Collectors.toList()));
+    }
+
+    @GetMapping(value = "/list")
+    public ResponseEntity<List<ProductDTO>> getProductByCategory(@RequestParam CategoryProduct queryType) {
+        return ResponseEntity.ok(productService.getByCategory(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
     }
 }

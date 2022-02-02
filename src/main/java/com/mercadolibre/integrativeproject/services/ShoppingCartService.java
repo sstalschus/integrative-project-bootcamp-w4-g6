@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * */
 @Service
-public class ShoppingCartService implements IShoppingCartService<ShoppingCart, Long, PucharseOrderDTO> {
+public class ShoppingCartService implements IShoppingCartService<ShoppingCart, Long, PucharseOrderDTO, AdvertsInShoppingCart> {
 
     ShoppingCartRepository shoppingCartRepository;
 
@@ -82,7 +82,7 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
      *
      * */
     @Override
-    public ShoppingCart findById(Long id) throws NotFoundException {
+    public ShoppingCart getById(Long id) throws NotFoundException {
         return shoppingCartRepository.findById(id).orElseThrow(() -> new NotFoundException("Shopping Cart not found"));
     }
 
@@ -96,5 +96,17 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
     @Override
     public List<ShoppingCart> getAll() {
         return shoppingCartRepository.findAll();
+    }
+
+    /** Método usado para obter todos os produtos de um carrinho
+     *
+     * @author Samuel Stalschus
+     *
+     * @return Lista com todos os carrinhos de compras
+     *
+     * */
+    @Override
+    public List<AdvertsInShoppingCart> getProductsByShoppingCart(Long shoppingCartId) {
+       return this.getById(shoppingCartId).getAdvertsInShoppingCart();
     }
 }
