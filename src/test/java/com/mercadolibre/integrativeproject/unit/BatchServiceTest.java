@@ -4,8 +4,11 @@ package com.mercadolibre.integrativeproject.unit;
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
+import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.BatchService;
+import com.mercadolibre.integrativeproject.services.ProductService;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
@@ -14,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
 
 class BatchServiceTest {
 
@@ -99,6 +102,20 @@ class BatchServiceTest {
 
         Batch updated = batchServiceMock.update(batchAfter);
         assertEquals(batchAfter, updated);
+    }
+
+    @Test
+    void delete() {
+
+        BatchRepository bathBatchRepositoryMock = getBatchRepositoryMock();
+        BatchService batchServiceMock = getBatchServiceMock(bathBatchRepositoryMock);
+
+        ArgumentCaptor<Long> idToDeleteRepositoryMethod = ArgumentCaptor.forClass(Long.class);
+
+        doNothing().when(bathBatchRepositoryMock).deleteById(idToDeleteRepositoryMethod.capture());
+        batchServiceMock.delete(1L);
+
+        assertEquals(0L, idToDeleteRepositoryMethod.capture());
     }
 
     @Test
