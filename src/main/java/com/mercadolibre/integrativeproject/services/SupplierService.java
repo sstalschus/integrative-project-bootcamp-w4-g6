@@ -85,7 +85,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
     @Override
     public Supplier update(Supplier supplier) {
         Supplier supplierSaved = getById(supplier.getId());
-        return supplierRepository.setSupplierInfoById(supplier.getName(), supplier.getCnpj(),supplierSaved.getId());
+        return supplierRepository.setSupplierChangeAddress(supplier.getName(), supplier.getCnpj(), supplier.getAddress(), supplierSaved.getId());
     }
 
     /** Método usado para deletar o registro supplier.

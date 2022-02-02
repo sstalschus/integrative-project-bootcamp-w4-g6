@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * */
 @RestController
-@RequestMapping("/supplierregister")
+@RequestMapping("/supplier")
 public class SupplierController {
 
     @Autowired
@@ -31,11 +31,17 @@ public class SupplierController {
                 .body(SupplierDTO.convert(supplierService.create(supplier)));
     }
 
-    @PutMapping("/supplierupdate")
-    public ResponseEntity<?> update(@RequestBody SupplierDTO supplierDTO) {
+    @PutMapping("/")
+    public ResponseEntity<SupplierDTO> update(@RequestBody SupplierDTO supplierDTO) {
         Supplier supplier = SupplierDTO.convert(supplierDTO);
         supplierService.update(supplier);
         return ResponseEntity.status(204).body(null);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SupplierDTO> delete(@Valid @PathVariable Long id){
+        supplierService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @GetMapping("/all")

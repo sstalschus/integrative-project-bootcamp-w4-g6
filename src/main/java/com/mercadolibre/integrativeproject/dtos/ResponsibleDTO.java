@@ -32,10 +32,14 @@ public class ResponsibleDTO {
     private String name;
 
     @NotNull(message = "Employee Record is not null.")
-    @NotNull(message = "Employee Record is not empty.")
+    @NotEmpty(message = "Employee Record is not empty.")
     @Size(max = 5, message = "Employee Record cannot exceed 4 digites, them must be between 0-9 and 1 letter a-z.")
     @Pattern(regexp = "^\\d{4}[a-z\\d]$", message = "Employee Record must contain 4 digits between 0-9 and 1 letter a-z.")
     private String employeeRecord;
+
+    @NotNull(message = "Sector id is not null.")
+    @NotEmpty(message = "Sector id is not empty.")
+    private Long sectorId;
 
     /** Método utilizado para conversão do objetoDTO para objeto.
      *
@@ -46,7 +50,6 @@ public class ResponsibleDTO {
      * @return objeto convertido.
      *
      * */
-
     public static Responsible convert(ResponsibleDTO responsibleDTO){
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(responsibleDTO, Responsible.class);
@@ -61,7 +64,6 @@ public class ResponsibleDTO {
      * @return objeto convertido.
      *
      * */
-
     public static ResponsibleDTO convert(Responsible responsible){
         ModelMapper modelMapper = new ModelMapper();
         return  modelMapper.map(responsible, ResponsibleDTO.class);

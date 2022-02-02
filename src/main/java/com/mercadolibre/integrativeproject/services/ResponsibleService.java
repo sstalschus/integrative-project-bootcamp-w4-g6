@@ -1,9 +1,11 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Responsible;
+import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.ResponsibleRepository;
-import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
+import com.mercadolibre.integrativeproject.services.interfaces.IResponsibleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,7 +17,10 @@ import java.util.List;
  *
  * */
 @Service
-public class ResponsibleService implements ICrudServiceInterface<Responsible, Long> {
+public class ResponsibleService implements IResponsibleService<Responsible, Long> {
+
+    @Autowired
+    SectorService sectorService;
 
     ResponsibleRepository responsibleRepository;
 
@@ -33,13 +38,16 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      *
      * */
     @Override
-    public Responsible create(Responsible responsible) {
-        try{
+    public Responsible create(Responsible responsible, Long sectorId) {
+            Sector sector = sectorService.getById(sectorId);
+            responsible.setSector(sector);
             return responsibleRepository.save(responsible);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    }
+
+    @Override
+    public void update(Long responsibleId, Long sectorId) {
+        //Sector sector = sectorService.getById(sectorId);
+        responsibleRepository.setResponsibleChangeSector(responsibleId, sectorId);
     }
 
     /** Método usado para buscar um registro de responsible pelo id.
@@ -73,11 +81,7 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
         }
     }
 
-    @Override
-    public Responsible update(Responsible responsible) {
-        Responsible responsibleSaved = getById(responsible.getId());
-        return responsibleRepository.setResponsibleChangeSector(responsible.getSector().getId(), responsibleSaved.getId());
-    }
+
 
     /** Método usado para deletar o registro responsible.
      *
