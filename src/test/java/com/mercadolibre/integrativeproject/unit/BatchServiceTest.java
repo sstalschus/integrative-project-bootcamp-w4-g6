@@ -3,6 +3,7 @@ package com.mercadolibre.integrativeproject.unit;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.BatchService;
@@ -139,6 +140,7 @@ class BatchServiceTest {
         product.setId(1L);
         product.setName(name);
         product.setVolumn(10.0);
+        product.setCategory(CategoryProduct.FF);
         return product;
     }
 

@@ -44,6 +44,14 @@ public class Product {
         this.name = name;
     }
 
+    public CategoryProduct getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryProduct category) {
+        this.category = category;
+    }
+
     public Long getId() {
         return id;
     }
