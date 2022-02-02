@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-
 public class StorageService implements IStorageService<Storage, Long> {
 
     @Autowired
