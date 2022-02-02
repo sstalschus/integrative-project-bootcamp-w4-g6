@@ -1,5 +1,6 @@
 package com.mercadolibre.integrativeproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import java.util.List;
 // id name address sectors
 public class Storage {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -25,6 +26,7 @@ public class Storage {
     @Column
     private  String address;
 
+    @JsonBackReference
     @Column
     @OneToMany
     private List<Sector>  sectorsList ;

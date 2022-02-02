@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -42,6 +42,14 @@ public class Product {
     public Product(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public CategoryProduct getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryProduct category) {
+        this.category = category;
     }
 
     public Long getId() {

@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.unit;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.BatchService;
@@ -70,7 +71,7 @@ class ProductServiceTest {
         productsExpected.add(product1);
         productsExpected.add(product2);
 
-        ProductRepository productRepositoryMock = getProductRepositoryMock();
+        ProductRepository productRepositoryMock = Mockito.mock(ProductRepository.class);
         ProductService productServiceMock = getProductServiceMock(productRepositoryMock);
 
         Mockito.when(productRepositoryMock.findAll()).thenReturn(productsExpected);
@@ -123,6 +124,7 @@ class ProductServiceTest {
         product.setId(id);
         product.setName(name);
         product.setVolumn(10.0);
+        product.setCategory(CategoryProduct.FF);
         return product;
     }
 

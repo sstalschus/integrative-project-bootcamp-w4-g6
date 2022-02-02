@@ -66,8 +66,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      */
     @Override
     public Supplier update(Supplier supplier) {
-        Supplier supplierSaved = getById(supplier.getId());
-        return supplierRepository.setSupplierChangeAddress(supplier.getName(), supplier.getCnpj(), supplier.getAddress(), supplierSaved.getId());
+        return supplierRepository.save(supplier);
     }
 
     /**

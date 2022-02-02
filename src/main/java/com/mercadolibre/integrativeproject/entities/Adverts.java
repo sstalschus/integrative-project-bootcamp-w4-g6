@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 @Entity
@@ -16,38 +17,17 @@ import java.time.LocalDate;
 // Zipcode street district city state country
 public class Adverts {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     private String name;
 
+    @OneToOne
+    private Batch batch;
+
     private BigDecimal price;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getAdvertsDate() {
-        return advertsDate;
-    }
-
-    public void setAdvertsDate(LocalDate advertsDate) {
-        this.advertsDate = advertsDate;
-    }
-
-    private LocalDate advertsDate;
+    private LocalDate createdAt;
 
 }

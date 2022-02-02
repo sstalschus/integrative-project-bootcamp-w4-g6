@@ -8,15 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/inbound-order")
 public class InboundOrderController {
 
     @Autowired
     private InboundService inboundService;
-
-    @GetMapping(value = "/ping")
-    public String ping() {
-        return "pong";
-    }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody InboundOrderDTO inboundOrderDTO) {

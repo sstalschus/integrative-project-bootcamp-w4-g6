@@ -32,14 +32,14 @@ public class ResponsibleController {
     public ResponseEntity<ResponsibleDTO> create(@Valid @RequestBody ResponsibleDTO responsibleDTO) {
     Responsible responsible = ResponsibleDTO.convert(responsibleDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ResponsibleDTO.convert(responsibleService.create(responsible, responsibleDTO.getSectorId())));
+            .body(ResponsibleDTO.convert(responsibleService.create(responsible)));
     }
 
-    @PutMapping("/{responsibleId}/{sectorId}")
-    public ResponseEntity<Responsible> update(@PathVariable Long responsibleId, @PathVariable Long sectorId) {
-        responsibleService.update(responsibleId,sectorId);
-        return ResponseEntity.status(204).body(null);
-    }
+//    @PutMapping("/{responsibleId}/{sectorId}")
+//    public ResponseEntity<Responsible> update(@RequestBody Long responsibleId, @PathVariable Long sectorId) {
+//        responsibleService.changeSectorResponsible(responsibleId, sectorId);
+//        return ResponseEntity.status(204).body(null);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Responsible> delete(@Valid @PathVariable Long id){

@@ -22,6 +22,8 @@ public class InboundOrder {
 
     private Long warehouseCode;
 
+    private Responsible responsible;
+
     private List<Batch> batches = new ArrayList<>();
 
     public Long getOrderNumber() {
@@ -62,5 +64,13 @@ public class InboundOrder {
 
     public void setWarehouseCode(Long warehouseCode) {
         this.warehouseCode = warehouseCode;
+    }
+
+    public Responsible getResponsible() {
+        return responsible;
+    }
+
+    public void setResponsible(Responsible responsible) {
+        this.responsible = responsible;
     }
 }

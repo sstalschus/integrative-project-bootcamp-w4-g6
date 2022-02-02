@@ -15,8 +15,9 @@ import javax.validation.constraints.NotNull;
 @Builder
 // Zipcode street district city state country
 public class Address {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

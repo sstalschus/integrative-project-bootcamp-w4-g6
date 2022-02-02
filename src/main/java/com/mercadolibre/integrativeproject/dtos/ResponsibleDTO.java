@@ -37,8 +37,6 @@ public class ResponsibleDTO {
     @Pattern(regexp = "^\\d{4}[a-z\\d]$", message = "Employee Record must contain 4 digits between 0-9 and 1 letter a-z.")
     private String employeeRecord;
 
-    @NotNull(message = "Sector id is not null.")
-    @NotEmpty(message = "Sector id is not empty.")
     private Long sectorId;
 
     /** Método utilizado para conversão do objetoDTO para objeto.

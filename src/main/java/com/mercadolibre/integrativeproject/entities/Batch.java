@@ -15,9 +15,10 @@ import java.sql.Timestamp;
 public class Batch {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //    @OneToOne
-//    private Seller seller;
+    @OneToOne
+    private Supplier supplier;
     @NotNull
     @OneToOne
     private Product product;
@@ -33,7 +34,7 @@ public class Batch {
     @NotNull
     private Timestamp expirationDate;
     @NotNull
-    private Timestamp fabricationDate;
+        private Timestamp fabricationDate;
 
     private BigDecimal pricePerUnit;
 

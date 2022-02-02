@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.InboundOrder;
+import com.mercadolibre.integrativeproject.entities.Responsible;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,9 @@ public class InboundOrderDTO {
 
     @NotNull
     private SectionInboundOrderDTO sectionWharehouse;
+
+    @NotNull
+    private Long responsibleId;
 
     private List<BatchDTO> batch = new ArrayList<>();
 
@@ -52,15 +56,26 @@ public class InboundOrderDTO {
         return batch;
     }
 
+    public Long getResponsibleId() {
+        return responsibleId;
+    }
+
+    public void setResponsibleId(Long responsibleId) {
+        this.responsibleId = responsibleId;
+    }
+
     public void setBatch(List<BatchDTO> batch) {
         this.batch = batch;
     }
 
     public InboundOrder convert() {
         List<Batch> batches = batch.stream().map(BatchDTO::coverte).collect(Collectors.toList());
+        Responsible responsible = new Responsible();
+        responsible.setId(this.responsibleId);
         return InboundOrder.builder()
                 .orderDate(this.orderDate)
                 .orderNumber(this.orderNumber)
+                .responsible(responsible)
                 .sectionCode(this.sectionWharehouse.getSectionCode())
                 .warehouseCode(this.sectionWharehouse.getWarehouseCode())
                 .batches(batches)

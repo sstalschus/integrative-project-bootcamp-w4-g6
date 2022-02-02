@@ -4,9 +4,11 @@ import com.mercadolibre.integrativeproject.entities.Responsible;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.ResponsibleRepository;
-import com.mercadolibre.integrativeproject.services.interfaces.IResponsibleService;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
 
 /** Service para a entidade de registro de Responsible.
@@ -15,10 +17,10 @@ import java.util.List;
  *
  * */
 @Service
-public class ResponsibleService implements IResponsibleService<Responsible, Long> {
+public class ResponsibleService implements ICrudServiceInterface<Responsible, Long> {
 
-    @Autowired
-    SectorService sectorService;
+//    @Autowired
+//    SectorService sectorService;
 
     ResponsibleRepository responsibleRepository;
 
@@ -34,16 +36,13 @@ public class ResponsibleService implements IResponsibleService<Responsible, Long
      * @author Jefferson Froes
      */
     @Override
-    public Responsible create(Responsible responsible, Long sectorId) {
-        Sector sector = sectorService.getById(sectorId);
-        responsible.setSector(sector);
+    public Responsible create(Responsible responsible) {
         return responsibleRepository.save(responsible);
     }
 
     @Override
-    public void update(Long responsibleId, Long sectorId) {
-        //Sector sector = sectorService.getById(sectorId);
-        responsibleRepository.setResponsibleChangeSector(responsibleId, sectorId);
+    public Responsible update(Responsible responsible) {
+        return responsibleRepository.save(responsible);
     }
 
     /**
@@ -80,4 +79,18 @@ public class ResponsibleService implements IResponsibleService<Responsible, Long
     public void delete(Long responsibleId) {
         responsibleRepository.deleteById(responsibleId);
     }
+
+//    public Responsible changeSectorResponsible(Long responsibleId, Long sectorId) {
+//
+//        Responsible newResponsible = responsibleRepository.getById(responsibleId);
+//        Sector sector = sectorService.getById(sectorId);
+//        newResponsible.setSector(sector);
+//        sector.setResponsible(newResponsible);
+//        sector.getResponsible().setSector(null);
+//        update(sector.getResponsible());
+//        update(newResponsible);
+//        sectorService.update(sector);
+//
+//        return newResponsible;
+//    }
 }

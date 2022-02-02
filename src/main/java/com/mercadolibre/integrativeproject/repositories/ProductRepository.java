@@ -1,6 +1,5 @@
 package com.mercadolibre.integrativeproject.repositories;
 
-import com.mercadolibre.integrativeproject.entities.AdvertsInShoppingCart;
 import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import org.springframework.data.jpa.repository.JpaRepository;

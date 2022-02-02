@@ -24,6 +24,8 @@ public class ProductDTO {
     @Size(max = 30, min = 2, message = "Product name need contains 2 at 30 characters")
     private String name;
 
+    private Double volumn;
+
     @EnumValidator(
             enumClazz = CategoryProduct.class,
             message = "The category must be type: FRESH, CHILLED or FROZEN."
@@ -46,10 +48,19 @@ public class ProductDTO {
         this.name = name;
     }
 
+    public Double getVolumn() {
+        return volumn;
+    }
+
+    public void setVolumn(Double volumn) {
+        this.volumn = volumn;
+    }
+
     public Product convert() {
         return Product.builder()
                 .id(this.id)
                 .name(this.name)
+                .volumn(this.volumn)
                 .category(this.category).build();
     }
 
