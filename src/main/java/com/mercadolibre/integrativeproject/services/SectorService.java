@@ -29,12 +29,7 @@ public class SectorService implements ISectorService<Sector, Long> {
 
     @Override
     public Sector create(Sector sector){
-        try{
             return sectorRepository.save(sector);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -44,12 +39,7 @@ public class SectorService implements ISectorService<Sector, Long> {
 
     @Override
     public List<Sector> getAll() {
-        try {
             return sectorRepository.findAll();
-        } catch (Exception e)  {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
     }
 
     @Override
@@ -59,11 +49,7 @@ public class SectorService implements ISectorService<Sector, Long> {
 
     @Override
     public void delete(Long sectorId) {
-        try {
             sectorRepository.deleteById(sectorId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public Sector getValidSectorOnStorage(Long id, Storage storage) {

@@ -4,6 +4,7 @@ import com.mercadolibre.integrativeproject.dtos.CreateCustomerDTO;
 import com.mercadolibre.integrativeproject.dtos.ProductDTO;
 import com.mercadolibre.integrativeproject.dtos.PucharseOrderDTO;
 import com.mercadolibre.integrativeproject.dtos.TotalPriceDTO;
+import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import com.mercadolibre.integrativeproject.services.ProductService;
 import com.mercadolibre.integrativeproject.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,10 @@ public class ShoppingCartController {
     @GetMapping(value = "")
     public ResponseEntity<List<ProductDTO>> getAll() {
         return ResponseEntity.ok(productService.getAll().stream().map(ProductDTO::convert).collect(Collectors.toList()));
+    }
+
+    @GetMapping(value = "/list")
+    public ResponseEntity<List<ProductDTO>> getProductByCategory(@RequestParam CategoryProduct queryType) {
+        return ResponseEntity.ok(productService.getByCategory(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
     }
 }
