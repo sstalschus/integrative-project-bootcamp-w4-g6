@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
+import com.mercadolibre.integrativeproject.entities.Responsible;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.entities.Storage;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
@@ -14,9 +15,12 @@ import org.springframework.stereotype.Service;
 import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
-/** Service de Setor
+
+/**
+ * Service de Setor
+ *
  * @author Lorraine Mendes
- * */
+ */
 
 
 @Service
@@ -24,29 +28,43 @@ public class SectorService implements ISectorService<Sector, Long> {
 
     @Autowired
     private SectorRepository sectorRepository;
+
     @Autowired
     private BatchService batchService;
 
+    @Autowired
+    private StorageService storageService;
+
+    @Autowired
+    private ResponsibleService responsibleService;
+
     @Override
-    public Sector create(Sector sector){
-        try{
-            return sectorRepository.save(sector);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
+    public Sector create(Sector sector) {
+        Storage storage = storageService.getById(sector.getStorage().getId());
+        if (storage != null) {
+            Responsible responsible = responsibleService.getById(sector.getResponsible().getId());
+            sector.setStorage(storage);
+            sector.setResponsible(responsible);
+            Sector sectorSaved = sectorRepository.save(sector);
+            storage.getSectorsList().add(sectorSaved);
+            responsible.setSector(sector);
+            storageService.update(storage);
+            responsibleService.update(responsible);
+            return sectorSaved;
         }
+        throw new NotFoundException("Storage not found");
     }
 
     @Override
     public Sector getById(Long sectorId) {
-        return sectorRepository.findById(sectorId).orElseThrow(()->new NotFoundException("Sector not found"));
+        return sectorRepository.findById(sectorId).orElseThrow(() -> new NotFoundException("Sector not found"));
     }
 
     @Override
     public List<Sector> getAll() {
         try {
             return sectorRepository.findAll();
-        } catch (Exception e)  {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
@@ -71,7 +89,7 @@ public class SectorService implements ISectorService<Sector, Long> {
                 .filter(sec -> sec.getId().equals(id))
                 .findFirst().orElse(null);
 
-        if (sector == null){
+        if (sector == null) {
             throw new NotFoundException("Sector not found");
         }
         return sector;

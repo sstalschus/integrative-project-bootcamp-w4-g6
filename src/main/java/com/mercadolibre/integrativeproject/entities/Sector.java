@@ -1,10 +1,12 @@
 package com.mercadolibre.integrativeproject.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Entidade setor
@@ -27,12 +29,20 @@ public class Sector {
     @Column
     private String name;
 
+    @OneToOne
+    private Storage storage;
+
+    @OneToOne
+    @JsonBackReference
+    private Responsible responsible;
+
     @Column
     private String sectorType;
 
     @OneToMany
     @Column
-    private List<Batch> lots;
+    @JsonBackReference
+    private List<Batch> lots = new ArrayList<>();
 
     @Column
     private Double capacity;

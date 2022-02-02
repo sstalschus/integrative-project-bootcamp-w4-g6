@@ -15,11 +15,6 @@ public class BatchController {
     @Autowired
     private ICrudServiceInterface batchService;
 
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody BatchDTO batchDTO){
-        return ResponseEntity.ok(batchService.create(batchDTO.coverte()));
-    }
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
         return ResponseEntity.ok(batchService.getById(id));

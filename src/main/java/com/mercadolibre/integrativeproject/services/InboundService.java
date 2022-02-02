@@ -2,10 +2,12 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.*;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.InboundOrderRegisterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.SizeLimitExceededException;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -27,24 +29,45 @@ public class InboundService {
     private BatchService batchService;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private StorageService storageService;
+
+    @Autowired
+    private ResponsibleService responsibleService;
 
     public InboundOrder create(InboundOrder inboundOrder){
         Storage storage = storageService.getValidStorage(inboundOrder.getWarehouseCode());
 
         Sector sector = sectorService.getValidSectorOnStorage(inboundOrder.getSectionCode(), storage);
 
+        Responsible responsible = responsibleService.getById(inboundOrder.getResponsible().getId());
+
+        if (responsible.getId() == null || !sector.getResponsible().equals(responsible)) {
+            throw new RepositoryException("Representante nao pertence ao setor informado");
+        }
+
+        inboundOrder.setResponsible(responsible);
+
         verifyTemperatureInboundOrder(inboundOrder, sector);
 
+        inboundOrder.getBatches().forEach(batch -> {
+            batch.setProduct(productService.getById(batch.getProduct().getId()));
+            batch.setQuantity(batch.getInitialQuantity());
+        });
 
         if (sectorService.hasSectorCapacity(inboundOrder.getBatches(), sector)){
             inboundOrder.getBatches().forEach(batch -> {
-                batchService.create(batch);
+                Batch batchSaved = batchService.create(batch);
+                sector.getLots().add(batchSaved);
                 registerBatchPurchase(inboundOrder, batch);
             });
-        }
 
-        return null;
+            return inboundOrder;
+        } else {
+            throw new NotFoundException("Setor nao possui capacidade para comportar este lotes");
+        }
     }
 
     private void registerBatchPurchase(InboundOrder inboundOrder, Batch batch) {
@@ -54,6 +77,7 @@ public class InboundService {
         purchaseRecord.setOrderNumber(inboundOrder.getOrderNumber());
         purchaseRecord.setQuantity(batch.getInitialQuantity());
         purchaseRecord.setPrice(batch.getPricePerUnit());
+        purchaseRecord.setResponsible(inboundOrder.getResponsible());
         createInboundOrderRegistrer(purchaseRecord);
     }
 

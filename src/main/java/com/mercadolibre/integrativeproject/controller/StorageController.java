@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/storage")
@@ -20,17 +21,22 @@ public class StorageController {
 
     @PostMapping
     public ResponseEntity<StorageDTO> create(@Valid @RequestBody StorageDTO storageDTO) {
-        Storage storage = storageDTO.convert();
+        Storage storage = storageService.create(storageDTO.convert());
+        storageDTO.setId(storage.getId());
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(null);
+                .body(storageDTO);
     }
 
     @GetMapping
     public ResponseEntity<List<StorageDTO>> getAll() {
         List<Storage> storageAll = storageService.getAll();
+        List<StorageDTO> storageDTOList = storageAll.stream().map(storage -> {
+            StorageDTO storageDTO = new StorageDTO();
+            return storageDTO.convert(storage);
+        }).collect(Collectors.toList());
         return
                 ResponseEntity
                 .status(HttpStatus.OK)
-                .body(null);
+                .body(storageDTOList);
     }
 }

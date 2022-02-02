@@ -69,7 +69,17 @@ public class StorageDTO {
         return Storage.builder()
                 .id(this.id)
                 .name(this.name)
+                .address(this.address)
                 .sectorsList(this.sectorsList.stream().map(SectorDTO::convert).collect(Collectors.toList())).build();
+    }
+
+    public StorageDTO convert(Storage storage) {
+        this.address = storage.getAddress();
+        this.name = storage.getName();
+        List<SectorDTO> sectorDTOSList = storage.getSectorsList().stream().map(SectorDTO::convert).collect(Collectors.toList());
+        this.sectorsList = sectorDTOSList;
+        this.id = storage.getId();
+        return this;
     }
 //    public static Storage convert(StorageDTO storageDTO) {
 //        ModelMapper modelMapper = new ModelMapper();
