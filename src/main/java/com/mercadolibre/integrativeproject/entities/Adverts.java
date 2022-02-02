@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -20,6 +21,8 @@ public class Adverts {
 
     @NotNull
     private String name;
+
+    private BigDecimal price;
 
     public Long getId() {
         return id;
