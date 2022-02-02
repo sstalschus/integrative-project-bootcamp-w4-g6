@@ -12,4 +12,5 @@ public interface IShoppingCartService<T, J, I, K> {
     T getById(J id);
     List<T> getAll();
     List<K> getProductsByShoppingCart(J id);
+    void decrementProductByList(List<K> k);
 }
