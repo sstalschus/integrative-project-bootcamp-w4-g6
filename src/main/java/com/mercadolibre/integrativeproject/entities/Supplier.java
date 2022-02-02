@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.entities;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /** Entidade Supplier
  *
@@ -18,7 +19,7 @@ import javax.persistence.*;
 public class Supplier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
@@ -27,6 +28,7 @@ public class Supplier {
     @Column(unique = true)
     private String cnpj;
 
+    @NotNull
     @OneToOne
     private Address address;
 

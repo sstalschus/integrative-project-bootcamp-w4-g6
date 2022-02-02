@@ -1,14 +1,14 @@
 package com.mercadolibre.integrativeproject.repositories;
 
-import com.mercadolibre.integrativeproject.entities.InventaryRegister;
+import com.mercadolibre.integrativeproject.entities.ShoppingCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-/** Repository de registro de inventário
+/** Repository de carrinho de compras
  *
  * @author Samuel Stalschus
  *
  * */
 @Repository
-public interface InventaryRegisterRepository extends JpaRepository<InventaryRegister, Long> {
+public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
 }

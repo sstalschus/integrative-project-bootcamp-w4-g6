@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Adverts;
+import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.AdvertsRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IAdvertsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,7 @@ public class AdvertsService implements IAdvertsService<Adverts, Long> {
 
     @Override
     public Adverts getById(Long avertsId) {
-        try {
-            return advertsRepository.findById(avertsId).orElse(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return advertsRepository.findById(avertsId).orElseThrow(() -> new NotFoundException("Advert not found."));
     }
 
     @Override

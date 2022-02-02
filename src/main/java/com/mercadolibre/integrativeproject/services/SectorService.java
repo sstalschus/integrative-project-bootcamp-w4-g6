@@ -48,7 +48,6 @@ public class SectorService implements ISectorService<Sector, Long> {
             Sector sectorSaved = sectorRepository.save(sector);
             storage.getSectorsList().add(sectorSaved);
             responsible.setSector(sector);
-            storageService.update(storage);
             responsibleService.update(responsible);
             return sectorSaved;
         }
@@ -106,6 +105,4 @@ public class SectorService implements ISectorService<Sector, Long> {
         Double newUsedCapacitySector = volumnBatches + usedCapacitySector;
         return sector.getCapacity() >= newUsedCapacitySector;
     }
-
-
 }

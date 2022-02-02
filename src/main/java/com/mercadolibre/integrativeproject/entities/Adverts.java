@@ -20,6 +20,9 @@ public class Adverts {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    private String name;
+
     @OneToOne
     private Batch batch;
 

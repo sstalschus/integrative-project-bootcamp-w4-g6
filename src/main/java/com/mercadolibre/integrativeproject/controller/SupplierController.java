@@ -12,8 +12,13 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Controller de registro de supplier.
+ *
+ * @author Jefferson Froes
+ *
+ * */
 @RestController
-@RequestMapping("/supplierregister")
+@RequestMapping("/supplier")
 public class SupplierController {
 
     @Autowired
@@ -26,13 +31,20 @@ public class SupplierController {
                 .body(SupplierDTO.convert(supplierService.create(supplier)));
     }
 
-    @PutMapping("/supplierupdate/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody SupplierDTO supplierDTO) {
-        supplierService.update(SupplierDTO.convert(supplierDTO), id);
+    @PutMapping("/")
+    public ResponseEntity<SupplierDTO> update(@RequestBody SupplierDTO supplierDTO) {
+        Supplier supplier = SupplierDTO.convert(supplierDTO);
+        supplierService.update(supplier);
         return ResponseEntity.status(204).body(null);
     }
 
-    @GetMapping("")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SupplierDTO> delete(@Valid @PathVariable Long id){
+        supplierService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @GetMapping("/all")
     public ResponseEntity<List<SupplierDTO>> listAll() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(supplierService.getAll().stream().map(SupplierDTO::convert).collect(Collectors.toList()));

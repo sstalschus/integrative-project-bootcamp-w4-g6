@@ -32,12 +32,13 @@ public class NotFoundException extends ApiException{
     public NotFoundException(String message, Throwable e) {
         super(NOT_FOUND_CODE, message, HttpStatus.INTERNAL_SERVER_ERROR.value(), e);
     }
+
     /**
      * Creates a new instance, with provided cause and custom message.
      *
      * @param message custom message.
      */
     public NotFoundException(String message) {
-        super(NOT_FOUND_CODE, message, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        super(NOT_FOUND_CODE, message, HttpStatus.NOT_FOUND.value());
     }
 }

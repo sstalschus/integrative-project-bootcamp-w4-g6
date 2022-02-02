@@ -1,6 +1,6 @@
 package com.mercadolibre.integrativeproject.entities;
 
-import com.mercadolibre.integrativeproject.enums.RegisterInventaryType;
+import com.mercadolibre.integrativeproject.enums.TypeRegisterInventary;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +24,7 @@ public class InventaryRegister {
 
     @Enumerated(EnumType.ORDINAL)
     @Column
-    private RegisterInventaryType type;
+    private TypeRegisterInventary type;
 
     @NotNull
     @ManyToOne
