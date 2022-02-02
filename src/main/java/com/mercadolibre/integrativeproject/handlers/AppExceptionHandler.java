@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.handlers;
 
 import com.mercadolibre.integrativeproject.dtos.ErrorMessageDTO;
 import com.mercadolibre.integrativeproject.dtos.InvalidParamsDTO;
+import com.mercadolibre.integrativeproject.exceptions.MissingParamsException;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -51,11 +52,11 @@ public class AppExceptionHandler {
         return errors;
     }
 
-//    @ExceptionHandler(value = CreatePropertyException.class)
-//    protected ResponseEntity<Object> handlePersistencia(CreatePropertyException ex, WebRequest request) {
-//        return ResponseEntity.badRequest().body(new ErrorMessageDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
-//    }
-//
+    @ExceptionHandler(value = MissingParamsException.class)
+    protected ResponseEntity<Object> handlePersistencia(MissingParamsException ex, WebRequest request) {
+        return ResponseEntity.badRequest().body(new ErrorMessageDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value = NotFoundException.class)
     protected ResponseEntity<Object> handlePersistencia(NotFoundException ex, WebRequest request) {

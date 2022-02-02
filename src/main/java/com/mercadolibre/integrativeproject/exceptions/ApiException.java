@@ -1,6 +1,8 @@
 package com.mercadolibre.integrativeproject.exceptions;
 
-/** 
+import org.springframework.http.HttpStatus;
+
+/**
  * Exception containing relevant information for API errors.
  */
 public class ApiException extends RuntimeException {
