@@ -7,8 +7,9 @@ import java.util.List;
  * @author Samuel Stalschus
  *
  * */
-public interface IShoppingCartService<T, J, I> {
+public interface IShoppingCartService<T, J, I, K> {
     double create(I i);
-    T findById(J id);
+    T getById(J id);
     List<T> getAll();
+    List<K> getProductsByShoppingCart(J id);
 }
