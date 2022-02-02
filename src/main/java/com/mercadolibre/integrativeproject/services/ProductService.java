@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,21 +48,23 @@ public class ProductService implements ICrudServiceInterface<Product, Long> {
     @Override
     public Product getById(Long productId) {
 
-            return productRepository.findById(productId).orElse(null);
+        return productRepository.findById(productId).orElse(null);
     }
 
     @Override
     public List<Product> getAll() {
-            return productRepository.findAll();
+        List<Product> productList = productRepository.findAll();
+        if (productList.size() == 0) throw new NotFoundException("Products list not exist");
+        return productList;
     }
 
     @Override
     public Product update(Product product) {
-            return productRepository.save(product);
+        return productRepository.save(product);
     }
 
     @Override
     public void delete(Long productId) {
-            productRepository.deleteById(productId);
+        productRepository.deleteById(productId);
     }
 }
