@@ -39,12 +39,7 @@ public class PurchaseRecordService implements IPurchaseRecordService<PurchaseRec
 
     @Override
     public List<PurchaseRecord> getAll() {
-        try {
             return purchaseRecordRepository.findAll();
-        } catch (Exception e)  {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
     }
 
     @Override
