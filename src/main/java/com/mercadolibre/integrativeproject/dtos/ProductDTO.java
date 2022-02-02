@@ -1,6 +1,8 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Product;
+import org.modelmapper.ModelMapper;
+import org.springframework.ui.Model;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
@@ -39,4 +41,16 @@ public class ProductDTO {
                 .id(this.id)
                 .name(this.name).build();
     }
+
+    /** Controller de registro de supplier.
+     *
+     * @author Jefferson Froes, Samuel Stalschus.
+     *
+     * @return  retorna um ProductDTO.
+     * */
+    public static ProductDTO convert(Product product){
+        ModelMapper modelMapper = new ModelMapper();
+       return modelMapper.map(product, ProductDTO.class);
+    }
+
 }
