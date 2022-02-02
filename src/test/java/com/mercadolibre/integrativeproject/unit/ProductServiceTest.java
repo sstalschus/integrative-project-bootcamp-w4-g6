@@ -1,20 +1,26 @@
 package com.mercadolibre.integrativeproject.unit;
 
+import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
+import com.mercadolibre.integrativeproject.services.BatchService;
 import com.mercadolibre.integrativeproject.services.ProductService;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
 
 class ProductServiceTest {
 
     @Test
-    void create() {
+    void createSuccess() {
         String name = "PRODUCT 1";
         Product productBeforSave = getProductBeforSave(name);
         Product productAfterSave = getProductAfterSave(name, 1L);
@@ -27,6 +33,18 @@ class ProductServiceTest {
         Product product = productServiceMock.create(productBeforSave);
 
         assertEquals(productAfterSave, product);
+    }
+
+    @Test
+    void createNameNotFound() {
+        Product productBeforSave = getProductBeforSave(null);
+
+        ProductRepository productRepositoryMock = getProductRepositoryMock();
+        ProductService productServiceMock = getProductServiceMock(productRepositoryMock);
+
+        Product product = productServiceMock.create(productBeforSave);
+
+        assertNull(product);
     }
 
     @Test
@@ -60,6 +78,20 @@ class ProductServiceTest {
         List<Product> all = productServiceMock.getAll();
 
         assertEquals(2, all.size());
+    }
+
+    @Test
+    void delete() {
+
+        ProductRepository productRepositoryMock = getProductRepositoryMock();
+        ProductService productServiceMock = getProductServiceMock(productRepositoryMock);
+
+        ArgumentCaptor<Long> idToDeleteRepositoryMethod = ArgumentCaptor.forClass(Long.class);
+
+        doNothing().when(productRepositoryMock).deleteById(idToDeleteRepositoryMethod.capture());
+        productServiceMock.delete(1L);
+
+        assertEquals(0L, idToDeleteRepositoryMethod.capture());
     }
 
     @Test
