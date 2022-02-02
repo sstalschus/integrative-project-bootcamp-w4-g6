@@ -2,15 +2,14 @@ package com.mercadolibre.integrativeproject.services.interfaces;
 
 import java.util.List;
 
-public interface ISupplierService<T, ID> {
+public interface IResponsibleService<T, ID> {
 
-    T create(T t);
+    T create(T t, ID id);
 
     T getById(ID id);
-
     List<T> getAll();
 
-    void update(T t, ID id);
+    void update(ID id1, ID id2);
 
-    void delete(ID id);
+    void delete(ID t);
 }

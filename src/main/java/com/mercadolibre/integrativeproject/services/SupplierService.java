@@ -3,10 +3,8 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.Supplier;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.SupplierRepository;
-import com.mercadolibre.integrativeproject.services.interfaces.ISupplierService;
+import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /** Service para a entidade de registro de Supplier.
@@ -15,94 +13,71 @@ import java.util.List;
  *
  * */
 @Service
-public class SupplierService implements ISupplierService<Supplier, Long> {
+public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
 
     SupplierRepository supplierRepository;
 
-    public SupplierService(SupplierRepository supplierRepository){
+    public SupplierService(SupplierRepository supplierRepository) {
         this.supplierRepository = supplierRepository;
     }
 
-    /** Método usado para criar um novo registro de Supplier.
+    /**
+     * Método usado para criar um novo registro de Supplier.
      *
-     * @author Jefferson Froes
-     *
-     * @param  supplier - Registro de supplier.
-     *
+     * @param supplier - Registro de supplier.
      * @return Registro de supplier criado.
-     *
-     * */
+     * @author Jefferson Froes
+     */
     @Override
     public Supplier create(Supplier supplier) {
-        try{
-            return supplierRepository.save(supplier);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return supplierRepository.save(supplier);
     }
 
-    /** Método usado para pegar um registro de supplier pelo ID.
-     *
-     * @author Jefferson Froes
+    /**
+     * Método usado para pegar um registro de supplier pelo ID.
      *
      * @param supplierId - Id do registro de supplier.
-     *
      * @return Registro de suppler criado.
-     *
      * @throws NotFoundException - por id não encontrado.
-     *
-     * */
+     * @author Jefferson Froes
+     */
     @Override
     public Supplier getById(Long supplierId) {
         return supplierRepository.findById(supplierId).orElseThrow(() -> new NotFoundException("Id not Found"));
     }
 
-    /** Método usado para pegar todos os registros de supplier.
-     *
-     * @author Jefferson Froes
+    /**
+     * Método usado para pegar todos os registros de supplier.
      *
      * @return Lista com os registros de supplier.
-     *
-     * */
+     * @author Jefferson Froes
+     */
     @Override
     public List<Supplier> getAll() {
-        try {
-            return supplierRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
+        return supplierRepository.findAll();
     }
 
-    /** Método usado para atualizar o registro supplier.
-     *
-     * @author Jefferson Froes
+    /**
+     * Método usado para atualizar o registro supplier.
      *
      * @param supplier - objeto que recebe os dados.
-     *
-     * @param supplierId - id do objeto a ser atualizado
-     *
-     * */
+     *                 - id do objeto a ser atualizado
+     * @author Jefferson Froes
+     */
     @Override
-    public void update(Supplier supplier, Long supplierId) {
-        Supplier supplierSaved = getById(supplierId);
-        supplierRepository.setSupplierInfoById(supplier.getName(), supplier.getCnpj(), supplierSaved.getId());
+    public Supplier update(Supplier supplier) {
+        Supplier supplierSaved = getById(supplier.getId());
+        return supplierRepository.setSupplierChangeAddress(supplier.getName(), supplier.getCnpj(), supplier.getAddress(), supplierSaved.getId());
     }
 
-    /** Método usado para deletar o registro supplier.
-     *
-     * @author Jefferson Froes.
+    /**
+     * Método usado para deletar o registro supplier.
      *
      * @param supplierId - id do objeto a ser deletado.
-     *
-     * */
+     * @author Jefferson Froes.
+     */
     @Override
     public void delete(Long supplierId) {
-        try {
-            supplierRepository.deleteById(supplierId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        supplierRepository.deleteById(supplierId);
     }
 }
