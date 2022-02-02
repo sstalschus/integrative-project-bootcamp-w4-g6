@@ -12,8 +12,11 @@ import java.util.List;
 @Service
 public class ProductService implements ICrudServiceInterface<Product, Long> {
 
-    @Autowired
     private ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public Product create(Product product) {
@@ -44,41 +47,21 @@ public class ProductService implements ICrudServiceInterface<Product, Long> {
     @Override
     public Product getById(Long productId) {
 
-        try {
             return productRepository.findById(productId).orElse(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
     public List<Product> getAll() {
-        try {
             return productRepository.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
     }
 
     @Override
     public Product update(Product product) {
-        try {
             return productRepository.save(product);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
     public void delete(Long productId) {
-        try {
             productRepository.deleteById(productId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 }
