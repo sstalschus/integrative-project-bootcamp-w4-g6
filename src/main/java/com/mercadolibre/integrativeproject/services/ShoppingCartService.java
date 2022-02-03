@@ -69,6 +69,10 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
 
         shoppingCar.setAdvertsInShoppingCart(advertsInShoppingCartsCreated);
 
+        shoppingCartRepository.save(shoppingCar);
+
+        decrementProductByList(advertsInShoppingCartsCreated);
+
         return advertsInShoppingCarts.stream().mapToDouble(advertInShopCart -> advertInShopCart.getAdvert().getPrice().doubleValue()).sum();
     }
 
@@ -134,5 +138,15 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
     private ShoppingCart addOrderOnCart(AdvertsInShoppingCart advertsInShoppingCart, ShoppingCart shoppingCart){
         shoppingCart.getAdvertsInShoppingCart().add(advertsInShoppingCart);
         return shoppingCart;
+    }
+
+    /** Método usado para fazer o decrement de uma lista de produtos que esteja sendo colocada no carrinho
+     *
+     * @author Samuel Stalschus
+     *
+     * */
+    @Override
+    public void decrementProductByList(List<AdvertsInShoppingCart> advertsInShoppingCart) {
+        advertsInShoppingCart.forEach(advert -> advert.getAdvert().getBatch().sellProductOnBatch(Long.valueOf((advert.getQuantity()))));
     }
 }
