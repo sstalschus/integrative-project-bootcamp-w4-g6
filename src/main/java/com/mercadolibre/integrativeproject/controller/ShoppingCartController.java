@@ -2,12 +2,15 @@ package com.mercadolibre.integrativeproject.controller;
 
 import com.mercadolibre.integrativeproject.dtos.*;
 import com.mercadolibre.integrativeproject.entities.AdvertsInShoppingCart;
+import com.mercadolibre.integrativeproject.entities.ShoppingCart;
+import com.mercadolibre.integrativeproject.entities.UpdateCartShopping;
 import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import com.mercadolibre.integrativeproject.services.ProductService;
 import com.mercadolibre.integrativeproject.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -71,5 +74,12 @@ public class ShoppingCartController {
     @GetMapping(value = "/list")
     public ResponseEntity<List<ProductDTO>> getProductByCategory(@RequestParam CategoryProduct queryType) {
         return ResponseEntity.ok(productService.getByCategory(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
+    }
+
+
+    @PutMapping(value = "/update-cart")
+    public ResponseEntity<?> updateOrdersOnCart(@RequestParam Long cartId, @Nullable Long deleteOrder, @Nullable @RequestBody AdvertsInShoppingCart advertsInShoppingCart) {
+        ShoppingCartDTO shoppingCartDTO = ShoppingCartDTO.convert(shoppingCartService.updateOrdersCart(new UpdateCartShopping(cartId, deleteOrder, advertsInShoppingCart)));
+        return ResponseEntity.status(200).body(shoppingCartDTO);
     }
 }

@@ -31,4 +31,6 @@ public class ShoppingCart {
 
     @OneToMany
     private List<AdvertsInShoppingCart> advertsInShoppingCart;
+
+
 }
