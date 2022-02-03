@@ -16,6 +16,8 @@ public class StorageService implements IStorageService<Storage, Long> {
 
     @Autowired
     private  StorageRepository storageRepository;
+
+
     @Override
     public Storage create(Storage storage) {
         try {

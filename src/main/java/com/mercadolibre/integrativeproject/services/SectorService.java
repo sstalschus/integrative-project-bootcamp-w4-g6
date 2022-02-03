@@ -99,8 +99,9 @@ public class SectorService implements ISectorService<Sector, Long> {
             getSectorsWithProductIdOnStorage(productId, productPerStorageList, storage, ordination);
         });
 
-        SortProductPerStorage.valueOf(ordination).sort(productPerStorageList);
-
+        if(ordination != null) {
+            SortProductPerStorage.valueOf(ordination).sort(productPerStorageList);
+        }
         return productPerStorageList;
     }
 
@@ -126,5 +127,23 @@ public class SectorService implements ISectorService<Sector, Long> {
             ProductPerSector productPerSector = new ProductPerSector(sector, batches);
             productPerSectors.add(productPerSector);
         }
+    }
+
+    public List<AmountProductPerStorage> getAmountProductPerStorage(Long productId){
+        List<AmountProductPerStorage> amountProductPerStorages = new ArrayList<>();
+        List<ProductPerStorage> productPerStorages = listProductPerSectorOnAllStorage(productId, null);
+        Product product = new Product();
+        product.setId(productId);
+        productPerStorages.forEach(productPerStorage -> {
+            Long amount = productPerStorage.getProductPerSectorList().stream().mapToLong(productPerSector ->
+                productPerSector.getSector().getLots().stream().mapToLong(Batch::getQuantity).sum()
+            ).sum();
+            AmountProductPerStorage amountProductPerStorage = new AmountProductPerStorage();
+            amountProductPerStorage.setStorage(productPerStorage.getStorage());
+            amountProductPerStorage.setQuantity(amount);
+            amountProductPerStorage.setProduct(product);
+            amountProductPerStorages.add(amountProductPerStorage);
+        });
+        return amountProductPerStorages;
     }
 }
