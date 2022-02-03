@@ -8,6 +8,7 @@ import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.BatchService;
 import com.mercadolibre.integrativeproject.services.ProductService;
+import com.mercadolibre.integrativeproject.services.SectorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -132,7 +133,7 @@ class BatchServiceTest {
 
 
     private BatchService getBatchServiceMock(BatchRepository batchRepository) {
-        return new BatchService(batchRepository);
+        return new BatchService(batchRepository, new SectorService());
     }
 
     private Product getProduct(String name) {
