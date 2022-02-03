@@ -25,20 +25,11 @@ public class AdvertsService implements IAdvertsService<Adverts, Long> {
 
     @Override
     public Adverts update(Adverts averts) {
-        try {
-            return advertsRepository.save(averts);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return advertsRepository.save(averts);
     }
 
     @Override
     public void delete(Long advertsId) {
-        try {
-            advertsRepository.deleteById(advertsId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        advertsRepository.deleteById(advertsId);
     }
 }

@@ -1,15 +1,16 @@
 package com.mercadolibre.integrativeproject.services;
 
-import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.entities.*;
 import com.mercadolibre.integrativeproject.enums.CategoryProduct;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ProductService implements ICrudServiceInterface<Product, Long> {

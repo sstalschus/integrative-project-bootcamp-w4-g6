@@ -1,16 +1,18 @@
 package com.mercadolibre.integrativeproject.services;
 
-import com.mercadolibre.integrativeproject.entities.Batch;
-import com.mercadolibre.integrativeproject.entities.Responsible;
-import com.mercadolibre.integrativeproject.entities.Sector;
-import com.mercadolibre.integrativeproject.entities.Storage;
+import com.mercadolibre.integrativeproject.entities.*;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ISectorService;
+import com.mercadolibre.integrativeproject.services.strategies.SortProductPerStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /** Service de Setor
  * @author Lorraine Mendes
  * */
@@ -40,7 +42,6 @@ public class SectorService implements ISectorService<Sector, Long> {
             sector.setResponsible(responsible);
             Sector sectorSaved = sectorRepository.save(sector);
             storage.getSectorsList().add(sectorSaved);
-            responsible.setSector(sector);
             responsibleService.update(responsible);
             return sectorSaved;
         }
@@ -88,5 +89,42 @@ public class SectorService implements ISectorService<Sector, Long> {
         Double usedCapacitySector = calcVolumn(sector);
         Double newUsedCapacitySector = volumnBatches + usedCapacitySector;
         return sector.getCapacity() >= newUsedCapacitySector;
+    }
+
+    public List<ProductPerStorage> listProductPerSectorOnAllStorage(Long productId, String ordination) {
+        List<Storage> allStorage = storageService.getAll();
+        List<ProductPerStorage> productPerStorageList = new ArrayList<>();
+
+        allStorage.forEach(storage -> {
+            getSectorsWithProductIdOnStorage(productId, productPerStorageList, storage, ordination);
+        });
+
+        SortProductPerStorage.valueOf(ordination).sort(productPerStorageList);
+
+        return productPerStorageList;
+    }
+
+    private void getSectorsWithProductIdOnStorage(Long productId, List<ProductPerStorage> productPerStorageList, Storage storage, String ordination) {
+        List<ProductPerSector> productPerSectors = getProductPerSectors(productId, storage);
+        if (!productPerSectors.isEmpty()) {
+            ProductPerStorage productPerStorage = new ProductPerStorage(storage, productPerSectors);
+            productPerStorageList.add(productPerStorage);
+        }
+    }
+
+    private List<ProductPerSector> getProductPerSectors(Long productId, Storage storage) {
+        List<ProductPerSector> productPerSectors = new ArrayList<>();
+        storage.getSectorsList().forEach(sector -> {
+            getBatchesWithProductId(productId, productPerSectors, sector);
+        });
+        return productPerSectors;
+    }
+
+    private void getBatchesWithProductId(Long productId, List<ProductPerSector> productPerSectors, Sector sector) {
+        List<Batch> batches = sector.getLots().stream().filter(batch -> batch.getProduct().getId().equals(productId)).collect(Collectors.toList());
+        if (!batches.isEmpty()) {
+            ProductPerSector productPerSector = new ProductPerSector(sector, batches);
+            productPerSectors.add(productPerSector);
+        }
     }
 }

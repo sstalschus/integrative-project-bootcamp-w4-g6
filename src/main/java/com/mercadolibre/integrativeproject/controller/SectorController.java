@@ -1,8 +1,8 @@
 package com.mercadolibre.integrativeproject.controller;
 
-import com.mercadolibre.integrativeproject.dtos.InventaryRegisterDTO;
-import com.mercadolibre.integrativeproject.dtos.PurchaseRecordDTO;
-import com.mercadolibre.integrativeproject.dtos.SectorDTO;
+import com.mercadolibre.integrativeproject.dtos.*;
+import com.mercadolibre.integrativeproject.entities.ProductPerSector;
+import com.mercadolibre.integrativeproject.entities.ProductPerStorage;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.services.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,15 @@ public class SectorController {
     public ResponseEntity<List<SectorDTO>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(
                 sectorService.getAll().stream().map(SectorDTO::convert).collect(Collectors.toList())
+        );
+    }
+
+    @GetMapping(value="/product-list")
+    public ResponseEntity<List<ProductPerStorageDTO>> getListProductsInStorages(@RequestParam Long productId, @RequestParam String ordination) {
+        List<ProductPerStorage> productPerStorages = sectorService.listProductPerSectorOnAllStorage(productId, ordination);
+        return ResponseEntity.ok(productPerStorages.stream()
+                .map(ProductPerStorageDTO::convert)
+                .collect(Collectors.toList())
         );
     }
 }

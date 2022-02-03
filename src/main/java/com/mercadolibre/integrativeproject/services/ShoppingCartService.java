@@ -4,12 +4,14 @@ import com.mercadolibre.integrativeproject.dtos.PucharseOrderDTO;
 import com.mercadolibre.integrativeproject.entities.AdvertsInShoppingCart;
 import com.mercadolibre.integrativeproject.entities.Customer;
 import com.mercadolibre.integrativeproject.entities.ShoppingCart;
+import com.mercadolibre.integrativeproject.entities.UpdateCartShopping;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.ShoppingCartRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IShoppingCartService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /** Service de carrinho de compras
@@ -112,6 +114,30 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
     @Override
     public List<AdvertsInShoppingCart> getProductsByShoppingCart(Long shoppingCartId) {
        return this.getById(shoppingCartId).getAdvertsInShoppingCart();
+    }
+
+    public ShoppingCart updateOrdersCart(UpdateCartShopping updateCartShopping) {
+        ShoppingCart shoppingCart = shoppingCartRepository.getById(updateCartShopping.getCartId());
+        if (updateCartShopping.getOrderToDelete() != null) {
+            removeOrderOnCart(shoppingCart, updateCartShopping.getOrderToDelete());
+        }
+
+        if (updateCartShopping.getAdvertsInShoppingCart() != null) {
+            addOrderOnCart(updateCartShopping.getAdvertsInShoppingCart(), shoppingCart);
+        }
+
+        return shoppingCart;
+    }
+
+    private List<AdvertsInShoppingCart> removeOrderOnCart(ShoppingCart shoppingCart, Long orderId) {
+        return shoppingCart.getAdvertsInShoppingCart().stream()
+                .filter(advertsInShoppingCart -> !Objects.equals(advertsInShoppingCart.getId(), orderId))
+                .collect(Collectors.toList());
+    }
+
+    private ShoppingCart addOrderOnCart(AdvertsInShoppingCart advertsInShoppingCart, ShoppingCart shoppingCart){
+        shoppingCart.getAdvertsInShoppingCart().add(advertsInShoppingCart);
+        return shoppingCart;
     }
 
     /** Método usado para fazer o decrement de uma lista de produtos que esteja sendo colocada no carrinho
