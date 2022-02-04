@@ -1,7 +1,7 @@
 package com.mercadolibre.integrativeproject.repositories;
 
 import com.mercadolibre.integrativeproject.entities.Product;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +13,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Modifying
     @Query("select p from Product p where p.category = ?1")
-    List<Product> findByCategory(CategoryProduct queryType);
+    List<Product> findByCategory(StorageType queryType);
 }

@@ -2,7 +2,7 @@ package com.mercadolibre.integrativeproject.dtos;
 
 
 import com.mercadolibre.integrativeproject.entities.Batch;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 public class BatchStockDTO {
     private Long batchNumber;
     private Long productId;
-    private CategoryProduct productTypeId;
+    private StorageType productTypeId;
     private Timestamp dueDate;
     private Long quantity;
 

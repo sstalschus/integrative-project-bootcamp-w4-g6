@@ -1,18 +1,15 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Product;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
-import com.mercadolibre.integrativeproject.enums.TypeRegisterInventary;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.util.EnumValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.ui.Model;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.security.PrivilegedAction;
 
 public class ProductDTO {
 
@@ -27,10 +24,10 @@ public class ProductDTO {
     private Double volumn;
 
     @EnumValidator(
-            enumClazz = CategoryProduct.class,
+            enumClazz = StorageType.class,
             message = "The category must be type: FRESH, CHILLED or FROZEN."
     )
-    private CategoryProduct category;
+    private StorageType category;
 
     public Long getId() {
         return id;

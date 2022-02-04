@@ -2,13 +2,11 @@ package com.mercadolibre.integrativeproject.controller;
 
 import com.mercadolibre.integrativeproject.dtos.*;
 import com.mercadolibre.integrativeproject.entities.AdvertsInShoppingCart;
-import com.mercadolibre.integrativeproject.entities.ShoppingCart;
 import com.mercadolibre.integrativeproject.entities.UpdateCartShopping;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.services.BatchService;
 import com.mercadolibre.integrativeproject.services.ProductService;
 import com.mercadolibre.integrativeproject.services.ShoppingCartService;
-import com.mercadolibre.integrativeproject.services.interfaces.BathServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,7 +75,7 @@ public class ShoppingCartController {
     }
 
     @GetMapping(value = "/list")
-    public ResponseEntity<List<ProductDTO>> getProductByCategory(@RequestParam CategoryProduct queryType) {
+    public ResponseEntity<List<ProductDTO>> getProductByCategory(@RequestParam StorageType queryType) {
         return ResponseEntity.ok(productService.getByCategory(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
     }
 
