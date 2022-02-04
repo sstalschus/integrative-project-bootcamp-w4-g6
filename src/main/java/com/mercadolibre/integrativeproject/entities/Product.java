@@ -1,6 +1,6 @@
 package com.mercadolibre.integrativeproject.entities;
 
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -22,7 +22,7 @@ public class Product {
 
     @Column
     @Enumerated(EnumType.ORDINAL)
-    private CategoryProduct category;
+    private StorageType category;
 
     public Double getVolumn() {
         return volumn;
@@ -43,11 +43,11 @@ public class Product {
         this.name = name;
     }
 
-    public CategoryProduct getCategory() {
+    public StorageType getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryProduct category) {
+    public void setCategory(StorageType category) {
         this.category = category;
     }
 

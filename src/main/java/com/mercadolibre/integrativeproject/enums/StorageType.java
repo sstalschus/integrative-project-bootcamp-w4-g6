@@ -1,5 +1,5 @@
 package com.mercadolibre.integrativeproject.enums;
 
-public enum CategoryProduct {
+public enum StorageType {
     FS, RF, FF;
 }

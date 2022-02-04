@@ -146,7 +146,7 @@ public class BatchDTO {
                 .setQuantity(this.quantity)
                 .setCurrentTemperature(this.currentTemperature)
                 .setMinimumTemperature(this.minimumTemperature)
-                .setMark(this.mark)
+                .setBrand(this.mark)
                 .setExpirationDate(this.expirationDate)
                 .setFabricationDate(this.fabricationDate)
                 .setPricePerUnit(this.pricePerUnit);
@@ -159,7 +159,7 @@ public class BatchDTO {
         setQuantity(batch.getQuantity());
         setCurrentTemperature(batch.getCurrentTemperature());
         setMinimumTemperature(batch.getMinimumTemperature());
-        setMark(batch.getMark());
+        setMark(batch.getBrand());
         setExpirationDate(batch.getExpirationDate());
         setFabricationDate(batch.getFabricationDate());
         setPricePerUnit(batch.getPricePerUnit());

@@ -1,7 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Product;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.util.EnumValidator;
 import org.modelmapper.ModelMapper;
 
@@ -23,10 +23,10 @@ public class ProductDTO {
     private Double volumn;
 
     @EnumValidator(
-            enumClazz = CategoryProduct.class,
+            enumClazz = StorageType.class,
             message = "The category must be type: FRESH, CHILLED or FROZEN."
     )
-    private CategoryProduct category;
+    private String category;
 
     public Long getId() {
         return id;
@@ -44,14 +44,6 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public CategoryProduct getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryProduct category) {
-        this.category = category;
-    }
-
     public Double getVolumn() {
         return volumn;
     }
@@ -60,12 +52,20 @@ public class ProductDTO {
         this.volumn = volumn;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public Product convert() {
         return Product.builder()
                 .id(this.id)
                 .name(this.name)
                 .volumn(this.volumn)
-                .category(this.category).build();
+                .category(StorageType.valueOf(category)).build();
     }
 
     /** Controller de registro de supplier.

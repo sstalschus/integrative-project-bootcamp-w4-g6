@@ -4,10 +4,9 @@ import com.mercadolibre.integrativeproject.entities.InventaryRegister;
 import com.mercadolibre.integrativeproject.entities.Responsible;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.entities.Storage;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.mercadolibre.integrativeproject.enums.StorageType;
+import com.mercadolibre.integrativeproject.util.EnumValidator;
+import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotEmpty;
@@ -26,6 +25,7 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class SectorDTO {
 
     private Long id;
@@ -40,11 +40,6 @@ public class SectorDTO {
 
     private Long responsibleId;
 
-    @NotNull(message = "O campo não pode estar vazio")
-    @NotEmpty(message = "O campo não pode estar vazio")
-    @Size(max = 20, message = "O comprimento do comodo não pode exceder 20 caracteres.")
-    private String sectorType;
-
     private List<BatchDTO> lots = new ArrayList<>();
 
     @NotNull(message = "O campo não pode estar vazio")
@@ -52,6 +47,12 @@ public class SectorDTO {
 
     @NotNull(message = "O campo não pode estar vazio")
     private Double temperature;
+
+    @EnumValidator(
+            enumClazz = StorageType.class,
+            message = "The category must be type: FRESH, CHILLED or FROZEN."
+    )
+    private String category;
 
 
     public Sector convert() {
@@ -62,17 +63,25 @@ public class SectorDTO {
         return Sector.builder()
                 .id(this.id)
                 .name(this.name)
-                .sectorType(this.sectorType)
                 .lots(lots.stream().map(BatchDTO::coverte).collect(Collectors.toList()))
                 .capacity(this.capacity)
                 .responsible(responsible)
                 .storage(storage)
+                .sectorType(StorageType.valueOf(category))
                 .temperature(this.temperature)
                 .build();
     }
 
     public static SectorDTO convert(Sector sector) {
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(sector, SectorDTO.class);
+            return SectorDTO.builder()
+                .id(sector.getId())
+                .name(sector.getName())
+                .lots(sector.getLots().stream().map(batch -> new BatchDTO().convert(batch)).collect(Collectors.toList()))
+                .capacity(sector.getCapacity())
+                .responsibleId(sector.getResponsible().getId())
+                .storageID(sector.getStorage().getId())
+                .category(sector.getSectorType().name())
+                .temperature(sector.getTemperature())
+                .build();
     }
 }

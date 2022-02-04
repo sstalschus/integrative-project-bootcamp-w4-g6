@@ -3,11 +3,9 @@ package com.mercadolibre.integrativeproject.unit;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
-import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.BatchService;
-import com.mercadolibre.integrativeproject.services.ProductService;
 import com.mercadolibre.integrativeproject.services.SectorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -141,7 +139,7 @@ class BatchServiceTest {
         product.setId(1L);
         product.setName(name);
         product.setVolumn(10.0);
-        product.setCategory(CategoryProduct.FF);
+        product.setCategory(StorageType.FF);
         return product;
     }
 
@@ -171,7 +169,7 @@ class BatchServiceTest {
         batch1BeforeCreate.setQuantity(100L);
         batch1BeforeCreate.setCurrentTemperature(3.1);
         batch1BeforeCreate.setMinimumTemperature(4.0);
-        batch1BeforeCreate.setMark("Marca teste");
+        batch1BeforeCreate.setBrand("Marca teste");
         batch1BeforeCreate.setExpirationDate(new Timestamp(1643727600000L));
         batch1BeforeCreate.setFabricationDate(new Timestamp(1609513200000L));
         batch1BeforeCreate.setPricePerUnit(new BigDecimal("10.2"));
@@ -196,7 +194,7 @@ class BatchServiceTest {
         resultGetById.setQuantity(100L);
         resultGetById.setCurrentTemperature(3.1);
         resultGetById.setMinimumTemperature(4.0);
-        resultGetById.setMark("Marca teste");
+        resultGetById.setBrand("Marca teste");
         resultGetById.setExpirationDate(new Timestamp(1643727600000L));
         resultGetById.setFabricationDate(new Timestamp(1609513200000L));
         resultGetById.setPricePerUnit(new BigDecimal("10.2"));

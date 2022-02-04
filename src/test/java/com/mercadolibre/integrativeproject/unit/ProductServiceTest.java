@@ -1,11 +1,8 @@
 package com.mercadolibre.integrativeproject.unit;
 
-import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
-import com.mercadolibre.integrativeproject.repositories.BatchRepository;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
-import com.mercadolibre.integrativeproject.services.BatchService;
 import com.mercadolibre.integrativeproject.services.ProductService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -13,7 +10,6 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
@@ -124,7 +120,7 @@ class ProductServiceTest {
         product.setId(id);
         product.setName(name);
         product.setVolumn(10.0);
-        product.setCategory(CategoryProduct.FF);
+        product.setCategory(StorageType.FF);
         return product;
     }
 

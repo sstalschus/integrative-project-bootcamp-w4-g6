@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,7 +38,8 @@ public class Sector {
     private Responsible responsible;
 
     @Column
-    private String sectorType;
+    @Enumerated(EnumType.STRING)
+    private StorageType sectorType;
 
     @OneToMany
     @Column

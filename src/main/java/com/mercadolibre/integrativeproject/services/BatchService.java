@@ -2,15 +2,12 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Sector;
-import com.mercadolibre.integrativeproject.enums.CategoryProduct;
+import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
-import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.BathServiceInterface;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.sql.Timestamp;
@@ -87,10 +84,10 @@ public class BatchService implements ICrudServiceInterface<Batch, Long>, BathSer
      * @return Lista de lotes com base na data de validade e categoria
      *
      * */
-    public List<Batch> getBatchesByProductCategoyAndDueDate(Integer numberOfDays, CategoryProduct category, boolean asc){
+    public List<Batch> getBatchesByProductCategoyAndDueDate(Integer numberOfDays, StorageType category, boolean asc){
         List<Batch> batchs = batchRepository.findAll()
                 .stream()
-                .filter(batch -> batch.getProduct().getCategory() == category)
+                .filter(batch -> batch.getProduct().getCategory().equals(category))
                 .collect(Collectors.toList());
 
         batchs = filterBacthsByDueDate(numberOfDays, batchs);
