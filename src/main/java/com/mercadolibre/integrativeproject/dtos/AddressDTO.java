@@ -91,20 +91,9 @@ public class AddressDTO {
     @Pattern(regexp = "^[A-Z].*$", message = "O nome do país deve começar com letra maiuscula")
     private String country;
 
-    public Address convert() {
-        return Address.builder()
-                .id(this.id)
-                .build();
+    public static AddressDTO convert(Address address) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(address, AddressDTO.class);
     }
-
-//    public static Address convert(AddressDTO addressDTO) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(addressDTO, address.class);
-//    }
-
-//    public static AddressDTO convert(Address address) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(address, AddressDTO.class);
-//    }
 
 }
