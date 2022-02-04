@@ -88,13 +88,33 @@ public class ShoppingCartController {
 
     @GetMapping(value = "/due-date")
     public ResponseEntity<BatchStockListDTO> getBatchesByDueDate(@RequestParam Integer numberOfDays, @RequestParam Long sector){
-        BatchStockDTO batchStockDTO = new BatchStockDTO();
-        return ResponseEntity.ok(
-                BatchStockListDTO.builder().batchStock(batchService.getBatchesByDueDate(numberOfDays, sector)
-                        .stream()
-                        .map(batchStockDTO::convert)
-                        .collect(Collectors.toList()))
-                        .build()
-        );
+        List<BatchStockDTO> Batchs = batchService.getBatchesByDueDate(numberOfDays, sector)
+                .stream()
+                .map(batch -> new BatchStockDTO().convert(batch))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new BatchStockListDTO(Batchs));
+    }
+
+
+    /** Método usado para obter uma lista dos lotes pedidos que vão expirar em uma determinada quantidade de dias de uma determinada categoria de produtos
+     *
+     * @author Samuel Stalschus
+     *
+     * @param numberOfDays - numero de dias dentro do range de expiração de produto
+     * @param category - categoria do produto
+     * @param asc - ordenar lista de lotes em ordem ascedente
+     *
+     * @return Lista de lotes com base na data de validade e categoria
+     *
+     * */
+    @GetMapping("/due-date/list")
+    public ResponseEntity<BatchStockListDTO> getBatchsByDateExpiresAndCategoryProduct(@RequestParam Integer numberOfDays, @RequestParam StorageType category, @RequestParam boolean asc) {
+        List<BatchStockDTO> batchs = batchService.getBatchesByProductCategoyAndDueDate(numberOfDays, category, asc)
+                .stream()
+                .map(batch -> new BatchStockDTO().convert(batch))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new BatchStockListDTO(batchs));
     }
 }

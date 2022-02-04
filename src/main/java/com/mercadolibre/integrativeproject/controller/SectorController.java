@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.controller;
 
 import com.mercadolibre.integrativeproject.dtos.*;
+import com.mercadolibre.integrativeproject.entities.AmountProductPerStorage;
 import com.mercadolibre.integrativeproject.entities.ProductPerSector;
 import com.mercadolibre.integrativeproject.entities.ProductPerStorage;
 import com.mercadolibre.integrativeproject.entities.Sector;
@@ -52,5 +53,13 @@ public class SectorController {
                 .map(ProductPerStorageDTO::convert)
                 .collect(Collectors.toList())
         );
+    }
+
+    @GetMapping("/product-stock")
+    public ResponseEntity<List<AmountProductPerStorageDTO>> getAmountPerStorage(@RequestParam Long productId){
+        List<AmountProductPerStorageDTO> collect = sectorService.getAmountProductPerStorage(productId).stream()
+                .map(AmountProductPerStorageDTO::convert)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(collect);
     }
 }

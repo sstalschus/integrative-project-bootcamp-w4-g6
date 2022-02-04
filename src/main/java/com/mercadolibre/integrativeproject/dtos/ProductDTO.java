@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 
 public class ProductDTO {
 
-    @Id
     private Long id;
     @NotNull(message = "Product name cannot null")
     @NotEmpty(message = "Product name cannot empty")
