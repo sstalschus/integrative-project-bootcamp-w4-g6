@@ -38,11 +38,8 @@ public class Sector {
     private Responsible responsible;
 
     @Column
-    private String sectorType;
-
-    @Column
     @Enumerated(EnumType.STRING)
-    private StorageType categoryProduct;
+    private StorageType sectorType;
 
     @OneToMany
     @Column
