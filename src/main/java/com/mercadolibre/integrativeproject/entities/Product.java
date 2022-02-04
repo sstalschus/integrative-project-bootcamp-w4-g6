@@ -1,7 +1,6 @@
 package com.mercadolibre.integrativeproject.entities;
 
 import com.mercadolibre.integrativeproject.enums.CategoryProduct;
-import com.mercadolibre.integrativeproject.util.EnumValidator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
