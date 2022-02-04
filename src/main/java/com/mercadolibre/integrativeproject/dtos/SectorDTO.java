@@ -73,7 +73,7 @@ public class SectorDTO {
     }
 
     public static SectorDTO convert(Sector sector) {
-        return SectorDTO.builder()
+            return SectorDTO.builder()
                 .id(sector.getId())
                 .name(sector.getName())
                 .lots(sector.getLots().stream().map(batch -> new BatchDTO().convert(batch)).collect(Collectors.toList()))

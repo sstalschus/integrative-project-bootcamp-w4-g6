@@ -27,7 +27,7 @@ public class ProductDTO {
             enumClazz = StorageType.class,
             message = "The category must be type: FRESH, CHILLED or FROZEN."
     )
-    private StorageType category;
+    private String category;
 
     public Long getId() {
         return id;
@@ -53,12 +53,20 @@ public class ProductDTO {
         this.volumn = volumn;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public Product convert() {
         return Product.builder()
                 .id(this.id)
                 .name(this.name)
                 .volumn(this.volumn)
-                .category(this.category).build();
+                .category(StorageType.valueOf(category)).build();
     }
 
     /** Controller de registro de supplier.
