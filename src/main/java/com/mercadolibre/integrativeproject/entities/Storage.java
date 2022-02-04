@@ -23,8 +23,8 @@ public class Storage {
     @Column
     private String name;
 
-    @Column
-    private  String address;
+    @OneToOne
+    private Address address;
 
     @JsonBackReference
     @Column

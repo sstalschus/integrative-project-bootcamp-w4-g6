@@ -1,5 +1,6 @@
 package com.mercadolibre.integrativeproject.dtos;
 
+import com.mercadolibre.integrativeproject.entities.Address;
 import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.entities.Storage;
 import lombok.AllArgsConstructor;
@@ -32,37 +33,45 @@ public class StorageDTO {
     @NotNull(message = "O endereço não pode estar vazio")
     @NotEmpty(message = "O endereço não pode estar vazio")
     @Size(max = 255, message = "O endereço não pode exceder 255 caracteres")
-    private String address;
+    private Address address;
 
     @NotNull(message = "O setor não pode estar vazio")
     private List<SectorDTO> sectorsList = new ArrayList<>();
 
-    public StorageDTO(){
+    public StorageDTO() {
 
     }
 
-    public Long getId() {return id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(Long id) {this.id = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getName() {return name;
+    public String getName() {
+        return name;
     }
 
-    public void setName(String name) {this.name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAddress() {return address;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddress(String address) {this.address = address;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public List<SectorDTO> getSectorsList() {return sectorsList;
+    public List<SectorDTO> getSectorsList() {
+        return sectorsList;
     }
 
-    public void setSectorsList(List<SectorDTO> sectorsList) {this.sectorsList = sectorsList;
+    public void setSectorsList(List<SectorDTO> sectorsList) {
+        this.sectorsList = sectorsList;
     }
 
     public Storage convert() {
