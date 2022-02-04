@@ -1,10 +1,6 @@
 package com.mercadolibre.integrativeproject.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Builder;
-import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -30,7 +26,7 @@ public class Batch {
     private Double currentTemperature;
     @NotNull
     private Double minimumTemperature;
-    private String mark;
+    private String brand;
     @NotNull
     private Timestamp expirationDate;
     @NotNull
@@ -104,12 +100,12 @@ public class Batch {
         return this;
     }
 
-    public String getMark() {
-        return mark;
+    public String getBrand() {
+        return brand;
     }
 
-    public Batch setMark(String mark) {
-        this.mark = mark;
+    public Batch setBrand(String mark) {
+        this.brand = mark;
         return this;
     }
 
