@@ -20,21 +20,27 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column
     private String zipCode;
 
+    @NotNull
     @Column
     private String street;
 
     @NotNull
+    @Column
     private String district;
 
+    @NotNull
     @Column
     private String city;
 
+    @NotNull
     @Column
     private String state;
 
+    @NotNull
     @Column
     private String country;
 }

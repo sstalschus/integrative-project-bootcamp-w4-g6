@@ -17,8 +17,11 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
 
     SupplierRepository supplierRepository;
 
-    public SupplierService(SupplierRepository supplierRepository) {
+    AddressService addressService;
+
+    public SupplierService(SupplierRepository supplierRepository, AddressService addressService) {
         this.supplierRepository = supplierRepository;
+        this.addressService = addressService;
     }
 
     /**
@@ -30,6 +33,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      */
     @Override
     public Supplier create(Supplier supplier) {
+        supplier.setAddress(addressService.create(supplier.getAddress()));
         return supplierRepository.save(supplier);
     }
 
@@ -60,8 +64,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
     /**
      * Método usado para atualizar o registro supplier.
      *
-     * @param supplier - objeto que recebe os dados.
-     *                 - id do objeto a ser atualizado
+     * @param supplier - objeto que recebe os dados.- id do objeto a ser atualizado
      * @author Jefferson Froes
      */
     @Override

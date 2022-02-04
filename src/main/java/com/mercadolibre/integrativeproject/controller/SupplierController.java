@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * */
 @RestController
-@RequestMapping("/supplier")
+@RequestMapping("/supplierregister")
 public class SupplierController {
 
     @Autowired
