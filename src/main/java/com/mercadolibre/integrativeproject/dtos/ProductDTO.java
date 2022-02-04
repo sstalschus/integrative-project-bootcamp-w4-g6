@@ -2,21 +2,17 @@ package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.enums.CategoryProduct;
-import com.mercadolibre.integrativeproject.enums.TypeRegisterInventary;
 import com.mercadolibre.integrativeproject.util.EnumValidator;
 import org.modelmapper.ModelMapper;
-import org.springframework.ui.Model;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.security.PrivilegedAction;
 
 public class ProductDTO {
 
-    @Id
     private Long id;
     @NotNull(message = "Product name cannot null")
     @NotEmpty(message = "Product name cannot empty")
@@ -46,6 +42,14 @@ public class ProductDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public CategoryProduct getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryProduct category) {
+        this.category = category;
     }
 
     public Double getVolumn() {
