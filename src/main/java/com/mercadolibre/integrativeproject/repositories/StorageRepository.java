@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface StorageRepository extends JpaRepository<Storage, Long> {
-//    public Optional<Property> findById(Long id);
+
 }
