@@ -13,6 +13,9 @@ public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long batchNumber;
+
     @OneToOne
     private Supplier supplier;
     @NotNull
@@ -35,6 +38,23 @@ public class Batch {
     private BigDecimal pricePerUnit;
 
     public Batch() {
+    }
+
+    public Long getBatchNumber() {
+        return batchNumber;
+    }
+
+    public Batch setBatchNumber(Long batchNumber) {
+        this.batchNumber = batchNumber;
+        return this;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public BigDecimal getPricePerUnit() {

@@ -2,6 +2,9 @@ package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -10,6 +13,8 @@ import javax.validation.constraints.Past;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+@AllArgsConstructor
+@Builder
 public class BatchDTO {
 
     private Long id;
@@ -33,7 +38,7 @@ public class BatchDTO {
     private Double minimumTemperature;
 
     @NotNull(message = "Mark need to be informed")
-    private String mark;
+    private String brand;
 
     @NotNull
     @Future(message = "Batch need expiration date after current")
@@ -109,12 +114,12 @@ public class BatchDTO {
         this.minimumTemperature = minimumTemperature;
     }
 
-    public String getMark() {
-        return mark;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setMark(String mark) {
-        this.mark = mark;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public Timestamp getExpirationDate() {
@@ -133,10 +138,6 @@ public class BatchDTO {
         this.fabricationDate = fabricationDate;
     }
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
-
     public Batch coverte() {
         Batch batch = new Batch();
         return batch
@@ -146,24 +147,27 @@ public class BatchDTO {
                 .setQuantity(this.quantity)
                 .setCurrentTemperature(this.currentTemperature)
                 .setMinimumTemperature(this.minimumTemperature)
-                .setBrand(this.mark)
+                .setBrand(this.brand)
+                .setBatchNumber(this.batchNumber)
                 .setExpirationDate(this.expirationDate)
                 .setFabricationDate(this.fabricationDate)
                 .setPricePerUnit(this.pricePerUnit);
     }
 
-    public BatchDTO convert(Batch batch) {
-        setId(batch.getId());
-        setProductId(batch.getProduct().getId());
-        setInitialQuantity(batch.getInitialQuantity());
-        setQuantity(batch.getQuantity());
-        setCurrentTemperature(batch.getCurrentTemperature());
-        setMinimumTemperature(batch.getMinimumTemperature());
-        setMark(batch.getBrand());
-        setExpirationDate(batch.getExpirationDate());
-        setFabricationDate(batch.getFabricationDate());
-        setPricePerUnit(batch.getPricePerUnit());
+    public static BatchDTO convert(Batch batch) {
+        return BatchDTO.builder()
+                .batchNumber(batch.getBatchNumber())
+                .id(batch.getId())
+                .productId(batch.getProduct().getId())
+                .initialQuantity(batch.getInitialQuantity())
+                .quantity(batch.getQuantity())
+                .minimumTemperature(batch.getMinimumTemperature())
+                .currentTemperature(batch.getCurrentTemperature())
+                .brand(batch.getBrand())
+                .expirationDate(batch.getExpirationDate())
+                .fabricationDate(batch.getFabricationDate())
+                .pricePerUnit(batch.getPricePerUnit())
+                .build();
 
-        return this;
     }
 }

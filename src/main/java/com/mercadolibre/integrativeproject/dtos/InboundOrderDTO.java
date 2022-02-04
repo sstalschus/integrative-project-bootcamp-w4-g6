@@ -3,6 +3,9 @@ package com.mercadolibre.integrativeproject.dtos;
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.InboundOrder;
 import com.mercadolibre.integrativeproject.entities.Responsible;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class InboundOrderDTO {
 
     @NotEmpty
@@ -79,6 +85,16 @@ public class InboundOrderDTO {
                 .sectionCode(this.sectionWharehouse.getSectionCode())
                 .warehouseCode(this.sectionWharehouse.getWarehouseCode())
                 .batches(batches)
+                .build();
+    }
+
+    public static InboundOrderDTO convert(InboundOrder inboundOrder) {
+        return InboundOrderDTO.builder()
+                .orderDate(inboundOrder.getOrderDate())
+                .orderNumber(inboundOrder.getOrderNumber())
+                .responsibleId(inboundOrder.getResponsible().getId())
+                .sectionWharehouse(new SectionInboundOrderDTO(inboundOrder.getSectionCode(), inboundOrder.getWarehouseCode()))
+                .batch(inboundOrder.getBatches().stream().map(BatchDTO::convert).collect(Collectors.toList()))
                 .build();
     }
 }

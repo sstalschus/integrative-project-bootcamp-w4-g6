@@ -5,6 +5,14 @@ public class SectionInboundOrderDTO {
     private Long sectionCode;
     private Long warehouseCode;
 
+    public SectionInboundOrderDTO() {
+    }
+
+    public SectionInboundOrderDTO(Long sectionCode, Long warehouseCode) {
+        this.sectionCode = sectionCode;
+        this.warehouseCode = warehouseCode;
+    }
+
     public Long getSectionCode() {
         return sectionCode;
     }
