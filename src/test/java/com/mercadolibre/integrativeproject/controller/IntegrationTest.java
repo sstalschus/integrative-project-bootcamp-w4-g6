@@ -1,4 +1,4 @@
-package com.mercadolibre.integrativeproject.integration;
+package com.mercadolibre.integrativeproject.controller;
 
 import com.mercadolibre.integrativeproject.IntegrativeProjectBootcampW4G6Application;
 import org.junit.jupiter.api.AfterEach;
