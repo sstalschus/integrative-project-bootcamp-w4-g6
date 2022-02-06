@@ -34,6 +34,7 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      * @param responsible - registro de responsible.
      * @return Registro de responsible criado.
      * @author Jefferson Froes
+     *
      */
     @Override
     public Responsible create(Responsible responsible) {
@@ -51,6 +52,7 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      * @param responsibleId - id para busca.
      * @return Registro de responsible por id.
      * @author Jefferson Froes
+     *
      */
     @Override
     public Responsible getById(Long responsibleId) {
@@ -62,6 +64,7 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      *
      * @return Lista com os registros de responsible.
      * @author Jefferson Froes
+     *
      */
     @Override
     public List<Responsible> getAll() {
@@ -74,6 +77,7 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      *
      * @param responsibleId - id do objeto a ser deletado
      * @author Jefferson Froes.
+     *
      */
     @Override
     public void delete(Long responsibleId) {
