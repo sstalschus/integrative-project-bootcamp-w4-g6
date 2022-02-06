@@ -30,6 +30,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      * @param supplier - Registro de supplier.
      * @return Registro de supplier criado.
      * @author Jefferson Froes
+     *
      */
     @Override
     public Supplier create(Supplier supplier) {
@@ -44,6 +45,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      * @return Registro de suppler criado.
      * @throws NotFoundException - por id não encontrado.
      * @author Jefferson Froes
+     *
      */
     @Override
     public Supplier getById(Long supplierId) {
@@ -55,6 +57,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      *
      * @return Lista com os registros de supplier.
      * @author Jefferson Froes
+     *
      */
     @Override
     public List<Supplier> getAll() {
@@ -66,6 +69,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      *
      * @param supplier - objeto que recebe os dados.- id do objeto a ser atualizado
      * @author Jefferson Froes
+     *
      */
     @Override
     public Supplier update(Supplier supplier) {
@@ -77,6 +81,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      *
      * @param supplierId - id do objeto a ser deletado.
      * @author Jefferson Froes.
+     *
      */
     @Override
     public void delete(Long supplierId) {

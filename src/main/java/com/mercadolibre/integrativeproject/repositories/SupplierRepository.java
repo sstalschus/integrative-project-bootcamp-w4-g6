@@ -7,6 +7,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+/** Repository de Supplier
+ *
+ * @author Jefferson Froes
+ *
+ * */
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier,Long> {
