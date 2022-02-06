@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Supplier;
+import com.mercadolibre.integrativeproject.exceptions.MissingParamsException;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.SupplierRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
@@ -33,7 +34,8 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      *
      */
     @Override
-    public Supplier create(Supplier supplier) {
+    public Supplier create(Supplier supplier) throws MissingParamsException {
+        if(supplier.getAddress() == null) throw new MissingParamsException("Missing params");
         supplier.setAddress(addressService.create(supplier.getAddress()));
         return supplierRepository.save(supplier);
     }

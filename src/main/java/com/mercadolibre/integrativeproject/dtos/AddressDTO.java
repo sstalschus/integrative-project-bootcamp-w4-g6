@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-// id Zipcode street district city state country
 public class AddressDTO {
 
     private Long id;
@@ -94,6 +93,11 @@ public class AddressDTO {
     public static AddressDTO convert(Address address) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(address, AddressDTO.class);
+    }
+
+    public static Address convert(AddressDTO addressDTO) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(addressDTO, Address.class);
     }
 
 }

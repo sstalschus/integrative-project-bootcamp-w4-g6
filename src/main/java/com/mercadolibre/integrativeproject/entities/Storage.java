@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// id name address sectors
 public class Storage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
