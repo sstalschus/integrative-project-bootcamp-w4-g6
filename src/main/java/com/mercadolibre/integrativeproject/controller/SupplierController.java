@@ -28,7 +28,7 @@ public class SupplierController {
     /** Método usado para criar um Supplier.
      *
      * @author Jefferson Freos
-     * @param supplierDTO - recebe umd supplierDTO para converter em supplier
+     * @param supplierDTO - recebe um supplierDTO para converter em supplier
      * @return retorna um supplier convertido em supplierDTO
      *
      * */
@@ -42,7 +42,7 @@ public class SupplierController {
     /** Método usado para criar um Supplier.
      *
      * @author Jefferson Freos
-     * @param supplierDTO - recebe umd supplierDTO para converter em supplier
+     * @param supplierDTO - recebe um supplierDTO para converter em supplier
      * @return retorna um supplier convertido em supplierDTO
      *
      * */

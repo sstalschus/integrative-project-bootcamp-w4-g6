@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
  * @author Jefferson Froes
  *
  * */
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -40,9 +39,7 @@ public class ResponsibleDTO {
     /** Método utilizado para conversão do objetoDTO para objeto.
      *
      * @author Jefferson Froes
-     *
      * @param responsibleDTO - Objeto a ser convertido.
-     *
      * @return objeto convertido.
      *
      * */
@@ -54,9 +51,7 @@ public class ResponsibleDTO {
     /** Método utilizado para conversão do objeto para objetoDTO.
      *
      * @author Jefferson Froes
-     *
      * @param responsible - Objeto a ser convertido.
-     *
      * @return objeto convertido.
      *
      * */
@@ -64,5 +59,4 @@ public class ResponsibleDTO {
         ModelMapper modelMapper = new ModelMapper();
         return  modelMapper.map(responsible, ResponsibleDTO.class);
     }
-
 }
