@@ -19,8 +19,6 @@ import java.util.List;
 @Service
 public class ResponsibleService implements ICrudServiceInterface<Responsible, Long> {
 
-//    @Autowired
-//    SectorService sectorService;
 
     ResponsibleRepository responsibleRepository;
 
@@ -83,18 +81,4 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
     public void delete(Long responsibleId) {
         responsibleRepository.deleteById(responsibleId);
     }
-
-//    public Responsible changeSectorResponsible(Long responsibleId, Long sectorId) {
-//
-//        Responsible newResponsible = responsibleRepository.getById(responsibleId);
-//        Sector sector = sectorService.getById(sectorId);
-//        newResponsible.setSector(sector);
-//        sector.setResponsible(newResponsible);
-//        sector.getResponsible().setSector(null);
-//        update(sector.getResponsible());
-//        update(newResponsible);
-//        sectorService.update(sector);
-//
-//        return newResponsible;
-//    }
 }

@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.InventaryRegister;
+import com.mercadolibre.integrativeproject.exceptions.MissingParamsException;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.InventaryRegisterRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IInventaryRegister;
@@ -30,11 +31,13 @@ public class InventaryRegisterService implements IInventaryRegister<InventaryReg
      *
      * @return Registro de estoque criado
      *
+     * @throws MissingParamsException
+     *
      * */
     @Override
-    public InventaryRegister create(InventaryRegister inventaryRegister){
-        if(inventaryRegister.getBatch().getId() == null) throw new NotFoundException("Batch don't exists");
-        if(inventaryRegister.getResponsible().getId() == null) throw new NotFoundException("Responsible don't exists");
+    public InventaryRegister create(InventaryRegister inventaryRegister) throws MissingParamsException {
+        if(inventaryRegister.getBatch() == null || inventaryRegister.getBatch().getId() == null) throw new MissingParamsException("Batch don't exists");
+        if(inventaryRegister.getResponsible() == null || inventaryRegister.getResponsible().getId() == null) throw new MissingParamsException("Responsible don't exists");
         return inventaryRegisterRepository.save(inventaryRegister);
     }
 

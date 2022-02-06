@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdvertsService implements IAdvertsService<Adverts, Long> {
 
-    @Autowired
-    private AdvertsRepository advertsRepository;
+    AdvertsRepository advertsRepository;
+
+    public AdvertsService(AdvertsRepository advertsRepository) {
+        this.advertsRepository = advertsRepository;
+    }
 
     @Override
     public Adverts create(Adverts adverts) {
@@ -19,7 +22,7 @@ public class AdvertsService implements IAdvertsService<Adverts, Long> {
     }
 
     @Override
-    public Adverts getById(Long avertsId) {
+    public Adverts getById(Long avertsId) throws NotFoundException {
         return advertsRepository.findById(avertsId).orElseThrow(() -> new NotFoundException("Advert not found."));
     }
 
