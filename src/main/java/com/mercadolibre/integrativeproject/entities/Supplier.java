@@ -32,4 +32,6 @@ public class Supplier {
     @OneToOne
     private Address address;
 
+    @OneToOne
+    private User user;
 }

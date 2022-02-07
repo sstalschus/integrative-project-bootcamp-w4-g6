@@ -1,6 +1,8 @@
 package com.mercadolibre.integrativeproject.entities;
 
-import com.mercadolibre.integrativeproject.enums.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +14,8 @@ import java.util.Objects;
 //serializable serve para converter o objeto em uma base de bites
 
 @Entity
+@Data
+@Builder
 public class User implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -19,11 +23,15 @@ public class User implements Serializable, UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
-    private UserRole role;
     private String password;
 
     public User() {
+    }
+
+    public User(Long id) {
+        this.id = id;
     }
 
     public User(Long id, String name, String mail, String password) {
@@ -59,14 +67,6 @@ public class User implements Serializable, UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
     //Metodos do UserDetails

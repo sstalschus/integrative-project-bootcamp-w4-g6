@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Responsible;
+import com.mercadolibre.integrativeproject.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,9 @@ public class ResponsibleDTO {
     @Pattern(regexp = "^\\d{4}[a-z\\d]$", message = "Employee Record must contain 4 digits between 0-9 and 1 letter a-z.")
     private String employeeRecord;
 
+    @NotNull(message = "Deve ser informado um ID de usuario para um responsavel")
+    private Long userId;
+
     /** Método utilizado para conversão do objetoDTO para objeto.
      *
      * @author Jefferson Froes
@@ -44,8 +48,11 @@ public class ResponsibleDTO {
      *
      * */
     public static Responsible convert(ResponsibleDTO responsibleDTO){
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(responsibleDTO, Responsible.class);
+        return Responsible.builder()
+                .id(responsibleDTO.getId())
+                .name(responsibleDTO.getName())
+                .employeeRecord(responsibleDTO.getEmployeeRecord())
+                .user(new User(responsibleDTO.getUserId())).build();
     }
 
     /** Método utilizado para conversão do objeto para objetoDTO.

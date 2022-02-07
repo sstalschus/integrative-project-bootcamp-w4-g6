@@ -32,4 +32,7 @@ public class Customer {
 
     @OneToMany
     private List<ShoppingCart> shoppingCarts;
+
+    @OneToOne
+    private User user;
 }
