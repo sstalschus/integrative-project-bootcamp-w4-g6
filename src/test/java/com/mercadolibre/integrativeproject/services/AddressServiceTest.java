@@ -25,11 +25,6 @@ class AddressServiceTest {
     @InjectMocks
     AddressService addressService;
 
-    @BeforeEach
-    void init() {
-//        addressService = new AddressService(mockAddressRepository);
-    }
-
     @Test
     void create() {
         // Arrange
