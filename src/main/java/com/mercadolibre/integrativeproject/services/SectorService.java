@@ -4,14 +4,13 @@ import com.mercadolibre.integrativeproject.entities.*;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ISectorService;
-import com.mercadolibre.integrativeproject.services.strategies.SortProductPerStorage;
+import com.mercadolibre.integrativeproject.enums.SortProductPerStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /** Service de Setor
  * @author Lorraine Mendes

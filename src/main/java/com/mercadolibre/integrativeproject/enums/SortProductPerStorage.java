@@ -1,4 +1,4 @@
-package com.mercadolibre.integrativeproject.services.strategies;
+package com.mercadolibre.integrativeproject.enums;
 
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.ProductPerSector;

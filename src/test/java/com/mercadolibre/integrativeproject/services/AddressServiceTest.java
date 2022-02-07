@@ -60,7 +60,6 @@ class AddressServiceTest {
     @Test
     void getByIdError() throws NotFoundException {
         // Arrange
-        Address address = Address.builder().id(1L).build();
         when(mockAddressRepository.findById(1L)).thenThrow(new NotFoundException("Address not Found"));
 
         // Act and assert
