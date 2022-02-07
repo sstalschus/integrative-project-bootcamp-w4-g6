@@ -3,6 +3,7 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.Supplier;
 import com.mercadolibre.integrativeproject.exceptions.MissingParamsException;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.SupplierRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.stereotype.Service;
@@ -74,7 +75,8 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      *
      */
     @Override
-    public Supplier update(Supplier supplier) {
+    public Supplier update(Supplier supplier) throws NotFoundException {
+        Supplier supplierId = getById(supplier.getId());
         return supplierRepository.save(supplier);
     }
 
@@ -82,11 +84,16 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      * Método usado para deletar o registro supplier.
      *
      * @param supplierId - id do objeto a ser deletado.
+     * @throws RepositoryException - trata erro ao deletar supplier.
      * @author Jefferson Froes.
      *
      */
     @Override
-    public void delete(Long supplierId) {
-        supplierRepository.deleteById(supplierId);
+    public void delete(Long supplierId) throws RepositoryException {
+        try {
+            supplierRepository.deleteById(supplierId);
+        }catch (Exception e){
+            throw new RepositoryException("Error by delete Supplier");
+        }
     }
 }

@@ -1,24 +1,21 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Responsible;
-import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.ResponsibleRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-/** Service para a entidade de registro de Responsible.
+/**
+ * Service para a entidade de registro de Responsible.
  *
  * @author Jefferson Froes
- *
- * */
+ */
 @Service
 public class ResponsibleService implements ICrudServiceInterface<Responsible, Long> {
-
 
     ResponsibleRepository responsibleRepository;
 
@@ -32,7 +29,6 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      * @param responsible - registro de responsible.
      * @return Registro de responsible criado.
      * @author Jefferson Froes
-     *
      */
     @Override
     public Responsible create(Responsible responsible) {
@@ -40,7 +36,8 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
     }
 
     @Override
-    public Responsible update(Responsible responsible) {
+    public Responsible update(Responsible responsible) throws NotFoundException {
+        Responsible responsibleId = getById(responsible.getId());
         return responsibleRepository.save(responsible);
     }
 
@@ -50,11 +47,11 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      * @param responsibleId - id para busca.
      * @return Registro de responsible por id.
      * @author Jefferson Froes
-     *
      */
     @Override
-    public Responsible getById(Long responsibleId) {
-        return responsibleRepository.findById(responsibleId).orElseThrow(() -> new NotFoundException("Id not Found."));
+    public Responsible getById(Long responsibleId) throws NotFoundException {
+        return responsibleRepository.findById(responsibleId)
+                .orElseThrow(() -> new NotFoundException("Responsible id not Found."));
     }
 
     /**
@@ -62,23 +59,25 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
      *
      * @return Lista com os registros de responsible.
      * @author Jefferson Froes
-     *
      */
     @Override
     public List<Responsible> getAll() {
         return responsibleRepository.findAll();
     }
 
-
     /**
      * Método usado para deletar o registro responsible.
      *
      * @param responsibleId - id do objeto a ser deletado
+     * @throws RepositoryException - trata erro ao deletar responsible.
      * @author Jefferson Froes.
-     *
      */
     @Override
-    public void delete(Long responsibleId) {
-        responsibleRepository.deleteById(responsibleId);
+    public void delete(Long responsibleId) throws RepositoryException {
+        try {
+            responsibleRepository.deleteById(responsibleId);
+        }catch (Exception e){
+            throw new RepositoryException("Error by delete Responsible");
+        }
     }
 }

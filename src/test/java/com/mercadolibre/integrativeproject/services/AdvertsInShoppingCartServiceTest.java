@@ -98,7 +98,6 @@ class AdvertsInShoppingCartServiceTest {
         when(mockAdvertsInShoppingCartRepository.findByShoppingCarId(3L)).thenReturn(list);
 
         // Act
-
         List<AdvertsInShoppingCart> listCreated = advertsInShoppingCartService.getAllByShoppingCartId(3L);
 
         // Assert

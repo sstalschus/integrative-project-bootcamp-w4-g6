@@ -32,11 +32,6 @@ public class InventaryRegisterServiceTest {
     @InjectMocks
     InventaryRegisterService inventaryRegisterService;
 
-    @BeforeEach
-    void init() {
-//        inventaryRegisterService = new InventaryRegisterService(mockInventaryRegisterRepository);
-    }
-
     @Test
     void createSuccess() {
         Batch batch = new Batch();
