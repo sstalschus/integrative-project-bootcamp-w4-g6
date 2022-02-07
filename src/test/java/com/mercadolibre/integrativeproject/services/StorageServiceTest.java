@@ -95,7 +95,15 @@ public class StorageServiceTest {
 
     @Test
     void getValidStorage(){
+        // Arrange
+        Storage storage = Storage.builder().id(1L).build();
+        when(mockStorageRepository.findById(1L)).thenReturn(Optional.of(storage));
 
+        // Act
+        Storage storageId = storageService.getValidStorage(1L);
+
+        // Assert
+        assertEquals(storage.getId(), storageId.getId());
     }
 
 

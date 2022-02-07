@@ -38,10 +38,6 @@ public class StorageService implements IStorageService<Storage, Long> {
     }
 
     public Storage getValidStorage(Long id) {
-        Storage storage = getById(id);
-        if (storage == null) {
-            throw new NotFoundException("Storage not found");
-        }
-        return storage;
+        return getById(id);
     }
 }
