@@ -27,4 +27,6 @@ public class Responsible {
     @Column(unique = true)
     private String employeeRecord;
 
+    @OneToOne
+    private User user;
 }
