@@ -13,12 +13,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-/** Validação de campos e criação de DTOs
+/**
+ * Validação de campos e criação de DTOs
  *
  * @author Jefferson Froes
  *
- * */
-
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -41,33 +41,29 @@ public class SupplierDTO {
     @Valid
     private AddressDTO address;
 
-    /** Método utilizado para conversão do objetoDTO para objeto.
+    /**
+     * Método utilizado para conversão do objetoDTO para objeto.
      *
      * @author Jefferson Froes
-     *
      * @param supplierDTO - Objeto a ser convertido.
-     *
      * @return objeto convertido.
      *
-     * */
-
-    public static Supplier convert(SupplierDTO supplierDTO){
+     */
+    public static Supplier convert(SupplierDTO supplierDTO) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(supplierDTO, Supplier.class);
     }
 
-    /** Método utilizado para conversão do objeto para objetoDTO.
+    /**
+     * Método utilizado para conversão do objeto para objetoDTO.
      *
-             * @author Jefferson Froes
+     * @author Jefferson Froes
+     * @param supplier - Objeto a ser convertido.
+     * @return objeto convertido.
      *
-             * @param supplier - Objeto a ser convertido.
-            *
-            * @return objeto convertido.
-            *
-            * */
-
-    public static SupplierDTO convert(Supplier supplier){
+     */
+    public static SupplierDTO convert(Supplier supplier) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(supplier,SupplierDTO.class);
+        return modelMapper.map(supplier, SupplierDTO.class);
     }
 }

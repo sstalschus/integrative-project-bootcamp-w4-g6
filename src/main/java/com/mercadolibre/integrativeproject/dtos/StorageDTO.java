@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @AllArgsConstructor
-// id name address sectors
 public class StorageDTO {
 
     private Long id;
@@ -30,16 +30,13 @@ public class StorageDTO {
     @Size(max = 100, message = "O nome do armazém não pode exceder 100 caracteres")
     private String name;
 
-    @NotNull(message = "O endereço não pode estar vazio")
-    @NotEmpty(message = "O endereço não pode estar vazio")
-    @Size(max = 255, message = "O endereço não pode exceder 255 caracteres")
-    private Address address;
+    @Valid
+    private AddressDTO address;
 
     @NotNull(message = "O setor não pode estar vazio")
     private List<SectorDTO> sectorsList = new ArrayList<>();
 
     public StorageDTO() {
-
     }
 
     public Long getId() {
@@ -58,11 +55,11 @@ public class StorageDTO {
         this.name = name;
     }
 
-    public Address getAddress() {
+    public AddressDTO getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressDTO address) {
         this.address = address;
     }
 
@@ -78,25 +75,15 @@ public class StorageDTO {
         return Storage.builder()
                 .id(this.id)
                 .name(this.name)
-                .address(this.address)
+                .address(AddressDTO.convert(this.address))
                 .sectorsList(this.sectorsList.stream().map(SectorDTO::convert).collect(Collectors.toList())).build();
     }
 
     public StorageDTO convert(Storage storage) {
-        this.address = storage.getAddress();
+        this.address = AddressDTO.convert(storage.getAddress());
         this.name = storage.getName();
-        List<SectorDTO> sectorDTOSList = storage.getSectorsList().stream().map(SectorDTO::convert).collect(Collectors.toList());
-        this.sectorsList = sectorDTOSList;
+        this.sectorsList = storage.getSectorsList().stream().map(SectorDTO::convert).collect(Collectors.toList());
         this.id = storage.getId();
         return this;
     }
-//    public static Storage convert(StorageDTO storageDTO) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(storageDTO, Storage.class);
-//    }
-//    public static StorageDTO convert(Storage storage) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(storage, StorageDTO.class);
-//    }
-
 }

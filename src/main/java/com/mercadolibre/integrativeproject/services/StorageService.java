@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Storage;
+import com.mercadolibre.integrativeproject.exceptions.MissingParamsException;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.StorageRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IStorageService;
@@ -21,7 +22,8 @@ public class StorageService implements IStorageService<Storage, Long> {
     }
 
     @Override
-    public Storage create(Storage storage) {
+    public Storage create(Storage storage) throws MissingParamsException {
+        if(storage.getAddress() == null) throw new MissingParamsException("Missing params");
         storage.setAddress(addressService.create(storage.getAddress()));
         return storageRepository.save(storage);
     }
@@ -36,10 +38,6 @@ public class StorageService implements IStorageService<Storage, Long> {
     }
 
     public Storage getValidStorage(Long id) {
-        Storage storage = getById(id);
-        if (storage == null) {
-            throw new NotFoundException("Storage not found");
-        }
-        return storage;
+        return getById(id);
     }
 }

@@ -4,11 +4,8 @@ import com.mercadolibre.integrativeproject.entities.Address;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.AddressRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IAddressService;
-import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
-import org.springframework.dao.NonTransientDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class AddressService implements IAddressService<Address, Long> {
@@ -25,13 +22,13 @@ public class AddressService implements IAddressService<Address, Long> {
     }
 
     @Override
-    public Address getById(Long addressId) {
+    public Address getById(Long addressId) throws NotFoundException {
         return addressRepository.findById(addressId)
                 .orElseThrow(() -> new NotFoundException("Address not Found"));
     }
 
     @Override
-    public Address update(Address address) {
+    public Address update(Address address) throws NotFoundException {
         Address addressId = getById(address.getId());
         return addressRepository.save(address);
     }

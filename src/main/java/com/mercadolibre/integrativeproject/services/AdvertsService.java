@@ -2,16 +2,19 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Adverts;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.AdvertsRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IAdvertsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdvertsService implements IAdvertsService<Adverts, Long> {
 
-    @Autowired
-    private AdvertsRepository advertsRepository;
+    AdvertsRepository advertsRepository;
+
+    public AdvertsService(AdvertsRepository advertsRepository) {
+        this.advertsRepository = advertsRepository;
+    }
 
     @Override
     public Adverts create(Adverts adverts) {
@@ -19,7 +22,7 @@ public class AdvertsService implements IAdvertsService<Adverts, Long> {
     }
 
     @Override
-    public Adverts getById(Long avertsId) {
+    public Adverts getById(Long avertsId) throws NotFoundException {
         return advertsRepository.findById(avertsId).orElseThrow(() -> new NotFoundException("Advert not found."));
     }
 
@@ -29,7 +32,12 @@ public class AdvertsService implements IAdvertsService<Adverts, Long> {
     }
 
     @Override
-    public void delete(Long advertsId) {
-        advertsRepository.deleteById(advertsId);
+    public void delete(Long advertsId) throws RepositoryException {
+        try{
+            advertsRepository.deleteById(advertsId);
+
+        } catch(Exception e) {
+            throw new RepositoryException("Error by delete adverts");
+        }
     }
 }

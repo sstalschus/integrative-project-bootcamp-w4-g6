@@ -1,7 +1,9 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Supplier;
+import com.mercadolibre.integrativeproject.exceptions.MissingParamsException;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.SupplierRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.stereotype.Service;
@@ -30,9 +32,11 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      * @param supplier - Registro de supplier.
      * @return Registro de supplier criado.
      * @author Jefferson Froes
+     *
      */
     @Override
-    public Supplier create(Supplier supplier) {
+    public Supplier create(Supplier supplier) throws MissingParamsException {
+        if(supplier.getAddress() == null) throw new MissingParamsException("Missing params");
         supplier.setAddress(addressService.create(supplier.getAddress()));
         return supplierRepository.save(supplier);
     }
@@ -44,6 +48,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      * @return Registro de suppler criado.
      * @throws NotFoundException - por id não encontrado.
      * @author Jefferson Froes
+     *
      */
     @Override
     public Supplier getById(Long supplierId) {
@@ -55,6 +60,7 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      *
      * @return Lista com os registros de supplier.
      * @author Jefferson Froes
+     *
      */
     @Override
     public List<Supplier> getAll() {
@@ -66,9 +72,11 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      *
      * @param supplier - objeto que recebe os dados.- id do objeto a ser atualizado
      * @author Jefferson Froes
+     *
      */
     @Override
-    public Supplier update(Supplier supplier) {
+    public Supplier update(Supplier supplier) throws NotFoundException {
+        Supplier supplierId = getById(supplier.getId());
         return supplierRepository.save(supplier);
     }
 
@@ -76,10 +84,16 @@ public class SupplierService implements ICrudServiceInterface<Supplier, Long> {
      * Método usado para deletar o registro supplier.
      *
      * @param supplierId - id do objeto a ser deletado.
+     * @throws RepositoryException - trata erro ao deletar supplier.
      * @author Jefferson Froes.
+     *
      */
     @Override
-    public void delete(Long supplierId) {
-        supplierRepository.deleteById(supplierId);
+    public void delete(Long supplierId) throws RepositoryException {
+        try {
+            supplierRepository.deleteById(supplierId);
+        }catch (Exception e){
+            throw new RepositoryException("Error by delete Supplier");
+        }
     }
 }

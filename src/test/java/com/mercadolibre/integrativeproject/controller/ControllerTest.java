@@ -1,4 +1,4 @@
-package com.mercadolibre.integrativeproject.integration;
+package com.mercadolibre.integrativeproject.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;

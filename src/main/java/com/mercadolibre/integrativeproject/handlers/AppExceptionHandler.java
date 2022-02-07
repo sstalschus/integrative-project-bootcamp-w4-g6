@@ -4,6 +4,8 @@ import com.mercadolibre.integrativeproject.dtos.ErrorMessageDTO;
 import com.mercadolibre.integrativeproject.dtos.InvalidParamsDTO;
 import com.mercadolibre.integrativeproject.exceptions.MissingParamsException;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
+import com.mercadolibre.integrativeproject.exceptions.TemperatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -20,6 +22,11 @@ import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Handler for exception handling and return of parameterized messages.
+ *
+ * @author Samuel Stalschus
+ */
 @RestControllerAdvice
 public class AppExceptionHandler {
 
@@ -61,5 +68,17 @@ public class AppExceptionHandler {
     @ExceptionHandler(value = NotFoundException.class)
     protected ResponseEntity<Object> handlePersistencia(NotFoundException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = RepositoryException.class)
+    protected ResponseEntity<Object> handlePersistencia(RepositoryException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = TemperatureException.class)
+    protected ResponseEntity<Object> handlePersistencia(TemperatureException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
     }
 }

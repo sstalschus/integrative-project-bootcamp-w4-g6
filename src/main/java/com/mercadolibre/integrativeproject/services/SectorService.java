@@ -4,14 +4,13 @@ import com.mercadolibre.integrativeproject.entities.*;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ISectorService;
-import com.mercadolibre.integrativeproject.services.strategies.SortProductPerStorage;
+import com.mercadolibre.integrativeproject.enums.SortProductPerStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /** Service de Setor
  * @author Lorraine Mendes
@@ -129,6 +128,13 @@ public class SectorService implements ISectorService<Sector, Long> {
         }
     }
 
+    /** Método usado para buscar uma lista de do total de todos os produtos em todos os armazéns.
+     *
+     * @author Jefferson Froes , Arthur Amorim
+     * @param  productId - id do produto a ser buscado.
+     * @return retorna o total de todos os produtos em estque.
+     *
+     * */
     public List<AmountProductPerStorage> getAmountProductPerStorage(Long productId){
         List<AmountProductPerStorage> amountProductPerStorages = new ArrayList<>();
         List<ProductPerStorage> productPerStorages = listProductPerSectorOnAllStorage(productId, null);

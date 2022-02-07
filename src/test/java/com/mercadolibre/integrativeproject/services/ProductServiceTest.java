@@ -1,9 +1,10 @@
-package com.mercadolibre.integrativeproject.unit;
+package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.ProductService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -59,6 +60,7 @@ class ProductServiceTest {
     }
 
     @Test
+//    @Disabled("Desativado pois está quebrando")
     void getAll() {
         Product product1 = getProductAfterSave("PRODUCT TO GET BY ID 1", 1L);
         Product product2 = getProductAfterSave("PRODUCT TO GET BY ID 2", 2L);

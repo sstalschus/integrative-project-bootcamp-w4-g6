@@ -3,6 +3,7 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.PurchaseRecord;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.repositories.PurchaseRecordRepository;
 import com.mercadolibre.integrativeproject.repositories.ResponsibleRepository;
@@ -18,22 +19,19 @@ import java.util.List;
 @Service
 public class PurchaseRecordService implements IPurchaseRecordService<PurchaseRecord, Long> {
 
-    @Autowired
     private PurchaseRecordRepository purchaseRecordRepository;
 
-
-    @Override
-    public PurchaseRecord create(PurchaseRecord purchaseRecord){
-        try{
-            return purchaseRecordRepository.save(purchaseRecord);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+    public PurchaseRecordService(PurchaseRecordRepository purchaseRecordRepository) {
+        this.purchaseRecordRepository = purchaseRecordRepository;
     }
 
     @Override
-    public PurchaseRecord getById(Long purchaseRecordId) {
+    public PurchaseRecord create(PurchaseRecord purchaseRecord){
+        return purchaseRecordRepository.save(purchaseRecord);
+    }
+
+    @Override
+    public PurchaseRecord getById(Long purchaseRecordId) throws NotFoundException {
         return purchaseRecordRepository.findById(purchaseRecordId).orElseThrow(()->new NotFoundException("Purchase record not found"));
     }
 
@@ -43,16 +41,17 @@ public class PurchaseRecordService implements IPurchaseRecordService<PurchaseRec
     }
 
     @Override
-    public void update(PurchaseRecord purchaseRecord) {
-        purchaseRecordRepository.setPucharseRecordInfoById(purchaseRecord.getQuantity(), purchaseRecord.getPrice(),purchaseRecord.getId());
+    public PurchaseRecord update(PurchaseRecord purchaseRecord) {
+        return purchaseRecordRepository.setPucharseRecordInfoById(purchaseRecord.getQuantity(), purchaseRecord.getPrice(),purchaseRecord.getId());
     }
 
     @Override
-    public void delete(Long purchaseRecordId) {
+    public void delete(Long purchaseRecordId) throws RepositoryException {
         try {
             purchaseRecordRepository.deleteById(purchaseRecordId);
+
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RepositoryException("Error in delete purcharse.");
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.mercadolibre.integrativeproject.unit;
+package com.mercadolibre.integrativeproject.services;
 
 
 import com.mercadolibre.integrativeproject.entities.Batch;
@@ -7,6 +7,7 @@ import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.services.BatchService;
 import com.mercadolibre.integrativeproject.services.SectorService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -73,6 +74,7 @@ class BatchServiceTest {
     }
 
     @Test
+//    @Disabled("Desativado pois está quebrando")
     void getAll() {
         Product product = getProduct("Test findAll Product");
 

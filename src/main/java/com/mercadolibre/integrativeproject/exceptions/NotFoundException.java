@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 
 /**
  * Exception containing relevant information for NOT FOUND API errors.
+ *
+ * @author Samuel Stalschus
  */
 public class NotFoundException extends ApiException{
     private static final long serialVersionUID = -525546673970530803L;
