@@ -25,11 +25,24 @@ public class PurchaseRecordController {
     @Autowired
     PurchaseRecordService purchaseRecordService;
 
+    /** Método usado para obter um Registro de compra pelo ID.
+     *
+     * @author Lorraine Mendes
+     *
+     * @return Registro de compra
+     *
+     * */
     @GetMapping("/{id}")
     public ResponseEntity<PurchaseRecordDTO> getById(@PathVariable Long id){
         return ResponseEntity.ok(PurchaseRecordDTO.convert(purchaseRecordService.getById(id)));
     }
 
+    /** Método usado para buscar um objeto de purchaseRecord.
+     *
+     * @author Lorraine Mendes
+     * @return retorna um objeto de purchaseRecord convertida para PurchaseRecordDTO.
+     *
+     * */
     @GetMapping("/all")
     public ResponseEntity<PurchaseRecordDTO> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(

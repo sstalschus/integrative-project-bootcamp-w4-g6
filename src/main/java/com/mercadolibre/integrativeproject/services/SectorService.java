@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.*;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ISectorService;
 import com.mercadolibre.integrativeproject.enums.SortProductPerStorage;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /** Service de Setor
- * @author Lorraine Mendes
+ * @author Lorraine Mendes, Arthur Mendes
  * */
 
 
@@ -32,6 +33,17 @@ public class SectorService implements ISectorService<Sector, Long> {
     @Autowired
     private ResponsibleService responsibleService;
 
+    /** Método usado para criar um novo setor
+     *
+     * @author Lorraine Mendes, Arthur Mendes
+     *
+     * @param  sector - Setor
+     *
+     * @return Setor
+     *
+     * @throws NotFoundException
+     *
+     * */
     @Override
     public Sector create(Sector sector) {
         Storage storage = storageService.getById(sector.getStorage().getId());
@@ -47,26 +59,70 @@ public class SectorService implements ISectorService<Sector, Long> {
         throw new NotFoundException("Storage not found");
     }
 
+    /** Método usado para obter um Setor.
+     *
+     * @author Daniel Ramos, Samuel Stalschus
+     *
+     * @param  sectorId - Id do setor.
+     *
+     * @return Setor que tenha o sectorId informado
+     *
+     * @throws NotFoundException
+     *
+     * */
     @Override
     public Sector getById(Long sectorId) {
         return sectorRepository.findById(sectorId).orElseThrow(() -> new NotFoundException("Sector not found"));
     }
 
+    /**
+     * Método usado para pegar todos os registros de sector.
+     *
+     * @return Lista com os registros de sector.
+     * @author Lorraine Mendes
+     */
     @Override
     public List<Sector> getAll() {
             return sectorRepository.findAll();
     }
 
+    /**
+     * Método usado para atualizar o registro sector.
+     *
+     * @param sector - objeto que recebe os dados. O id do objeto a ser atualizado
+     *
+     * @author Lorraine Mendes.
+     *
+     */
     @Override
     public void update(Sector sector) {
         sectorRepository.setSectorInfoById(sector.getTemperature(), sector.getCapacity(), sector.getName(), sector.getId());
     }
 
+    /**
+     * Método usado para deletar o registro sector.
+     *
+     * @author Lorraine Mendes.
+     *
+     * @param sectorId - id do objeto a ser deletado
+     *
+     * @throws RepositoryException - trata erro ao deletar sector.
+     */
     @Override
     public void delete(Long sectorId) {
             sectorRepository.deleteById(sectorId);
     }
 
+    /**
+     * Método usado para pegar o lote do armazém.
+     *
+     * @param storage - objeto que valida o setor do armazém
+     *
+     * @return storage
+     *
+     * @author Lorraine Mendes, Arthur Amorim.
+     *
+     */
     public Sector getValidSectorOnStorage(Long id, Storage storage) {
         Sector sector = storage.getSectorsList().stream()
                 .filter(sec -> sec.getId().equals(id))
@@ -78,11 +134,30 @@ public class SectorService implements ISectorService<Sector, Long> {
         return sector;
     }
 
-
+    /**
+     * Método usado para calcular o volume.
+     *
+     * @param sector - objeto que valida o cálculo do volume
+     *
+     * @return calcVolumn
+     *
+     * @author Lorraine Mendes, Arthur Amorim.
+     *
+     */
     public Double calcVolumn(Sector sector) {
         return batchService.calcVolumn(sector.getLots());
     }
 
+    /**
+     * Método usado para calcular a capacidade do setor.
+     *
+     * @param sector - objeto que valida a capacidade do setor
+     *
+     * @return calcVolumn
+     *
+     * @author Lorraine Mendes.
+     *
+     */
     public boolean hasSectorCapacity(List<Batch> batches, Sector sector) {
         Double volumnBatches = batchService.calcVolumn(batches);
         Double usedCapacitySector = calcVolumn(sector);
@@ -90,6 +165,13 @@ public class SectorService implements ISectorService<Sector, Long> {
         return sector.getCapacity() >= newUsedCapacitySector;
     }
 
+    /** Método usado para listar produto por setor e armazém
+     *
+     * @author Arthur Amorim, Jefferson Froes
+     *
+     * @return Lista com os produtos por setor e armazém
+     *
+     * */
     public List<ProductPerStorage> listProductPerSectorOnAllStorage(Long productId, String ordination) {
         List<Storage> allStorage = storageService.getAll();
         List<ProductPerStorage> productPerStorageList = new ArrayList<>();
@@ -104,6 +186,11 @@ public class SectorService implements ISectorService<Sector, Long> {
         return productPerStorageList;
     }
 
+    /** Método usado para obter o setor com o id do produto no armazém
+     *
+     * @author Arthur Amorim.
+     *
+     * */
     private void getSectorsWithProductIdOnStorage(Long productId, List<ProductPerStorage> productPerStorageList, Storage storage, String ordination) {
         List<ProductPerSector> productPerSectors = getProductPerSectors(productId, storage);
         if (!productPerSectors.isEmpty()) {
@@ -112,6 +199,13 @@ public class SectorService implements ISectorService<Sector, Long> {
         }
     }
 
+    /** Método usado para obter o produto por setor
+     *
+     * @author Arthur Amorim.
+     *
+     * @return Lista com os produtos por setor
+     *
+     * */
     private List<ProductPerSector> getProductPerSectors(Long productId, Storage storage) {
         List<ProductPerSector> productPerSectors = new ArrayList<>();
         storage.getSectorsList().forEach(sector -> {
@@ -120,6 +214,11 @@ public class SectorService implements ISectorService<Sector, Long> {
         return productPerSectors;
     }
 
+    /** Método usado para obter o lote com o id do produto
+     *
+     * @author Arthur Amorim.
+     *
+     * */
     private void getBatchesWithProductId(Long productId, List<ProductPerSector> productPerSectors, Sector sector) {
         List<Batch> batches = sector.getLots().stream().filter(batch -> batch.getProduct().getId().equals(productId)).collect(Collectors.toList());
         if (!batches.isEmpty()) {

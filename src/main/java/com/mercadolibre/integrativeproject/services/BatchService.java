@@ -3,6 +3,8 @@ package com.mercadolibre.integrativeproject.services;
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.enums.StorageType;
+import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
+import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.BathServiceInterface;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
@@ -16,6 +18,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Service do lote
+ *
+ * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+ *
+ * */
 @Service
 public class BatchService implements ICrudServiceInterface<Batch, Long>, BathServiceInterface {
 
@@ -28,6 +35,15 @@ public class BatchService implements ICrudServiceInterface<Batch, Long>, BathSer
         this.sectorService = sectorService;
     }
 
+    /** Método usado para criar um novo lote
+     *
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     * @param  batch - Lote
+     *
+     * @return Lote
+     *
+     * */
     @Override
     public Batch create(Batch batch) {
         return batchRepository.save(batch);
@@ -37,21 +53,57 @@ public class BatchService implements ICrudServiceInterface<Batch, Long>, BathSer
         return batchRepository.saveAll(batches);
     }
 
+    /** Método usado para obter um Lote.
+     *
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     * @param  batchId - Id do batch.
+     *
+     * @return Anúncio que tenha o batchd informado
+     *
+     * @throws NotFoundException
+     *
+     * */
     @Override
     public Batch getById(Long batchId) {
         return batchRepository.findById(batchId).orElse(null);
     }
 
+    /**
+     * Método usado para pegar todos os registros de batch.
+     *
+     * @author Arthur Amorim
+     *
+     * @return Lista com os registros de batch.
+     *
+     */
     @Override
     public List<Batch> getAll() {
         return batchRepository.findAll();
     }
 
+    /**
+     * Método usado para atualizar o registro batch.
+     *
+     * @param batch - objeto que recebe os dados. O id do objeto a ser atualizado
+     *
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     */
     @Override
     public Batch update(Batch batch) {
         return batchRepository.save(batch);
     }
 
+    /**
+     * Método usado para deletar o registro batch.
+     *
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus.
+     *
+     * @param batchId - id do objeto a ser deletado
+     *
+     * @throws RepositoryException - trata erro ao deletar batch.
+     */
     @Override
     public void delete(Long batchId) {
         batchRepository.deleteById(batchId);
@@ -63,6 +115,15 @@ public class BatchService implements ICrudServiceInterface<Batch, Long>, BathSer
                 batchOnSector.getQuantity() * batchOnSector.getProduct().getVolumn()).sum();
     }
 
+    /** Método usado para obter uma lista dos lotes por setor
+     *
+     * @author Samuel Stalschus
+     *
+     * @param sectorId - numero de dias dentro do range de expiração de setor
+     *
+     * @return Lista de lotes com base na data de validade
+     *
+     * */
     public List<Batch> getBatchesByDueDate(Integer numberOfDays, Long sectorId){
         Sector sector = sectorService.getById(sectorId);
         List<Batch> batches = sector.getLots();
