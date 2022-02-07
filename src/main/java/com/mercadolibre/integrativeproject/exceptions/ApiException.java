@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 
 /**
  * Exception containing relevant information for API errors.
+ *
+ * @author Samuel Stalschus
  */
 public class ApiException extends RuntimeException {
 

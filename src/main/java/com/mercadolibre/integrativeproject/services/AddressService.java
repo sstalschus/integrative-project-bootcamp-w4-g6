@@ -4,7 +4,6 @@ import com.mercadolibre.integrativeproject.entities.Address;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.repositories.AddressRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IAddressService;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
 

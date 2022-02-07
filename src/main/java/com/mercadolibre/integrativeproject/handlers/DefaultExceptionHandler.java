@@ -6,6 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * Generic handler for default exceptions.
+ *
+ * @author Samuel Stalschus
+ */
 @ControllerAdvice
 public class DefaultExceptionHandler {
     @ExceptionHandler({Exception.class})

@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 
 /** 
  * Exception containing relevant information for internal API errors.
+ *
+ * @author Samuel Stalschus
  */
 public class InternalServerErrorException extends ApiException {
 

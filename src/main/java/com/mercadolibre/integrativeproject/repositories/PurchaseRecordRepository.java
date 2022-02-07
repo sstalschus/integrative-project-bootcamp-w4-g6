@@ -13,6 +13,6 @@ import java.math.BigInteger;
 public interface PurchaseRecordRepository extends JpaRepository<PurchaseRecord, Long> {
     @Modifying
     @Query("update PurchaseRecord s set s.quantity = ?1, s.price = ?2 where s.id = ?3")
-    void setPucharseRecordInfoById(Long quantity, BigDecimal price, Long userId);
+    PurchaseRecord setPucharseRecordInfoById(Long quantity, BigDecimal price, Long userId);
 
 }
