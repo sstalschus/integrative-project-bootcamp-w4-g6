@@ -7,8 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
+/** Repository de Registro de compra
+ *
+ * @author Lorraine Mendes, Samuel Stalschus, Arthur Amorim
+ *
+ * */
 @Repository
 public interface PurchaseRecordRepository extends JpaRepository<PurchaseRecord, Long> {
     @Modifying

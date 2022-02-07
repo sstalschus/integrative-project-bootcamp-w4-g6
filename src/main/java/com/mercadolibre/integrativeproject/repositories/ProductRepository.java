@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/** Repository do Produto
+ *
+ * @author Arthur Amorim, Lorraine Mendes
+ *
+ * */
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Modifying
