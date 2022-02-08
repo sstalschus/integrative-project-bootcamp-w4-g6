@@ -1,10 +1,7 @@
 package com.mercadolibre.integrativeproject.config.security;
 
-import com.mercadolibre.integrativeproject.entities.User;
-import com.mercadolibre.integrativeproject.repositories.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -22,13 +19,17 @@ public class TokenAuthenticationService {
     static final String HEADER_STRING = "Authorization";
 
     static void addAuthentication(HttpServletResponse response, String username) {
-        String JWT = Jwts.builder()
+        String JWT = generateJWT(username);
+
+        response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+    }
+
+    public static String generateJWT(String username) {
+        return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
-
-        response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
     }
 
     static Authentication getAuthentication(HttpServletRequest request) {
