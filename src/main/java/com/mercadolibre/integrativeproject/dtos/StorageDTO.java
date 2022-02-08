@@ -18,6 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Entidade de DTO do Armazém
+ *
+ * @author Daniel Ramos
+ *
+ * */
 @Getter
 @Setter
 @AllArgsConstructor

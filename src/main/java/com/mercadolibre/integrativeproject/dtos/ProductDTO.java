@@ -11,6 +11,11 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/** Entidade de DTO do Produto
+ *
+ * @author Arthur Amorim, Samuel Stalschus, Lorraine Mendes
+ *
+ * */
 public class ProductDTO {
 
     private Long id;

@@ -8,6 +8,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Entidade de InboundOrder
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @Builder
 public class InboundOrder {
 

@@ -13,6 +13,11 @@ import java.util.Objects;
 
 //serializable serve para converter o objeto em uma base de bites
 
+/** Entidade de User
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @Entity
 @Data
 @Builder

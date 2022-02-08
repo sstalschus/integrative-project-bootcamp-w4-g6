@@ -4,6 +4,11 @@ import lombok.*;
 
 import java.util.List;
 
+/** Entidade de DTO de adição da Lista do estoque do lote
+ *
+ * @author Lorraine Mendes
+ *
+ * */
 @Getter
 @Setter
 @AllArgsConstructor

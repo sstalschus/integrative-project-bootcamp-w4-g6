@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/** Entidade de DTO do Usuário
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

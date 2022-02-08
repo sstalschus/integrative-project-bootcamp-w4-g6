@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Entidade de DTO de pedido de entrada
+ *
+ * @author Arthur Mendes
+ *
+ * */
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

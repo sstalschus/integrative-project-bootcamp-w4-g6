@@ -11,6 +11,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** Entidade de DTO das Informações do produto de armazenamento por DTO do setor
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

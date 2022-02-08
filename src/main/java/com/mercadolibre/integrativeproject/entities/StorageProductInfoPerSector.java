@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/** Entidade de StorageProductInfoPerSector
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
