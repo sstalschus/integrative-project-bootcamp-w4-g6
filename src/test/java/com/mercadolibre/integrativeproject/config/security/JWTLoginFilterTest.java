@@ -2,10 +2,9 @@ package com.mercadolibre.integrativeproject.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.integrativeproject.entities.User;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.util.io.IOUtil;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.Authentication;
@@ -23,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JWTLoginFilterTest {
 
+    @Disabled
     @Test
     void attemptAuthentication() throws IOException, ServletException {
         User user = User.builder()

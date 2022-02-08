@@ -8,6 +8,7 @@ import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.BatchRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.BathServiceInterface;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 public class BatchService implements ICrudServiceInterface<Batch, Long>, BathServiceInterface {
 
-    private BatchRepository batchRepository;
+    private final BatchRepository batchRepository;
 
-    private SectorService sectorService;
+    private final SectorService sectorService;
 
     public BatchService(BatchRepository batchRepository, @Lazy SectorService sectorService) {
         this.batchRepository = batchRepository;
