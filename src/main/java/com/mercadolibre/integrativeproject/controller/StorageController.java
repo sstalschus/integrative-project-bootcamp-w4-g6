@@ -19,6 +19,13 @@ public class StorageController {
     @Autowired
     StorageService storageService;
 
+    /** Método usado para criar um Storage
+     *
+     * @author Daniel Ramos, Arthur Amorim
+     * @param storageDTO - recebe um StorageDTO para converter em storage.
+     * @return retorna um storage convertido em storageDTO
+     *
+     * */
     @PostMapping
     public ResponseEntity<StorageDTO> create(@Valid @RequestBody StorageDTO storageDTO) {
         Storage storage = storageService.create(storageDTO.convert());
@@ -27,6 +34,12 @@ public class StorageController {
                 .body(storageDTO);
     }
 
+    /** Controle de registro do Storage.
+     *
+     * @author Daniel Ramos, Arthur Amorim
+     *
+     * @return Lista os itens do armazém.
+     * */
     @GetMapping
     public ResponseEntity<List<StorageDTO>> getAll() {
         List<Storage> storageAll = storageService.getAll();

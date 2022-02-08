@@ -44,6 +44,15 @@ public class InboundService {
         this.responsibleService = responsibleService;
     }
 
+    /** Método usado para criar um novo pedido de entrada
+     *
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     * @param  inboundOrder - pedido de entrada
+     *
+     * @return pedido de entrada
+     *
+     * */
     public InboundOrder create(InboundOrder inboundOrder) throws RepositoryException, NotFoundException, MissingParamsException {
 
         verifyData(inboundOrder);
@@ -80,6 +89,13 @@ public class InboundService {
         }
     }
 
+    /**
+     * Método usado para verifica a data do inboundOrder.
+     *
+     * @param inboundOrder - objeto que verifica a data inboundOrder
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     */
     protected void verifyData(InboundOrder inboundOrder) {
         if(inboundOrder.getWarehouseCode() == null
                 || inboundOrder.getSectionCode() == null
@@ -88,6 +104,13 @@ public class InboundService {
         ) throw new MissingParamsException("Missing params");
     }
 
+    /**
+     * Método usado para registrar compra em lote.
+     *
+     * @param inboundOrder - objeto que registra compra em lote
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     */
     protected void registerBatchPurchase(InboundOrder inboundOrder, Batch batch) {
         PurchaseRecord purchaseRecord = new PurchaseRecord();
         purchaseRecord.setOrderDate(inboundOrder.getOrderDate());
@@ -99,7 +122,13 @@ public class InboundService {
         createInboundOrderRegistrer(purchaseRecord);
     }
 
-
+    /**
+     * Método usado para verificar a temperatura do pedido de entrada.
+     *
+     * @param inboundOrder - objeto que verifica temperatura do pedido de entrada
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     */
     protected void verifyTemperatureInboundOrder(InboundOrder inboundOrder, Sector sector) throws TemperatureException {
         inboundOrder.getBatches().forEach(batch -> {
             if (batch.getMinimumTemperature() < batch.getCurrentTemperature()){
@@ -112,7 +141,16 @@ public class InboundService {
         });
     }
 
-
+    /**
+     * Método usado para criar a registro do pedido de entrada.
+     *
+     * @author Lorraine Mendes, Arthur Amorim, Samuel Stalschus
+     *
+     * @param purchaseRecord - objeto que cria o registro do pedido de entrada
+     *
+     * @return Registro de pedido de entrada
+     *
+     */
     protected PurchaseRecord createInboundOrderRegistrer(PurchaseRecord purchaseRecord) {
             return inboundOrderRegisterRepository.save(purchaseRecord);
     }

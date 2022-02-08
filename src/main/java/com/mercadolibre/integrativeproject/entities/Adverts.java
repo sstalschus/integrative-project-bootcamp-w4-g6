@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-// Zipcode street district city state country
 public class Adverts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

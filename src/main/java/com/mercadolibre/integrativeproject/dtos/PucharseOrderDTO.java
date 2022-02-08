@@ -1,10 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Customer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.Valid;
@@ -18,8 +15,9 @@ import javax.validation.Valid;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class PucharseOrderDTO {
 
     @Valid
-    private CreateShoppingCartDTO pucharseOrder;
+    private CreateShoppingCartDTO purcharseOrder;
 }

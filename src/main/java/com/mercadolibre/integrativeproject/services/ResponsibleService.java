@@ -35,6 +35,14 @@ public class ResponsibleService implements ICrudServiceInterface<Responsible, Lo
         return responsibleRepository.save(responsible);
     }
 
+    /**
+     * Método usado para atualizar o registro responsible.
+     *
+     * @param responsible - objeto que recebe os dados. O id do objeto a ser atualizado
+     *
+     * @author Jefferson Froes, Arthur Lima
+     *
+     */
     @Override
     public Responsible update(Responsible responsible) throws NotFoundException {
         Responsible responsibleId = getById(responsible.getId());
