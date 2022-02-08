@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 public interface SectorRepository extends JpaRepository<Sector, Long> {
     @Modifying
     @Query("update Sector s set s.temperature = ?1, s.capacity = ?2, s.name = ?3 where s.id = ?4")
-    void setSectorInfoById(Double temperature, Double capacity, String name, Long id);
+    Sector setSectorInfoById(Double temperature, Double capacity, String name, Long id);
 }
 
 

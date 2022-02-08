@@ -13,8 +13,6 @@ public interface ISectorService <T, ID> {
     T getById(ID id);
     List<T> getAll();
 
-    void update(T t);
-
-    void delete(ID t);
+    T update(T t);
 
 }

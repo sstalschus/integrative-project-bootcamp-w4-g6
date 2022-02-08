@@ -2,7 +2,6 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.*;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
-import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.SectorRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.ISectorService;
 import com.mercadolibre.integrativeproject.enums.SortProductPerStorage;
@@ -21,17 +20,23 @@ import java.util.stream.Collectors;
 @Service
 public class SectorService implements ISectorService<Sector, Long> {
 
-    @Autowired
     private SectorRepository sectorRepository;
 
-    @Autowired
     private BatchService batchService;
 
-    @Autowired
     private StorageService storageService;
 
-    @Autowired
     private ResponsibleService responsibleService;
+
+    public SectorService(SectorRepository sectorRepository, BatchService batchService, StorageService storageService, ResponsibleService responsibleService) {
+        this.sectorRepository = sectorRepository;
+        this.batchService = batchService;
+        this.storageService = storageService;
+        this.responsibleService = responsibleService;
+    }
+
+    public SectorService() {
+    }
 
     /** Método usado para criar um novo setor
      *
@@ -45,7 +50,7 @@ public class SectorService implements ISectorService<Sector, Long> {
      *
      * */
     @Override
-    public Sector create(Sector sector) {
+    public Sector create(Sector sector) throws NotFoundException {
         Storage storage = storageService.getById(sector.getStorage().getId());
         if (storage != null) {
             Responsible responsible = responsibleService.getById(sector.getResponsible().getId());
@@ -95,22 +100,8 @@ public class SectorService implements ISectorService<Sector, Long> {
      *
      */
     @Override
-    public void update(Sector sector) {
-        sectorRepository.setSectorInfoById(sector.getTemperature(), sector.getCapacity(), sector.getName(), sector.getId());
-    }
-
-    /**
-     * Método usado para deletar o registro sector.
-     *
-     * @author Lorraine Mendes.
-     *
-     * @param sectorId - id do objeto a ser deletado
-     *
-     * @throws RepositoryException - trata erro ao deletar sector.
-     */
-    @Override
-    public void delete(Long sectorId) {
-            sectorRepository.deleteById(sectorId);
+    public Sector update(Sector sector) {
+        return sectorRepository.setSectorInfoById(sector.getTemperature(), sector.getCapacity(), sector.getName(), sector.getId());
     }
 
     /**
@@ -123,15 +114,10 @@ public class SectorService implements ISectorService<Sector, Long> {
      * @author Lorraine Mendes, Arthur Amorim.
      *
      */
-    public Sector getValidSectorOnStorage(Long id, Storage storage) {
-        Sector sector = storage.getSectorsList().stream()
+    public Sector getValidSectorOnStorage(Long id, Storage storage) throws NotFoundException {
+        return storage.getSectorsList().stream()
                 .filter(sec -> sec.getId().equals(id))
-                .findFirst().orElse(null);
-
-        if (sector == null) {
-            throw new NotFoundException("Sector not found");
-        }
-        return sector;
+                .findFirst().orElseThrow(() -> new NotFoundException("Sector not found"));
     }
 
     /**
@@ -191,7 +177,7 @@ public class SectorService implements ISectorService<Sector, Long> {
      * @author Arthur Amorim.
      *
      * */
-    private void getSectorsWithProductIdOnStorage(Long productId, List<ProductPerStorage> productPerStorageList, Storage storage, String ordination) {
+    protected void getSectorsWithProductIdOnStorage(Long productId, List<ProductPerStorage> productPerStorageList, Storage storage, String ordination) {
         List<ProductPerSector> productPerSectors = getProductPerSectors(productId, storage);
         if (!productPerSectors.isEmpty()) {
             ProductPerStorage productPerStorage = new ProductPerStorage(storage, productPerSectors);
@@ -206,7 +192,7 @@ public class SectorService implements ISectorService<Sector, Long> {
      * @return Lista com os produtos por setor
      *
      * */
-    private List<ProductPerSector> getProductPerSectors(Long productId, Storage storage) {
+    protected List<ProductPerSector> getProductPerSectors(Long productId, Storage storage) {
         List<ProductPerSector> productPerSectors = new ArrayList<>();
         storage.getSectorsList().forEach(sector -> {
             getBatchesWithProductId(productId, productPerSectors, sector);
@@ -219,7 +205,7 @@ public class SectorService implements ISectorService<Sector, Long> {
      * @author Arthur Amorim.
      *
      * */
-    private void getBatchesWithProductId(Long productId, List<ProductPerSector> productPerSectors, Sector sector) {
+    protected void getBatchesWithProductId(Long productId, List<ProductPerSector> productPerSectors, Sector sector) {
         List<Batch> batches = sector.getLots().stream().filter(batch -> batch.getProduct().getId().equals(productId)).collect(Collectors.toList());
         if (!batches.isEmpty()) {
             ProductPerSector productPerSector = new ProductPerSector(sector, batches);

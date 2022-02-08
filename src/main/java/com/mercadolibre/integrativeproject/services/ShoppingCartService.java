@@ -35,10 +35,11 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
      * Foi criado o construtor para promover o princípio da injeção de dependências
      *
      * */
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CustomerService customerService, AdvertsInShoppingCartService advertsInShoppingCartService) {
+    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CustomerService customerService, AdvertsInShoppingCartService advertsInShoppingCartService, AdvertsService advertsService) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.customerService = customerService;
         this.advertsInShoppingCartService = advertsInShoppingCartService;
+        this.advertsService = advertsService;
     }
 
     /** Método usado para criar um carrinho de compras e atribuir a um cliente
@@ -54,18 +55,11 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
      * */
     @Override
     public double create(PucharseOrderDTO pucharseOrderDTO) {
-        Customer customer = customerService.getById(pucharseOrderDTO.getPucharseOrder().getBuyerId());
+        Customer customer = customerService.getById(pucharseOrderDTO.getPurcharseOrder().getBuyerId());
 
-        ShoppingCart shoppingCar = ShoppingCart.builder().customer(customer).build();
+        ShoppingCart shoppingCar = generateShoppingCar(customer);
 
-        List<AdvertsInShoppingCart> advertsInShoppingCarts = pucharseOrderDTO.getPucharseOrder().getProducts().stream().map(advert ->
-                AdvertsInShoppingCart.builder()
-                        .advert(advertsService.getById(advert.getAdvertId()))
-                        .quantity(advert.getQuantity())
-                        .shoppingCart(shoppingCar).build()).collect(Collectors.toList()
-        );
-
-        List<AdvertsInShoppingCart> advertsInShoppingCartsCreated = advertsInShoppingCartService.createMany(advertsInShoppingCarts);
+        List<AdvertsInShoppingCart> advertsInShoppingCartsCreated = generateAdvertsInShoppingCartsAndSave(pucharseOrderDTO, shoppingCar);
 
         shoppingCar.setAdvertsInShoppingCart(advertsInShoppingCartsCreated);
 
@@ -73,7 +67,40 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
 
         decrementProductByList(advertsInShoppingCartsCreated);
 
-        return advertsInShoppingCarts.stream().mapToDouble(advertInShopCart -> advertInShopCart.getAdvert().getPrice().doubleValue()).sum();
+        return advertsInShoppingCartsCreated.stream().mapToDouble(advertInShopCart -> advertInShopCart.getAdvert().getPrice().doubleValue()).sum();
+    }
+
+    /** Método usado para gerar um novo Carrinho para o cliente
+     *
+     * @author Samuel Stalschus
+     *
+     * @param  customer - Cliente
+     *
+     * @return Carrinho de compras criado
+     *
+     * */
+    public ShoppingCart generateShoppingCar(Customer customer) {
+        return ShoppingCart.builder().customer(customer).build();
+    }
+
+    /** Método usado para gerar um novo Carrinho para o cliente
+     *
+     * @author Samuel Stalschus
+     *
+     * @param  pucharseOrderDTO - Ordem de compra
+     * @param  shoppingCar - Carrinho
+     *
+     * @return Lista com anuncios no carrinhos criados
+     *
+     * */
+    public List<AdvertsInShoppingCart> generateAdvertsInShoppingCartsAndSave(PucharseOrderDTO pucharseOrderDTO, ShoppingCart shoppingCar) {
+        List<AdvertsInShoppingCart> advertsInShoppingCarts = pucharseOrderDTO.getPurcharseOrder().getProducts().stream().map(advert ->
+                AdvertsInShoppingCart.builder()
+                        .advert(advertsService.getById(advert.getAdvertId()))
+                        .quantity(advert.getQuantity())
+                        .shoppingCart(shoppingCar).build()).collect(Collectors.toList()
+        );
+        return advertsInShoppingCartService.createMany(advertsInShoppingCarts);
     }
 
     /** Método usado para pegar um carrinho de compras pelo ID
@@ -129,13 +156,13 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
         return shoppingCart;
     }
 
-    private List<AdvertsInShoppingCart> removeOrderOnCart(ShoppingCart shoppingCart, Long orderId) {
+    protected List<AdvertsInShoppingCart> removeOrderOnCart(ShoppingCart shoppingCart, Long orderId) {
         return shoppingCart.getAdvertsInShoppingCart().stream()
                 .filter(advertsInShoppingCart -> !Objects.equals(advertsInShoppingCart.getId(), orderId))
                 .collect(Collectors.toList());
     }
 
-    private ShoppingCart addOrderOnCart(AdvertsInShoppingCart advertsInShoppingCart, ShoppingCart shoppingCart){
+    protected ShoppingCart addOrderOnCart(AdvertsInShoppingCart advertsInShoppingCart, ShoppingCart shoppingCart){
         shoppingCart.getAdvertsInShoppingCart().add(advertsInShoppingCart);
         return shoppingCart;
     }
@@ -147,6 +174,7 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
      * */
     @Override
     public void decrementProductByList(List<AdvertsInShoppingCart> advertsInShoppingCart) {
-        advertsInShoppingCart.forEach(advert -> advert.getAdvert().getBatch().sellProductOnBatch(Long.valueOf((advert.getQuantity()))));
+        advertsInShoppingCart.forEach(
+                advert -> advert.getAdvert().getBatch().sellProductOnBatch(Long.valueOf((advert.getQuantity()))));
     }
 }
