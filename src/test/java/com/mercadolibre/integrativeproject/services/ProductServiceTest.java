@@ -1,19 +1,24 @@
 package com.mercadolibre.integrativeproject.services;
 
+import com.mercadolibre.integrativeproject.entities.InventaryRegister;
 import com.mercadolibre.integrativeproject.entities.Product;
 import com.mercadolibre.integrativeproject.enums.StorageType;
+import com.mercadolibre.integrativeproject.enums.TypeRegisterInventary;
+import com.mercadolibre.integrativeproject.repositories.InventaryRegisterRepository;
 import com.mercadolibre.integrativeproject.repositories.ProductRepository;
 import com.mercadolibre.integrativeproject.services.ProductService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.*;
 
 class ProductServiceTest {
 
@@ -26,7 +31,7 @@ class ProductServiceTest {
         ProductRepository productRepositoryMock = getProductRepositoryMock();
         ProductService productServiceMock = getProductServiceMock(productRepositoryMock);
 
-        Mockito.when(productRepositoryMock.save(productBeforSave)).thenReturn(productAfterSave);
+        when(productRepositoryMock.save(productBeforSave)).thenReturn(productAfterSave);
 
         Product product = productServiceMock.create(productBeforSave);
 
@@ -52,7 +57,7 @@ class ProductServiceTest {
         ProductRepository productRepositoryMock = getProductRepositoryMock();
         ProductService productServiceMock = getProductServiceMock(productRepositoryMock);
 
-        Mockito.when(productRepositoryMock.findById(1L)).thenReturn(java.util.Optional.of(expected));
+        when(productRepositoryMock.findById(1L)).thenReturn(java.util.Optional.of(expected));
 
         Product result = productServiceMock.getById(1L);
 
@@ -60,23 +65,27 @@ class ProductServiceTest {
     }
 
     @Test
-//    @Disabled("Desativado pois está quebrando")
     void getAll() {
-        Product product1 = getProductAfterSave("PRODUCT TO GET BY ID 1", 1L);
-        Product product2 = getProductAfterSave("PRODUCT TO GET BY ID 2", 2L);
+        Product product1 = new Product();
+        product1.setId(1L);
+        product1.setName("Produto 1");
+        product1.setVolumn(10.0);
+        product1.setCategory(StorageType.FF);
 
-        List<Product> productsExpected = new ArrayList<>();
-        productsExpected.add(product1);
-        productsExpected.add(product2);
+        Product product2 = new Product();
+        product2.setId(2L);
+        product2.setName("Produto 2");
+        product2.setVolumn(10.0);
+        product2.setCategory(StorageType.FF);
 
-        ProductRepository productRepositoryMock = Mockito.mock(ProductRepository.class);
-        ProductService productServiceMock = getProductServiceMock(productRepositoryMock);
+        List<Product> list = new ArrayList<>(Arrays.asList(product1, product2));
+        ProductRepository productRepository = getProductRepositoryMock();
+        ProductService productService = new ProductService(productRepository);
+        when(productRepository.findAll()).thenReturn(list);
 
-        Mockito.when(productRepositoryMock.findAll()).thenReturn(productsExpected);
+        List<Product> products = productService.getAll();
 
-        List<Product> all = productServiceMock.getAll();
-
-        assertEquals(2, all.size());
+        assertEquals(list, products);
     }
 
     @Test
@@ -101,7 +110,7 @@ class ProductServiceTest {
         ProductRepository productRepositoryMock = getProductRepositoryMock();
         ProductService productServiceMock = getProductServiceMock(productRepositoryMock);
 
-        Mockito.when(productRepositoryMock.save(forUpdate)).thenReturn(forUpdate);
+        when(productRepositoryMock.save(forUpdate)).thenReturn(forUpdate);
 
         Product result = productServiceMock.update(forUpdate);
 
@@ -127,7 +136,7 @@ class ProductServiceTest {
     }
 
     private ProductRepository getProductRepositoryMock() {
-        return Mockito.mock(ProductRepository.class);
+        return mock(ProductRepository.class);
     }
 
     private ProductService getProductServiceMock(ProductRepository productRepository) {

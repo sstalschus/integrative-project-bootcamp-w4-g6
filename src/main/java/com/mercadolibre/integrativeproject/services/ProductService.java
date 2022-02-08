@@ -53,7 +53,7 @@ public class ProductService implements ICrudServiceInterface<Product, Long> {
     @Override
     public List<Product> getAll() {
         List<Product> productList = productRepository.findAll();
-        if (productList.size() == 0) throw new NotFoundException("Products list not exist");
+        if (productList.isEmpty()) throw new NotFoundException("Products list not exist");
         return productList;
     }
 
