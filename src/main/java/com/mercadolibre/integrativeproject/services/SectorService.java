@@ -28,6 +28,7 @@ public class SectorService implements ISectorService<Sector, Long> {
 
     private ResponsibleService responsibleService;
 
+    @Autowired
     public SectorService(SectorRepository sectorRepository, BatchService batchService, StorageService storageService, ResponsibleService responsibleService) {
         this.sectorRepository = sectorRepository;
         this.batchService = batchService;
@@ -236,5 +237,9 @@ public class SectorService implements ISectorService<Sector, Long> {
             amountProductPerStorages.add(amountProductPerStorage);
         });
         return amountProductPerStorages;
+    }
+
+    public List<Sector> getSectorByResponsible(Long id) {
+        return sectorRepository.getSectorByResponsible(id);
     }
 }

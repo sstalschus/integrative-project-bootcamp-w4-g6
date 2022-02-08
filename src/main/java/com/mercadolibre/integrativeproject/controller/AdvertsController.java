@@ -1,6 +1,8 @@
 package com.mercadolibre.integrativeproject.controller;
 
+import com.mercadolibre.integrativeproject.dtos.AdvertsCreateDTO;
 import com.mercadolibre.integrativeproject.dtos.AdvertsDTO;
+import com.mercadolibre.integrativeproject.entities.Adverts;
 import com.mercadolibre.integrativeproject.services.AdvertsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,21 +26,16 @@ public class AdvertsController {
      *
      * */
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody AdvertsDTO advertsDTO){
-        return ResponseEntity.ok(null);
+    public ResponseEntity<?> create(@RequestBody AdvertsCreateDTO advertsDTO){
+        Adverts adverts = advertsService.create(advertsDTO.convert());
+        return ResponseEntity.ok(AdvertsDTO.convert(adverts));
     }
 
 
-    /** Método usado para obter um anúncio pelo ID.
-     *
-     * @author Daniel Ramos
-     *
-     * @return Anúncio
-     *
-     * */
+
     @GetMapping
-    public ResponseEntity<?> getById(){
-        return ResponseEntity.ok(null);
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok(AdvertsDTO.convert(advertsService.getAll()));
     }
 
     /** Método usado para atualizar o anúncio pelo caminho /adverts/{id}.
@@ -48,9 +45,9 @@ public class AdvertsController {
      * @return Anúncio
      *
      * */
-    @PutMapping("/adverts/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody AdvertsDTO advertsDTO) {
-        advertsService.update(AdvertsDTO.convert(advertsDTO));
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody AdvertsCreateDTO advertsDTO) {
+        advertsService.update(advertsDTO.convert());
         return ResponseEntity.status(204).body(null);
     }
 }

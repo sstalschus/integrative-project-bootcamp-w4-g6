@@ -112,7 +112,7 @@ class BatchControllerTest {
     @Test
     void getAll() throws Exception {
 
-        User user = new User();
+        User user = new  User();
         user.setEmail("teste@teste");
         user.setName("Teste Teste");
         user.setPassword("123");

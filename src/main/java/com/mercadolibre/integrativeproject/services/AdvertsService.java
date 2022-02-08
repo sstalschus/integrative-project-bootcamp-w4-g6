@@ -1,11 +1,19 @@
 package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.Adverts;
+import com.mercadolibre.integrativeproject.entities.Batch;
+import com.mercadolibre.integrativeproject.entities.Responsible;
+import com.mercadolibre.integrativeproject.entities.Sector;
 import com.mercadolibre.integrativeproject.exceptions.NotFoundException;
 import com.mercadolibre.integrativeproject.exceptions.RepositoryException;
 import com.mercadolibre.integrativeproject.repositories.AdvertsRepository;
 import com.mercadolibre.integrativeproject.services.interfaces.IAdvertsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /** Service de Anuncios no carrinho de compras
  *
@@ -15,10 +23,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdvertsService implements IAdvertsService<Adverts, Long> {
 
-    AdvertsRepository advertsRepository;
+    private AdvertsRepository advertsRepository;
 
-    public AdvertsService(AdvertsRepository advertsRepository) {
+    private BatchService batchService;
+
+    private ResponsibleService responsibleService;
+
+    private SectorService sectorService;
+
+    public AdvertsService(AdvertsRepository advertsRepository, BatchService batchService, ResponsibleService responsibleService, SectorService sectorService) {
         this.advertsRepository = advertsRepository;
+        this.batchService = batchService;
+        this.responsibleService = responsibleService;
+        this.sectorService = sectorService;
     }
 
     /** Método usado para criar um novo anuncio
@@ -32,6 +49,28 @@ public class AdvertsService implements IAdvertsService<Adverts, Long> {
      * */
     @Override
     public Adverts create(Adverts adverts) {
+        Batch batch = batchService.getById(adverts.getBatch().getId());
+        if (batch == null) {
+            throw new NotFoundException("Batch not found");
+        }
+        adverts.setBatch(batch);
+        Responsible responsible = responsibleService.getById(adverts.getResponsible().getId());
+
+        if (responsible == null) {
+            throw new NotFoundException("Responsible not found");
+        }
+        List<Sector> sectors = getSectorByResponsibleId(responsible.getId());
+        if (sectors == null || sectors.isEmpty()) {
+            throw new NotFoundException("Sector not found or not responsible");
+        }
+        List<Batch> batches = new ArrayList<>();
+        sectors.forEach(sector -> {
+            batches.addAll(sector.getLots());
+        });
+        if (batches.isEmpty()) {
+            throw new NotFoundException("Lot not found in the responsible sectors");
+        }
+        adverts.setResponsible(responsible);
         return advertsRepository.save(adverts);
     }
 
@@ -81,5 +120,13 @@ public class AdvertsService implements IAdvertsService<Adverts, Long> {
         } catch(Exception e) {
             throw new RepositoryException("Error by delete adverts");
         }
+    }
+
+    public List<Adverts> getAll(){
+        return advertsRepository.findAll();
+    }
+
+    public List<Sector> getSectorByResponsibleId(Long responsibleId){
+        return sectorService.getSectorByResponsible(responsibleId);
     }
 }
