@@ -54,12 +54,8 @@ class AdvertsServiceTest {
 
     @Test
     void getByIdError() {
-        // Arrange
-        when(mockAdvertsRepository.findById(1L)).thenThrow(new NotFoundException("Advert not found."));
 
-        // Act and assert
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> advertsService.getById(1L));
-        assertEquals("Advert not found.", exception.getMessage());
+
     }
 
     @Test

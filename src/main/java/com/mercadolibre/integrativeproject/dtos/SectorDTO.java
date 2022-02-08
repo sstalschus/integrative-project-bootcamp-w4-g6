@@ -50,7 +50,7 @@ public class SectorDTO {
 
     @EnumValidator(
             enumClazz = StorageType.class,
-            message = "The category must be type: FRESH, CHILLED or FROZEN."
+            message = "The category must be type: FS (Fresh), RF (Chilled) or FF (Frozen)."
     )
     private String category;
 
