@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+/** Entidade de DTO de Quantidade de produto por DTO de armazenamento
+ *
+ * @author Jefferson Froes
+ *
+ * */
 public class AmountProductPerStorageDTO {
 
     private Long storageId;

@@ -8,6 +8,11 @@ import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Entidade de Storage
+ *
+ * @author Daniel Ramos
+ *
+ * */
 @Entity
 @Getter
 @Setter

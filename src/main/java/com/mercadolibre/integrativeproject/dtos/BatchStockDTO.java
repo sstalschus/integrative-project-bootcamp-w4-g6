@@ -10,7 +10,11 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 
-
+/** Entidade de DTO do Estoque do lote
+ *
+ * @author Lorraine Mendes, Arthur Amorim
+ *
+ * */
 @Getter
 @Setter
 @AllArgsConstructor

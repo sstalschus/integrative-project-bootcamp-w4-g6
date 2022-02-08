@@ -4,6 +4,11 @@ import com.mercadolibre.integrativeproject.entities.AdvertsInShoppingCart;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/** Entidade de DTO de Atualizar carrinho de compras
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateCartShoppingDTO {
