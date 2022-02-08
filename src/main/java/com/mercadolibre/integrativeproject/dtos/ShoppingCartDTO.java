@@ -9,6 +9,11 @@ import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
+/** Entidade de DTO do carrinho de compras
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @Getter
 @Setter
 @AllArgsConstructor

@@ -8,6 +8,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
+/** Entidade de Adverts
+ *
+ * @author Daniel Ramos, Arthur Amorim
+ *
+ * */
 @Entity
 @Getter
 @Setter

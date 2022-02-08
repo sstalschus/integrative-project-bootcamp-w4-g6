@@ -1,5 +1,10 @@
 package com.mercadolibre.integrativeproject.dtos;
 
+/** Entidade de DTO do Setor no pedido de entrada
+ *
+ * @author Arthur Amorim
+ *
+ * */
 public class SectionInboundOrderDTO {
 
     private Long sectionCode;

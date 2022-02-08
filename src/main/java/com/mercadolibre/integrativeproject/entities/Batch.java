@@ -7,6 +7,11 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+/** Entidade de Batch
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @Entity
 public class Batch {
 

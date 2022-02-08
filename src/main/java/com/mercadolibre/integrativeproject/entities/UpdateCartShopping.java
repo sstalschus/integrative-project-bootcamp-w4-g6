@@ -3,6 +3,11 @@ package com.mercadolibre.integrativeproject.entities;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+/** Entidade de UpdateCartShopping
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateCartShopping {

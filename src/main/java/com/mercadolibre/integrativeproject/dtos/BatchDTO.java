@@ -13,6 +13,11 @@ import javax.validation.constraints.Past;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+/** Entidade de DTO do Lote
+ *
+ * @author Artur Amorim
+ *
+ * */
 @AllArgsConstructor
 @Builder
 public class BatchDTO {

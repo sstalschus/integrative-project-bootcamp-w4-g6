@@ -8,6 +8,11 @@ import lombok.Builder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/** Entidade de Product
+ *
+ * @author Arthur Amorim, Lorraine Mendes
+ *
+ * */
 @Builder
 @AllArgsConstructor
 @Entity

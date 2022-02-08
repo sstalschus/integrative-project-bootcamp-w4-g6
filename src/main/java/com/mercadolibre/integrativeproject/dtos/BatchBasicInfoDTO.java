@@ -4,6 +4,11 @@ import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.Product;
 import lombok.*;
 
+/** Entidade de DTO da Informação básica do lote
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @Getter
 @Setter
 @Builder

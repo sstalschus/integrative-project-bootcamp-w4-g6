@@ -7,6 +7,11 @@ import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/** Entidade de Address
+ *
+ * @author Daniel Ramos, Arthur Amorim, Jeffersom Froes
+ *
+ * */
 @Entity
 @Getter
 @Setter

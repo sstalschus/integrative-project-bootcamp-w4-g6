@@ -12,6 +12,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/** Entidade de DTO do Endereço
+ *
+ * @author Daniel Ramos
+ *
+ * */
 @Getter
 @Setter
 @AllArgsConstructor

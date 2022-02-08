@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Entidade de ProductPerSector
+ *
+ * @author Arthur Amorim
+ *
+ * */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
