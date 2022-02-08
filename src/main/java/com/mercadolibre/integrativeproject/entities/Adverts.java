@@ -34,4 +34,6 @@ public class Adverts {
 
     private LocalDate createdAt;
 
+    @OneToOne
+    private Responsible responsible;
 }
