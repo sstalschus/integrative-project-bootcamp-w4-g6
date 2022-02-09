@@ -1,5 +1,6 @@
 package com.mercadolibre.integrativeproject.dtos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mercadolibre.integrativeproject.entities.Customer;
 import lombok.*;
 import org.modelmapper.ModelMapper;

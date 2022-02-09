@@ -1,5 +1,6 @@
 package com.mercadolibre.integrativeproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,6 +24,7 @@ public class AdvertsInShoppingCart {
     private Long id;
 
     @OneToOne
+    @JsonBackReference
     private ShoppingCart shoppingCart;
 
     @OneToOne
