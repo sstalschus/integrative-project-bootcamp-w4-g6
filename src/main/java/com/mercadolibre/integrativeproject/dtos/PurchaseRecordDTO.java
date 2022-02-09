@@ -3,6 +3,7 @@ package com.mercadolibre.integrativeproject.dtos;
 import com.mercadolibre.integrativeproject.entities.Batch;
 import com.mercadolibre.integrativeproject.entities.InventaryRegister;
 import com.mercadolibre.integrativeproject.entities.PurchaseRecord;
+import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.Valid;
@@ -15,6 +16,11 @@ import java.math.BigInteger;
  * @author Lorraine Mendes
  * */
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class PurchaseRecordDTO {
 
     private Long id;

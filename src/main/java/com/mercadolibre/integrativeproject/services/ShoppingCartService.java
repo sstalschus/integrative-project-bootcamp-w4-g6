@@ -30,16 +30,19 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
 
     AdvertsService advertsService;
 
+    BatchService batchService;
+
     /**
      *
      * Foi criado o construtor para promover o princípio da injeção de dependências
      *
      * */
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CustomerService customerService, AdvertsInShoppingCartService advertsInShoppingCartService, AdvertsService advertsService) {
+    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository, CustomerService customerService, AdvertsInShoppingCartService advertsInShoppingCartService, AdvertsService advertsService, BatchService batchService) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.customerService = customerService;
         this.advertsInShoppingCartService = advertsInShoppingCartService;
         this.advertsService = advertsService;
+        this.batchService = batchService;
     }
 
     /** Método usado para criar um carrinho de compras e atribuir a um cliente
@@ -57,7 +60,7 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
     public double create(PucharseOrderDTO pucharseOrderDTO) {
         Customer customer = customerService.getById(pucharseOrderDTO.getPurcharseOrder().getBuyerId());
 
-        ShoppingCart shoppingCar = generateShoppingCar(customer);
+        ShoppingCart shoppingCar = generateShoppingCarAndSave(customer);
 
         List<AdvertsInShoppingCart> advertsInShoppingCartsCreated = generateAdvertsInShoppingCartsAndSave(pucharseOrderDTO, shoppingCar);
 
@@ -67,7 +70,7 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
 
         decrementProductByList(advertsInShoppingCartsCreated);
 
-        return advertsInShoppingCartsCreated.stream().mapToDouble(advertInShopCart -> advertInShopCart.getAdvert().getPrice().doubleValue()).sum();
+        return advertsInShoppingCartsCreated.stream().mapToDouble(advertInShopCart -> advertInShopCart.getAdvert().getPrice().doubleValue() * advertInShopCart.getQuantity()).sum();
     }
 
     /** Método usado para gerar um novo Carrinho para o cliente
@@ -79,8 +82,8 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
      * @return Carrinho de compras criado
      *
      * */
-    public ShoppingCart generateShoppingCar(Customer customer) {
-        return ShoppingCart.builder().customer(customer).build();
+    public ShoppingCart generateShoppingCarAndSave(Customer customer) {
+        return shoppingCartRepository.save(ShoppingCart.builder().customer(customer).build());
     }
 
     /** Método usado para gerar um novo Carrinho para o cliente
@@ -175,6 +178,10 @@ public class ShoppingCartService implements IShoppingCartService<ShoppingCart, L
     @Override
     public void decrementProductByList(List<AdvertsInShoppingCart> advertsInShoppingCart) {
         advertsInShoppingCart.forEach(
-                advert -> advert.getAdvert().getBatch().sellProductOnBatch(Long.valueOf((advert.getQuantity()))));
+                advert -> {
+                    advert.getAdvert().getBatch().sellProductOnBatch(Long.valueOf((advert.getQuantity())));
+                    batchService.update(advert.getAdvert().getBatch());
+                }
+        );
     }
 }

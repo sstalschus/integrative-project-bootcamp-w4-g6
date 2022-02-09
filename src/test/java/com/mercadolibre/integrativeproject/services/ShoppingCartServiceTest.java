@@ -172,7 +172,7 @@ class ShoppingCartServiceTest {
 
         when(mockCustomerService.getById(pucharseOrderDTO.getPurcharseOrder().getBuyerId())).thenReturn(customer);
         when(mockAdvertsService.getById(pucharseOrderDTO.getPurcharseOrder().getProducts().get(0).getAdvertId())).thenReturn(adverts);
-        lenient().when(mockShoppingCartService.generateShoppingCar(customer)).thenReturn(shoppingCart);
+        lenient().when(mockShoppingCartService.generateShoppingCarAndSave(customer)).thenReturn(shoppingCart);
         lenient().when(mockShoppingCartService.generateAdvertsInShoppingCartsAndSave(pucharseOrderDTO, shoppingCart)).thenReturn(advertsInShoppingCartList);
 
         // Act

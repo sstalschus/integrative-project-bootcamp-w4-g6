@@ -1,8 +1,5 @@
 package com.mercadolibre.integrativeproject.controller;
 
-import com.mercadolibre.integrativeproject.dtos.BatchDTO;
-import com.mercadolibre.integrativeproject.entities.Product;
-import com.mercadolibre.integrativeproject.services.BatchService;
 import com.mercadolibre.integrativeproject.services.interfaces.ICrudServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

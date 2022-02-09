@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * */
 @RestController
-@RequestMapping("/supplierregister")
+@RequestMapping("/supplier")
 public class SupplierController {
 
     @Autowired
@@ -46,7 +46,7 @@ public class SupplierController {
      * @return retorna um supplier convertido em supplierDTO
      *
      * */
-    @PutMapping("/")
+    @PutMapping("")
     public ResponseEntity<SupplierDTO> update(@RequestBody SupplierDTO supplierDTO) {
         Supplier supplier = SupplierDTO.convert(supplierDTO);
         supplierService.update(supplier);

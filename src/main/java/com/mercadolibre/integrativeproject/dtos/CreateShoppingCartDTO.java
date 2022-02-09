@@ -20,7 +20,6 @@ import java.util.List;
 public class CreateShoppingCartDTO {
 
     @NotNull(message= "buyerId not null")
-    @Range(min = 1)
     private Long buyerId;
 
     @Valid

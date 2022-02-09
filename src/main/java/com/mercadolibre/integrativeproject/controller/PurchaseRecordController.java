@@ -44,9 +44,9 @@ public class PurchaseRecordController {
      *
      * */
     @GetMapping("/all")
-    public ResponseEntity<PurchaseRecordDTO> getAll() {
+    public ResponseEntity<List<PurchaseRecordDTO>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(
-                (PurchaseRecordDTO) purchaseRecordService.getAll().stream().map(PurchaseRecordDTO::convert).collect(Collectors.toList())
+                purchaseRecordService.getAll().stream().map(PurchaseRecordDTO::convert).collect(Collectors.toList())
         );
     }
 }

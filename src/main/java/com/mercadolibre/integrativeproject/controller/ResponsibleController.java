@@ -42,12 +42,6 @@ public class ResponsibleController {
             .body(ResponsibleDTO.convert(responsibleService.create(responsible)));
     }
 
-//    @PutMapping("/{responsibleId}/{sectorId}")
-//    public ResponseEntity<Responsible> update(@RequestBody Long responsibleId, @PathVariable Long sectorId) {
-//        responsibleService.changeSectorResponsible(responsibleId, sectorId);
-//        return ResponseEntity.status(204).body(null);
-//    }
-
     /** Método usado para deletar um responsible.
      *
      * @author Jefferson Freos

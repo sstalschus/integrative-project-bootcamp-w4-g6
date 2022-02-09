@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 public class AddProductInShoppingCar {
 
     @NotNull(message= "productId not null")
-    @Range(min = 1)
     private Long advertId;
 
     private Integer quantity;

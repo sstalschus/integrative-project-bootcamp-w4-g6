@@ -44,7 +44,8 @@ public class ShoppingCartController {
      * */
     @PostMapping("/orders")
     public ResponseEntity<TotalPriceDTO> create(@Valid @RequestBody PucharseOrderDTO pucharseOrderDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(TotalPriceDTO.builder().totalPrice(shoppingCartService.create(pucharseOrderDTO)).build());
+        double value = shoppingCartService.create(pucharseOrderDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(TotalPriceDTO.builder().totalPrice(value).build());
     }
 
     /** Método usado para retornar os produtos de um determinado pedido
@@ -83,7 +84,7 @@ public class ShoppingCartController {
     @PutMapping(value = "/update-cart")
     public ResponseEntity<?> updateOrdersOnCart(@RequestParam Long cartId, @Nullable Long deleteOrder, @Nullable @RequestBody AdvertsInShoppingCart advertsInShoppingCart) {
         ShoppingCartDTO shoppingCartDTO = ShoppingCartDTO.convert(shoppingCartService.updateOrdersCart(new UpdateCartShopping(cartId, deleteOrder, advertsInShoppingCart)));
-        return ResponseEntity.status(200).body(shoppingCartDTO);
+        return ResponseEntity.status(204).body(shoppingCartDTO);
     }
 
     @GetMapping(value = "/due-date")
