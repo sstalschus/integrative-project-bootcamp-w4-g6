@@ -56,3 +56,4 @@ public class Sector {
         this.lots.add(batch);
     }
 }
+

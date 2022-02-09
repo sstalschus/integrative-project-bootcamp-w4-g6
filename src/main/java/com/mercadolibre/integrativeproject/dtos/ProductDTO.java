@@ -1,6 +1,7 @@
 package com.mercadolibre.integrativeproject.dtos;
 
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.enums.ProductType;
 import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.util.EnumValidator;
 import org.modelmapper.ModelMapper;
@@ -32,6 +33,12 @@ public class ProductDTO {
             message = "The category must be type: FS (Fresh), RF (Chilled) or FF (Frozen)."
     )
     private String category;
+
+    @EnumValidator(
+            enumClazz = ProductType.class,
+            message = "The product type must be: VEGAN (Vegano) or VEGETARIAN (Vegetariano)."
+    )
+    private String productType;
 
     public Long getId() {
         return id;
@@ -65,12 +72,21 @@ public class ProductDTO {
         this.category = category;
     }
 
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
     public Product convert() {
         return Product.builder()
                 .id(this.id)
                 .name(this.name)
                 .volumn(this.volumn)
-                .category(StorageType.valueOf(category)).build();
+                .category(StorageType.valueOf(category))
+                .productType(ProductType.valueOf(productType)).build();
     }
 
     /** Controller de registro de supplier.

@@ -3,6 +3,7 @@ package com.mercadolibre.integrativeproject.controller;
 import com.mercadolibre.integrativeproject.dtos.*;
 import com.mercadolibre.integrativeproject.entities.AdvertsInShoppingCart;
 import com.mercadolibre.integrativeproject.entities.UpdateCartShopping;
+import com.mercadolibre.integrativeproject.enums.ProductType;
 import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.services.BatchService;
 import com.mercadolibre.integrativeproject.services.ProductService;
@@ -78,6 +79,11 @@ public class ShoppingCartController {
     @GetMapping(value = "/list")
     public ResponseEntity<List<ProductDTO>> getProductByCategory(@RequestParam StorageType queryType) {
         return ResponseEntity.ok(productService.getByCategory(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
+    }
+
+    @GetMapping(value = "/type")
+    public ResponseEntity<List<ProductDTO>> getProductByProductType(@RequestParam ProductType queryType) {
+        return ResponseEntity.ok(productService.getByProductType(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
     }
 
 
