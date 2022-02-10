@@ -41,7 +41,7 @@ public class Sector {
     @Enumerated(EnumType.STRING)
     private StorageType sectorType;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @Column
     @JsonBackReference
     private List<Batch> lots = new ArrayList<>();

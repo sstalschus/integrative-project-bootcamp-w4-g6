@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.List;
 
 /** Repository do Setor
@@ -24,6 +26,11 @@ public interface SectorRepository extends JpaRepository<Sector, Long> {
 
     @Query("select s from Sector s where s.responsible.id = ?1")
     List<Sector> getSectorByResponsible(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update Sector s set s.temperature = ?1 where s.id = ?2")
+    void updateTemperature(Double temperature, Long sectorId);
 }
 
 

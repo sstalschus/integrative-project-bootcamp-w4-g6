@@ -242,4 +242,8 @@ public class SectorService implements ISectorService<Sector, Long> {
     public List<Sector> getSectorByResponsible(Long id) {
         return sectorRepository.getSectorByResponsible(id);
     }
+
+    public void updateTemperature(Long sectorId, Double newTemperature) {
+        sectorRepository.updateTemperature(newTemperature, sectorId);
+    }
 }
