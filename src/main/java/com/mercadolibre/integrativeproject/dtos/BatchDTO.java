@@ -159,6 +159,10 @@ public class BatchDTO {
                 .setPricePerUnit(this.pricePerUnit);
     }
 
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
     public static BatchDTO convert(Batch batch) {
         return BatchDTO.builder()
                 .batchNumber(batch.getBatchNumber())

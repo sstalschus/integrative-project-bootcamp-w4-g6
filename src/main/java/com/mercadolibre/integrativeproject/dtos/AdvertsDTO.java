@@ -40,6 +40,8 @@ public class AdvertsDTO {
     @NotNull
     private LocalDate createdAt;
 
+    private BatchDTO batch;
+
     public static AdvertsDTO convert(Adverts adverts) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(adverts, AdvertsDTO.class);
