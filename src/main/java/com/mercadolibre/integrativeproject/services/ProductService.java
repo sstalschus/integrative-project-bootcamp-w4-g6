@@ -104,6 +104,11 @@ public class ProductService implements ICrudServiceInterface<Product, Long> {
         return productList;
     }
 
+    /** Metodo usado para filtrar os produtos por tipo   \ .
+     *
+     * @author Lorraine Mendes TASK 6
+     * */
+
     public List<Product> getByProductType(ProductType queryType){
         List<Product> productType = productRepository.findByProductType(queryType);
         if (productType.size() == 0) throw new NotFoundException("Product type not found");

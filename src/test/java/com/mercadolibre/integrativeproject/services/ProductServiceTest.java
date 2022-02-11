@@ -2,6 +2,7 @@ package com.mercadolibre.integrativeproject.services;
 
 import com.mercadolibre.integrativeproject.entities.InventaryRegister;
 import com.mercadolibre.integrativeproject.entities.Product;
+import com.mercadolibre.integrativeproject.enums.ProductType;
 import com.mercadolibre.integrativeproject.enums.StorageType;
 import com.mercadolibre.integrativeproject.enums.TypeRegisterInventary;
 import com.mercadolibre.integrativeproject.repositories.InventaryRegisterRepository;
@@ -71,12 +72,14 @@ class ProductServiceTest {
         product1.setName("Produto 1");
         product1.setVolumn(10.0);
         product1.setCategory(StorageType.FF);
+        product1.setProductType(ProductType.VEGAN);
 
         Product product2 = new Product();
         product2.setId(2L);
         product2.setName("Produto 2");
         product2.setVolumn(10.0);
         product2.setCategory(StorageType.FF);
+        product2.setProductType(ProductType.VEGAN);
 
         List<Product> list = new ArrayList<>(Arrays.asList(product1, product2));
         ProductRepository productRepository = getProductRepositoryMock();
@@ -132,6 +135,7 @@ class ProductServiceTest {
         product.setName(name);
         product.setVolumn(10.0);
         product.setCategory(StorageType.FF);
+        product.setProductType(ProductType.VEGAN);
         return product;
     }
 

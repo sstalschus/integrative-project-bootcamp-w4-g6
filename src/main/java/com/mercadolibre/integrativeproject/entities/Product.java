@@ -30,13 +30,25 @@ public class Product {
     @Enumerated(EnumType.ORDINAL)
     private StorageType category;
 
+    /** Atributo para tipo de produto. .
+     *
+     * @author Lorraine Mendes TASK 6
+     * */
     @Enumerated(EnumType.ORDINAL)
     private ProductType productType;
 
+    /** Metodo get para tipo de produto. .
+     *
+     * @author Lorraine Mendes TASK 6
+     * */
     public ProductType getProductType() {
         return productType;
     }
 
+    /** Metodo set para tipo de produto .
+     *
+     * @author Lorraine Mendes TASK 6
+     * */
     public void setProductType(ProductType productType) {
         this.productType = productType;
     }

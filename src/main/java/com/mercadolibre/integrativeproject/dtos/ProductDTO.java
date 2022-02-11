@@ -72,6 +72,12 @@ public class ProductDTO {
         this.category = category;
     }
 
+    /** DTO de produto, para o tipo de produto. TASK 6.
+     *
+     * @author Lorraine Mendes
+     *
+     * @return tipo de produto
+     * */
     public String getProductType() {
         return productType;
     }

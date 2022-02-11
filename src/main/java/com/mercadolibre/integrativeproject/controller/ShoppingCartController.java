@@ -76,11 +76,24 @@ public class ShoppingCartController {
         return ResponseEntity.ok(productService.getAll().stream().map(ProductDTO::convert).collect(Collectors.toList()));
     }
 
+    /** Controller de produto por categoria.
+     *
+     * @author Lorraine Mendes
+     *
+     * @return Lista de produtos por categoria (Fresco, Congelado ou Refrigerado).
+     * */
     @GetMapping(value = "/list")
     public ResponseEntity<List<ProductDTO>> getProductByCategory(@RequestParam StorageType queryType) {
         return ResponseEntity.ok(productService.getByCategory(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
     }
 
+
+    /** Controller de produto por tipo. TASK 6
+     *
+     * @author Lorraine Mendes
+     *
+     * @return Lista com filtro de produtos por tipo (Vegetariano ou vegano)
+     * */
     @GetMapping(value = "/type")
     public ResponseEntity<List<ProductDTO>> getProductByProductType(@RequestParam ProductType queryType) {
         return ResponseEntity.ok(productService.getByProductType(queryType).stream().map(ProductDTO::convert).collect(Collectors.toList()));
@@ -93,6 +106,12 @@ public class ShoppingCartController {
         return ResponseEntity.status(204).body(shoppingCartDTO);
     }
 
+    /** Controller de lotes por data de venciment.
+     *
+     * @author Lorraine Mendes e Arthur Amorim
+     *
+     * @return Lotess armazenados filtrado por data de vencimento
+     * */
     @GetMapping(value = "/due-date")
     public ResponseEntity<BatchStockListDTO> getBatchesByDueDate(@RequestParam Integer numberOfDays, @RequestParam Long sector){
         List<BatchStockDTO> Batchs = batchService.getBatchesByDueDate(numberOfDays, sector)
