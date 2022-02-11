@@ -2,6 +2,8 @@ package com.mercadolibre.integrativeproject.controller;
 
 import com.mercadolibre.integrativeproject.dtos.DiscountDTO;
 import com.mercadolibre.integrativeproject.services.DiscountService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
  *
  * */
 @RestController
+@Api(value = "Motor de otimização com descontos")
 @RequestMapping("/optimize-adverts")
 public class DiscountController {
 
@@ -30,6 +33,7 @@ public class DiscountController {
      * @return Lista de Descontos
      *
      * */
+    @ApiOperation(value = "Faz a análise em todos os lotes que estõ anunciados, com base na data de compra, de validade e na quantidade vendida até o momento, se for identificado um possível prejuizo futuro, oferece descontos gradativos para evitar a perca")
     @PostMapping("")
     public ResponseEntity<List<DiscountDTO>> create() {
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -44,6 +48,7 @@ public class DiscountController {
      * @return Lista de Descontos
      *
      * */
+    @ApiOperation(value = "Obtem anuncios que já possuam descontos")
     @GetMapping("")
     public ResponseEntity<List<DiscountDTO>> listAll() {
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -58,6 +63,7 @@ public class DiscountController {
      * @return Cliente
      *
      * */
+    @ApiOperation(value = "Obtem sequencias de descontos para um mesmo anuncio")
     @GetMapping("/{advertId}")
     public ResponseEntity<List<DiscountDTO>> listAll(@PathVariable Long advertId) {
         return ResponseEntity.status(HttpStatus.OK).body(
@@ -74,6 +80,7 @@ public class DiscountController {
      * @return Lista de descontos bloqueados
      *
      * */
+    @ApiOperation(value = "Bloqueia um anuncio, para que esse não possa sofrer nenhum desconto")
     @PutMapping("/{advertId}")
     public ResponseEntity<List<DiscountDTO>> blockAdvert(@PathVariable Long advertId) {
         return ResponseEntity.status(HttpStatus.OK).body(

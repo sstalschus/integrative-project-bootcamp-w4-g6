@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
         .authorizeHttpRequests()
-                .antMatchers(HttpMethod.POST, "/api/v1/create").permitAll()
+                .antMatchers("/api/v1/create", "/api/v1/v3/api-docs/**", "/api/v1/swagger-ui.html", "/api/v1/swagger-ui/**").permitAll()
                 .anyRequest().authenticated()
         .and()
          .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),

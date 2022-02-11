@@ -63,3 +63,8 @@ Para autenticar, você pode usar esse token gerado
 ## Diagrama de classes
 
 ![img.png](.github/diagrama.png)
+
+## User story
+![img.png](.github/pageone.png)
+![img.png](.github/pagetwo.png)
+![img.png](.github/pagethree.png)
